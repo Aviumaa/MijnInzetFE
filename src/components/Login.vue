@@ -14,7 +14,6 @@
             <v-form>
                 <input type="text"  name="username" v-model="user.username" placeholder="Username" />
                 <input type="password" name="password" v-model="user.password" placeholder="Password" />
-              ></v-text-field>
             </v-form>
           </v-card-text>
           <v-card-actions>
@@ -43,12 +42,12 @@ export default {
       }
     };
   },
-  
 
- 
+
+
 methods: {
     login (){
-  
+
     var params = new URLSearchParams()
     params.append('username', this.user.username)
     params.append('password', this.user.password)
@@ -58,8 +57,9 @@ methods: {
       .then(response => {
       // JSON responses are automatically parsed.
       this.response = response.data
+      console.log(response);
     })
-    .catch(e => { 
+    .catch(e => {
       this.errors.push(e)
     })
 },
