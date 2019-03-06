@@ -1,26 +1,19 @@
 <template>
-  <v-app>
-    <v-toolbar app dark>
-      <v-toolbar-title class="headline text-uppercase">
-        <span>MIJN</span>
-        <span class="font-weight-light">-INZET</span>
-      </v-toolbar-title>
-      <v-spacer></v-spacer>
-    </v-toolbar>
-
-    <v-content>
-      <Login/>
+  <v-app class="grey lighten-4">
+    <navbar></navbar>
+    <v-content class="mx-4 mb-4">
+      <router-view></router-view>
     </v-content>
   </v-app>
 </template>
 
 <script>
-import Login from "./components/Login";
+import Navbar from "@/components/Navbar";
 
 export default {
   name: "App",
   components: {
-    Login
+    Navbar
   },
   data() {
     return {

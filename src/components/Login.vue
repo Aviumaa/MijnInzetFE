@@ -12,14 +12,14 @@
           </v-toolbar>
           <v-card-text>
             <v-form>
-                <input type="text"  name="username" v-model="user.username" placeholder="Username" />
-                <input type="password" name="password" v-model="user.password" placeholder="Password" />
+              <input type="text" name="username" v-model="user.username" placeholder="Username">
+              <input type="password" name="password" v-model="user.password" placeholder="Password">
             </v-form>
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn color="primary" @click="login()">Login</v-btn>
-            <h3> {{ response }} </h3>
+            <h3>{{ response }}</h3>
           </v-card-actions>
         </v-card>
       </v-flex>
@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+import axios from "axios";
 
 export default {
   data() {
@@ -36,35 +36,32 @@ export default {
       response: [],
       errors: [],
 
-      user:{
+      user: {
         username: "",
         password: ""
       }
     };
   },
 
+  methods: {
+    login() {
+      var params = new URLSearchParams();
+      params.append("username", this.user.username);
+      params.append("password", this.user.password);
+      console.log(this.user.username);
 
-
-methods: {
-    login (){
-
-    var params = new URLSearchParams()
-    params.append('username', this.user.username)
-    params.append('password', this.user.password)
-    console.log(this.user.username)
-
-    axios.post(`http://localhost:8080/api/login`,params)
-      .then(response => {
-      // JSON responses are automatically parsed.
-      this.response = response.data
-      console.log(response);
-    })
-    .catch(e => {
-      this.errors.push(e)
-    })
-},
-}
-
+      axios
+        .post(`http://localhost:8080/api/login`, params)
+        .then(response => {
+          // JSON responses are automatically parsed.
+          this.response = response.data;
+          console.log(response);
+        })
+        .catch(e => {
+          this.errors.push(e);
+        });
+    }
+  }
 };
 </script>
 
