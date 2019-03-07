@@ -51,7 +51,7 @@ export default {
       console.log(this.user.username);
 
       axios
-        .post(`http://localhost:8080/api/login`, params)
+        .post(`https://mijn-inzet.herokuapp.com/api/login`, params)
         .then(response => {
           // JSON responses are automatically parsed.
           this.response = response.data;

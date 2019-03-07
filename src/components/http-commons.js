@@ -1,8 +1,8 @@
 import axios from 'axios'
 
 export const AXIOS = axios.create({
-  baseURL: `http://localhost:8080`,
+  baseURL: `https://mijn-inzet.herokuapp.com`,
   headers: {
-    'Access-Control-Allow-Origin': 'http://localhost:8081'
+    'Access-Control-Allow-Origin': 'https://oege.ie.hva.nl/~zhengk001'
   }
 })
