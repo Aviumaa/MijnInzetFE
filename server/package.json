@@ -11,5 +11,8 @@
   "dependencies": {
     "express": "^4.16.4",
     "sequelize": "^5.1.0"
+  },
+  "devDependencies": {
+    "jshint": "^2.10.2"
   }
 }
