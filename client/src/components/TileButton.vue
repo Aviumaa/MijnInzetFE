@@ -1,5 +1,5 @@
 <template>
-  <v-btn class="tile-buttons white--text">{{title}}</v-btn>
+  <v-btn class="tile-buttons white--text font-weight-bold title" font-weight-bold>{{title}}</v-btn>
 </template>
 
 <script>
