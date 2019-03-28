@@ -1,17 +1,12 @@
-const RoleModel = require('./role');
-
+'use strict';
 module.exports = (sequelize, type) => {
-    return sequelize.define('user', {
+    return sequelize.define('role', {
         id: {
             type: type.INTEGER,
             primaryKey: true,
             autoIncrement: true
         },
-        username: {
-            type: type.STRING,
-            allowNull: false
-        },
-        password: {
+        name: {
             type: type.STRING,
             allowNull: false
         }

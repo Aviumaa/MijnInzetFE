@@ -1,10 +1,20 @@
 const Sequelize = require("sequelize");
-const UserModel = require('./models/user')
-
+const UserModel = require('./models/user');
+const VacancyModel = require('./models/vacancy');
+const RoleModel = require('./models/role');
+const UserVacancyModel = require('./models/userVacancy');
+const WeekScheduleModel = require('./models/weekSchedule');
+const TimeslotModel = require('./models/timeslot');
 
 const sequelize = new Sequelize('inzet_db', 'root', '', {
     host: 'localhost',
-    dialect: 'mysql'
+    dialect: 'mysql',
+    pool: {
+        max: 10,
+        min: 0,
+        acquire: 30000,
+        idle: 10000
+    }
 });
 
 sequelize
@@ -17,8 +27,17 @@ sequelize
     });
 
 
-const User = UserModel(sequelize, Sequelize)
-
+const Role = RoleModel(sequelize, Sequelize);
+const User = UserModel(sequelize, Sequelize);
+const Vacancy = VacancyModel(sequelize, Sequelize);
+const UserVacancy = UserVacancyModel(sequelize, Sequelize);
+const WeekSchedule = WeekScheduleModel(sequelize, Sequelize);
+const Timeslot = TimeslotModel(sequelize, Sequelize);
+User.belongsToMany(Vacancy, { through: UserVacancy });
+Vacancy.belongsToMany(User, { through: UserVacancy });
+Role.hasMany(User);
+WeekSchedule.hasMany(Timeslot);
+User.hasMany(WeekSchedule);
 
 sequelize.sync({ force: true })
     .then(() => {
@@ -26,5 +45,9 @@ sequelize.sync({ force: true })
     })
 
 module.exports = {
-    User
+    User,
+    Vacancy,
+    Role,
+    Timeslot,
+    WeekSchedule
 }

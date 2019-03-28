@@ -11,7 +11,8 @@ const users = require('./routes/users');
 const auth = require('./routes/auth');
 const express = require('express');
 const app = express();
-const { User } = require('./sequelize')
+const { User, Course, Role, Timeslot, WeekSchedule } = require('./sequelize')
+const bodyParser = require('body-parser')
 
 
 
@@ -23,20 +24,38 @@ app.set('views', './views');
 // console.log(`NODE_ENV: ${process.env.NODE_ENV}`);
 // console.log(`app: ${app.get('env')}`);
 
-app.use(express.json()); //req.body
+app.use(bodyParser.json())
 app.use(express.urlencoded({ extended: true })); //key=value&key=value
 app.use(express.static('public'));
 app.use(helmet());
 app.use(logger);
-app.use('/api/courses', courses);
-app.use('/', home);
-app.use('/api/users', users);
-app.use('/api/auth', auth);
+// app.use('/api/courses', courses);
+// app.use('/', home);
+// app.use('/api/users', users);
+// app.use('/api/auth', auth);
+
+
 
 app.post('/api/users', (req, res) => {
-  User.create(req.body).then(user => res.json(user))
+  User.create({
+    username: req.body.username,
+    password: req.body.password,
+    roleId: req.body.roleId 
+  })
+    .then(user => res.json(user)).catch(err => console.error(err))
 })
 
+app.get('/api/users', (req, res) => {
+  User.findAll().then(users => res.json(users))
+})
+
+
+app.post('/api/roles', (req, res) => {
+  Role.create({
+    name: req.body.name
+  })
+    .then(user => res.json(user)).catch(err => console.error(err))
+})
 
 //Configuration
 console.log('Application Name: ' + config.get('name'));
