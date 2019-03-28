@@ -17,7 +17,7 @@ module.exports = (sequelize, type) => {
             type: type.DATE
         },
         openSlots: {
-            type: type.STRING,
+            type: type.INTEGER,
             allowNull: false
         }
 

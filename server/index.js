@@ -8,10 +8,12 @@ const logger = require('./middelware/logger');
 const courses = require('./routes/courses');
 const home = require('./routes/home');
 const users = require('./routes/users');
+const vacancies = require('./routes/vacancies');
+const roles = require('./routes/roles');
 const auth = require('./routes/auth');
 const express = require('express');
 const app = express();
-const { User, Course, Role, Timeslot, WeekSchedule } = require('./sequelize')
+const { User, Course, Role, Timeslot, WeekSchedule, Vacancy } = require('./sequelize')
 const bodyParser = require('body-parser')
 
 
@@ -31,31 +33,16 @@ app.use(helmet());
 app.use(logger);
 // app.use('/api/courses', courses);
 // app.use('/', home);
-// app.use('/api/users', users);
+app.use('/api/users', users);
+app.use('/api/vacancies', vacancies);
+app.use('/api/roles', roles);
 // app.use('/api/auth', auth);
 
 
 
-app.post('/api/users', (req, res) => {
-  User.create({
-    username: req.body.username,
-    password: req.body.password,
-    roleId: req.body.roleId 
-  })
-    .then(user => res.json(user)).catch(err => console.error(err))
-})
-
-app.get('/api/users', (req, res) => {
-  User.findAll().then(users => res.json(users))
-})
 
 
-app.post('/api/roles', (req, res) => {
-  Role.create({
-    name: req.body.name
-  })
-    .then(user => res.json(user)).catch(err => console.error(err))
-})
+
 
 //Configuration
 console.log('Application Name: ' + config.get('name'));
