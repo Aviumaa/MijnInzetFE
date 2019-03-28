@@ -11,7 +11,11 @@ const users = require('./routes/users');
 const auth = require('./routes/auth');
 const express = require('express');
 const app = express();
-const mongoose = require('mongoose');
+const { User } = require('./sequelize')
+
+
+
+
 
 app.set('view engine', 'pug');
 app.set('views', './views');
@@ -29,9 +33,10 @@ app.use('/', home);
 app.use('/api/users', users);
 app.use('/api/auth', auth);
 
-mongoose.connect('mongodb://localhost/mijninzet')
-  .then(() => console.log('Connected to MongoDB...'))
-  .catch(err => console.error('Could not connect to MongoDB...'));
+app.post('/api/users', (req, res) => {
+  User.create(req.body).then(user => res.json(user))
+})
+
 
 //Configuration
 console.log('Application Name: ' + config.get('name'));
@@ -39,8 +44,8 @@ console.log('Mail Server: ' + config.get('mail.host'));
 //console.log('Mail Password: ' + config.get('mail.password'));
 
 if (app.get('env') === 'development') {
-    app.use(morgan('tiny'));
-    startupDebugger('morgan enabled...')
+  app.use(morgan('tiny'));
+  startupDebugger('morgan enabled...')
 }
 
 dbDebugger('Connected to the database...');
