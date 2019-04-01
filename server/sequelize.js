@@ -6,8 +6,8 @@ const UserVacancyModel = require('./models/userVacancy');
 const WeekScheduleModel = require('./models/weekSchedule');
 const TimeslotModel = require('./models/timeslot');
 
-const sequelize = new Sequelize('inzet_db', 'root', '', {
-    host: 'localhost',
+const sequelize = new Sequelize('zzhengk001', 'zhengk001', 'uyHR9$Wk8eJ5.L', {
+    host: 'oege.ie.hva.nl',
     dialect: 'mysql',
     pool: {
         max: 10,

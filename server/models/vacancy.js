@@ -10,16 +10,30 @@ module.exports = (sequelize, type) => {
             type: type.STRING,
             allowNull: false
         },
+        description: {
+            type: type.TEXT,
+        },
+        moduleCoordinator: {
+            type: type.STRING,
+        },
+        Period: {
+            type: type.STRING,
+        },
+        typeCourse: {
+            type: type.STRING,
+        },
+        contactHours: {
+            type: type.INTEGER,
+        },
         startDate: {
-            type: type.DATE
+            type: type.DATE,
         },
         endDate: {
-            type: type.DATE
+            type: type.DATE,
         },
         openSlots: {
             type: type.INTEGER,
             allowNull: false
-        }
-
+        },
     })
 }
