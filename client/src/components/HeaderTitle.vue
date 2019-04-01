@@ -16,7 +16,7 @@ export default {
 
 <style>
 .header {
-  margin: 1em 0;
+  margin-bottom: 0.5em;
   padding: 0.25em 0.5em;
   border-left: 0.4em solid black;
 }

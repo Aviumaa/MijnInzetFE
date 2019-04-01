@@ -17,14 +17,14 @@ const sequelize = new Sequelize('zzhengk001', 'zhengk001', 'uyHR9$Wk8eJ5.L', {
     }
 });
 
-sequelize
-    .authenticate()
-    .then(() => {
-        console.log('Connection has been established successfully.');
-    })
-    .catch(err => {
-        console.error('Unable to connect to the database:', err);
-    });
+// sequelize
+//     .authenticate()
+//     .then(() => {
+//         console.log('Connection has been established successfully.');
+//     })
+//     .catch(err => {
+//         console.error('Unable to connect to the database:', err);
+//     });
 
 
 const Role = RoleModel(sequelize, Sequelize);
@@ -33,16 +33,22 @@ const Vacancy = VacancyModel(sequelize, Sequelize);
 const UserVacancy = UserVacancyModel(sequelize, Sequelize);
 const WeekSchedule = WeekScheduleModel(sequelize, Sequelize);
 const Timeslot = TimeslotModel(sequelize, Sequelize);
-User.belongsToMany(Vacancy, { through: UserVacancy });
-Vacancy.belongsToMany(User, { through: UserVacancy });
+User.belongsToMany(Vacancy, {
+    through: UserVacancy
+});
+Vacancy.belongsToMany(User, {
+    through: UserVacancy
+});
 Role.hasMany(User);
 WeekSchedule.hasMany(Timeslot);
 User.hasMany(WeekSchedule);
 
-sequelize.sync({ force: true })
-    .then(() => {
-        console.log(`Database & tables created!`)
-    })
+// sequelize.sync({
+//         force: true
+//     })
+//     .then(() => {
+//         console.log(`Database & tables created!`)
+//     })
 
 module.exports = {
     User,
