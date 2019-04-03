@@ -41,6 +41,7 @@ export default {
   props: ["headers", "content"],
   computed: {
     pages() {
+      // eslint-disable-next-line
       this.pagination.totalItems = this.content.length;
 
       if (
