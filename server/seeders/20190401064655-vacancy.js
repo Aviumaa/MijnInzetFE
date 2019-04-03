@@ -6,7 +6,7 @@ module.exports = {
   up: (queryInterface, Sequelize) => {
     const newData = [];
 
-    for (let i = 0; i < 100; i++) {
+    for (let i = 0; i < 200; i++) {
       const seedData = {
         name: faker.name.jobTitle(),
         description: faker.lorem.paragraph(),

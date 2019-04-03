@@ -16,7 +16,7 @@ module.exports = (sequelize, type) => {
         moduleCoordinator: {
             type: type.STRING,
         },
-        Period: {
+        period: {
             type: type.STRING,
         },
         typeCourse: {

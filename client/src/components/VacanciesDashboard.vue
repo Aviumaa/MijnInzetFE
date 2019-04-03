@@ -14,7 +14,7 @@
         <td class="px-3">{{ props.item.name }}</td>
         <td class="px-3 description ellipsis">{{ props.item.description }}</td>
         <td class="px-3">{{ props.item.moduleCoordinator }}</td>
-        <td class="px-3">{{ props.item.Period }}</td>
+        <td class="px-3">{{ props.item.period }}</td>
         <td class="px-3">{{ props.item.typeCourse }}</td>
         <td class="px-3">{{ props.item.contactHours }}</td>
       </template>
