@@ -3,27 +3,7 @@
     <v-layout>
       <v-flex>
         <HeaderTitle title="Vacatures" subTitle="* uur beschkbaar"></HeaderTitle>
-        <v-data-table
-          :headers="headers"
-          :items="vacancies"
-          :search="search"
-          :item-key="description"
-          hide-actions
-          :pagination.sync="pagination"
-          class="elevation-3"
-        >
-          <template v-slot:items="props">
-            <td class="py-2">{{ props.item.name }}</td>
-            <td class="py-2">{{ props.item.description }}</td>
-            <td class="py-2">{{ props.item.moduleCoordinator }}</td>
-            <td class="py-2">{{ props.item.Period }}</td>
-            <td class="py-2">{{ props.item.typeCourse }}</td>
-            <td class="py-2">{{ props.item.contactHours }}</td>
-          </template>
-        </v-data-table>
-        <div class="text-xs-right pt-2">
-          <v-pagination v-model="pagination.page" :length="pages"></v-pagination>
-        </div>
+        <VacanciesDashboard :headers="headers" :content="vacancies"></VacanciesDashboard>
       </v-flex>
     </v-layout>
   </v-container>
@@ -37,82 +17,69 @@ import axios from "axios";
 export default {
   data() {
     return {
-      pagination: {
-        search: "",
-        page: 3,
-        rowsPerPage: 20
-      },
-      selected: [],
-      search: "",
-      description: "",
       headers: [
         {
           text: "Vak",
-          sortable: false,
-          value: "name"
+          sortable: true,
+          value: "name",
+          width: "15%",
+          class: "px-3"
         },
         {
           text: "Beschrijving",
-          sortable: false,
-          value: "description"
+          sortable: true,
+          value: "description",
+          class: "px-3"
         },
         {
           text: "Module coordinator",
-          sortable: false,
-          value: "moduleCoordinator"
+          sortable: true,
+          value: "moduleCoordinator",
+          width: "10%",
+          class: "px-3"
         },
         {
           text: "Periode",
-          sortable: false,
-          value: "Period"
+          sortable: true,
+          value: "Period",
+          width: "20%",
+          class: "px-3"
         },
         {
           text: "Type",
-          sortable: false,
-          value: "typeCourse"
+          sortable: true,
+          value: "typeCourse",
+          width: "2%",
+          class: "px-3"
         },
         {
           text: "Contacttijd",
-          sortable: false,
-          value: "contactHours"
+          sortable: true,
+          value: "contactHours",
+          width: "2%",
+          class: "px-3"
         }
       ],
+      content: [],
       vacancies: []
     };
   },
   components: {
-    HeaderTitle
+    HeaderTitle,
+    VacanciesDashboard
   },
   mounted() {
     axios
       .get("http://localhost:3000/api/vacancies/")
       .then(response => {
         this.vacancies = response.data;
-        this.pagination.totalItems = this.vacancies.length;
       })
       .catch(error => {
         console.log(error);
       });
-  },
-  computed: {
-    pages() {
-      if (
-        this.pagination.rowsPerPage == null ||
-        this.pagination.totalItems == null
-      )
-        return 0;
-
-      return Math.ceil(
-        this.pagination.totalItems / this.pagination.rowsPerPage
-      );
-    }
   }
 };
 </script>
 
 <style scoped>
-.table-content {
-  overflow: auto;
-  height: 100vh;
-}
 </style>

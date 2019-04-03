@@ -1,51 +1,27 @@
 <template>
-  <!-- <div>
-    <v-toolbar flat color="white">
-      <v-toolbar-title>{{title}}</v-toolbar-title>
-      <v-spacer></v-spacer>
-      <v-btn color="primary" dark>
-        back
-      </v-btn>
-    </v-toolbar>
+  <div>
     <v-data-table
-      :headers="headers"
-      :items="vacancies"
-      :expand="expand"
-      item-key="name"
+      :headers="this.headers"
+      :items="this.content"
+      :item-key="this.content.id"
+      :search="search"
+      :pagination.sync="pagination"
+      :disable-initial-sort="true"
+      hide-actions
+      class="elevation-3"
     >
       <template v-slot:items="props">
-        <tr @click="props.expanded = !props.expanded">
-          <td class="text-xs-left">{{ props.item.course }}</td>
-          <td class="text-xs-left">{{ props.item.collaborators }}</td>
-          <td class="text-xs-left">{{ props.item.module }}</td>
-          <td class="text-xs-left">{{ props.item.hours }}</td>
-          <td class="text-xs-left"><v-btn color="success">Aanvragen</v-btn></td>
-        </tr>
-      </template>
-      <template v-slot:expand="props">
-        <v-card flat>
-          <v-card-text>{{props.item.name}}</v-card-text>
-        </v-card>
+        <td class="px-3">{{ props.item.name }}</td>
+        <td class="px-3 description ellipsis">{{ props.item.description }}</td>
+        <td class="px-3">{{ props.item.moduleCoordinator }}</td>
+        <td class="px-3">{{ props.item.Period }}</td>
+        <td class="px-3">{{ props.item.typeCourse }}</td>
+        <td class="px-3">{{ props.item.contactHours }}</td>
       </template>
     </v-data-table>
-  </div>-->
-
-  <div>
-    <v-data-table :headers="headers" :items="data" item-key="name" hide-actions>
-      <template v-slot:items="props">
-        <!-- <tr v-for="vacancy in data" :key="vacancy.id"> -->
-        <td class="text-xs-left">{{ vacancy.name }}</td>
-        <td class="text-xs-left">{{ props.item.collaborators }}</td>
-        <td class="text-xs-left">{{ props.item.module }}</td>
-        <td class="text-xs-left">{{ props.item.hours }}</td>
-        <!-- </tr> -->
-      </template>
-      <!-- <template v-slot:expand="props">
-        <v-card flat>
-          <v-card-text>{{props.item.name}}</v-card-text>
-        </v-card>
-      </template>-->
-    </v-data-table>
+    <div class="text-xs-right pt-2">
+      <v-pagination v-model="pagination.page" :length="pages" :total-visible="7" color="black"></v-pagination>
+    </div>
   </div>
 </template>
 
@@ -53,94 +29,43 @@
 export default {
   data() {
     return {
-      expand: false,
-      headers: [
-        {
-          text: "Vak",
-          align: "left",
-          sortable: true,
-          value: "name"
-        },
-        {
-          text: "Module coordinator",
-          align: "left",
-          sortable: true,
-          value: "moduleCoordinator"
-        },
-        {
-          text: "Periode",
-          align: "left",
-          sortable: true,
-          value: "Period"
-        },
-        {
-          text: "Type",
-          align: "left",
-          sortable: true,
-          value: "typeCourse"
-        },
-        {
-          text: "Contacttijd",
-          align: "left",
-          sortable: true,
-          value: "contactHours"
-        }
-        // {
-        //   text: "Actions",
-        //   align: "left",
-        //   sortable: false,
-        //   value: "actions"
-        // }
-      ]
-      // vacancies: [
-      //   {
-      //     name: "Mathematics that are discrete",
-      //     course: "Discrete mathematics",
-      //     hours: 6,
-      //     module: "Basisfase",
-      //     collaborators: "Marcio Fuckner, Karthik Srinivasan"
-      //   },
-      //   {
-      //     name: "The design of research",
-      //     course: "Research Design",
-      //     hours: 2,
-      //     module: "Verdiepingsfase",
-      //     collaborators: "Sybe Dijkstra, David Seegers"
-      //   },
-      //   {
-      //     name: "Structure of data",
-      //     course: "Datastructures",
-      //     hours: 8,
-      //     module: "Basisfase",
-      //     collaborators: "Nico Tromp, Saskia Robben"
-      //   },
-      //   {
-      //     name: "Orientation of jobs",
-      //     course: "Job orientation",
-      //     hours: 6,
-      //     module: "Verdiepingsfase",
-      //     collaborators: "Zarina Efendijeva"
-      //   },
-      //   {
-      //     name: "Architecture on mobile devices, working with APIs, etc.",
-      //     course: "Mobile Architecture",
-      //     hours: 5,
-      //     module: "Themasemester - Mobile Development",
-      //     collaborators: "Folkert Boonstra, Ruud Slokker"
-      //   },
-      //   {
-      //     name: "Write papers about the mobile society",
-      //     course: "Mobile Society",
-      //     hours: 2,
-      //     module: "Themasemester - Mobile Development",
-      //     collaborators: "Anders Bouwer"
-      //   }
-      // ]
+      pagination: {
+        search: "",
+        page: 1,
+        rowsPerPage: 25
+      },
+      selected: [],
+      search: ""
     };
   },
-  props: ["title", "content"]
+  props: ["headers", "content"],
+  mountend() {
+    this.pagination.totalItems = this.content.length;
+  },
+  computed: {
+    pages() {
+      this.pagination.totalItems = this.content.length;
+
+      if (
+        this.pagination.rowsPerPage == null ||
+        this.pagination.totalItems == null
+      )
+        return 0;
+
+      return Math.ceil(
+        this.pagination.totalItems / this.pagination.rowsPerPage
+      );
+    }
+  }
 };
 </script>
 
 <style scoped>
+.description.ellipsis {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  max-width: 10vw;
+  height: 4.5em;
+}
 </style>
