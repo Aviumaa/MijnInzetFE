@@ -20,7 +20,7 @@
       </template>
     </v-data-table>
     <div class="text-xs-right pt-2">
-      <v-pagination v-model="pagination.page" :length="pages" :total-visible="7" color="black"></v-pagination>
+      <v-pagination v-model="pagination.page" :length="pages" color="black"></v-pagination>
     </div>
   </div>
 </template>
