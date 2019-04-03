@@ -39,9 +39,6 @@ export default {
     };
   },
   props: ["headers", "content"],
-  mountend() {
-    this.pagination.totalItems = this.content.length;
-  },
   computed: {
     pages() {
       this.pagination.totalItems = this.content.length;
