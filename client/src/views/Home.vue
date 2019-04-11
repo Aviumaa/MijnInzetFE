@@ -46,7 +46,7 @@ export default {
 
 <style scoped>
 .tile-buttons {
-  width: 20%;
+  width: 220px;
   height: 220px;
 }
 
