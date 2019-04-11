@@ -25,7 +25,7 @@
             <v-pagination v-model="pagination.page" :length="pages" color="black"></v-pagination>
         </div>
 
-        <v-dialog v-model="dialog" max-width="290">
+        <v-dialog v-model="dialog" max-width="400">
             <template v-slot:activator="{ on }">
                 <v-btn color="primary" dark v-on="on">Open Dialog</v-btn>
             </template>
@@ -46,7 +46,8 @@
                 </v-card-text>
                 <v-card-actions>
                     <v-spacer></v-spacer>
-                    <v-btn round color="indigo darken-4" class="white--text" @click="dialog = false">Solliciteer</v-btn>
+                    <v-btn round color="indigo darken-4" class="solliciteerButton" @click="dialog = false">Solliciteer</v-btn>
+                    <v-spacer></v-spacer>
                 </v-card-actions>
             </v-card>
         </v-dialog>
@@ -108,10 +109,10 @@
         height: 4.5em;
     }
 
-    #vacancyModal {
-        max-heigth: 800px;
-        border-color: #00c853;
-        border-style: solid;
-        border-width: 5px;
+    .solliciteerButton {
+        color: white;
+        margin-bottom: 10px;
+
     }
+
 </style>
