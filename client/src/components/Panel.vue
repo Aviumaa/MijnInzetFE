@@ -1,17 +1,15 @@
 <template>
-<v-container fluid fill-height>
+  <v-container fluid fill-height>
     <v-layout align-center justify-center>
-        <v-flex xs12 sm8 md4>
-            <v-card class="elevation-6">
-                <v-toolbar 
-                    dark color="dark" 
-                    height="50">
-                    <v-toolbar-title>{{title}}</v-toolbar-title>
-                    <v-spacer></v-spacer>
-                    <slot name="action"></slot>
-                </v-toolbar>
+      <v-flex xs12 sm8 md4>
+        <v-card class="elevation-6">
+          <v-toolbar dark color="dark" height="50">
+            <v-toolbar-title>{{title}}</v-toolbar-title>
+            <v-spacer></v-spacer>
+            <slot name="action"></slot>
+          </v-toolbar>
 
-                 <v-card-text>
+          <v-card-text>
             <slot>No slot content defined</slot>
           </v-card-text>
           <v-card-actions>
@@ -25,13 +23,11 @@
 
 <script>
 export default {
-    data() {
-        return {
+  data() {
+    return {};
+  },
 
-        };
-    },
-
-    props: ['title']
+  props: ["title"]
 };
 </script>
 
