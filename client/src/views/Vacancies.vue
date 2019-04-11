@@ -2,7 +2,7 @@
   <v-container>
     <v-layout>
       <v-flex>
-        <HeaderTitle title="Vacatures" subTitle="* uur beschkbaar"></HeaderTitle>
+        <HeaderTitle title="Vacatures" subTitle="* uur beschikbaar"></HeaderTitle>
         <VacanciesDashboard :headers="headers" :content="vacancies"></VacanciesDashboard>
       </v-flex>
     </v-layout>
