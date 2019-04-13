@@ -40,7 +40,7 @@ Vacancy.belongsToMany(User, {
 });
 Role.hasMany(User);
 // WeekSchedule.hasMany(Timeslot);
-User.hasMany(WeekSchedule);
+User.hasMany(Timeslot);
 
 // sequelize.sync({
 //         force: true
