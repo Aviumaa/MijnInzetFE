@@ -1,31 +1,24 @@
-module.exports = (sequelize, type) => {
-  const timeslot = sequelize.define(
-    "timeslot",
-    {
-      id: {
-        type: type.INTEGER,
-        primaryKey: true,
-        autoIncrement: true
-      },
-      start_time: {
-        type: type.STRING,
-        allowNull: false
-      },
-      end_time: {
-        type: type.STRING,
-        allowNull: false
-      },
-      day_of_week: {
-        type: type.dayOfWeek,
-        allowNull: false
-      }
+module.exports = (sequelize, Sequelize) => {
+  const Timeslot = sequelize.define("timeslot", {
+    id: {
+      type: Sequelize.INTEGER,
+      primaryKey: true,
+      autoIncrement: true
     },
-    {}
-  );
+    start_time: {
+      type: Sequelize.STRING(5)
+    },
+    end_time: {
+      type: Sequelize.STRING(5)
+    },
+    day_of_week: {
+      type: Sequelize.STRING
+    }
+  });
 
-  timeslot.associate = function(models) {
-    timeslot.belongsTo(models.user);
+  Timeslot.associate = models => {
+    Timeslot.belongsTo(models.User);
   };
 
-  return timeslot;
+  return Timeslot;
 };
