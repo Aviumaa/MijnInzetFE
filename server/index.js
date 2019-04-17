@@ -56,7 +56,7 @@ app.use(logger);
 // app.use('/api/courses', courses);
 // app.use('/', home);
 app.use('/api/users', users);
-app.use('/api/vacancies', vacancies);
+app.use('/~goosb001/api/vacancies', vacancies);
 app.use('/api/roles', roles);
 // app.use('/api/auth', auth);
 
