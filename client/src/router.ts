@@ -5,6 +5,7 @@ import Home from "./views/Home.vue";
 import Report from "./views/Report.vue";
 import Roster from "./views/Roster.vue";
 import Vacancies from "./views/Vacancies.vue";
+import CreateVacancy from "./views/CreateVacancy.vue";
 
 Vue.use(Router);
 
@@ -36,6 +37,11 @@ export default new Router({
       path: "/vacancies",
       name: "vacancies",
       component: Vacancies
+    },
+    {
+      path: "/createvacancy",
+      name: "createvacancy",
+      component: CreateVacancy
     },
   ]
 });
