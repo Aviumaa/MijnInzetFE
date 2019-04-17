@@ -11,11 +11,11 @@ module.exports = {
       start_time: {
         type: Sequelize.STRING(5)
       },
-      end_time: {
-        type: Sequelize.STRING(5)
-      },
+      // end_time: {
+      //   type: Sequelize.STRING(5)
+      // },
       day_of_week: {
-        type: Sequelize.STRING
+        type: Sequelize.INTEGER
       },
       createdAt: {
         allowNull: false,
