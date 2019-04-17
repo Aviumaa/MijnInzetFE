@@ -4,7 +4,6 @@ import Login from "./components/Login.vue";
 import Home from "./views/Home.vue";
 import Report from "./views/Report.vue";
 import Roster from "./views/Roster.vue";
-import Enroll from "./views/Enroll.vue";
 import Vacancies from "./views/Vacancies.vue";
 
 Vue.use(Router);
@@ -32,11 +31,6 @@ export default new Router({
       path: "/roster",
       name: "roster",
       component: Roster
-    },
-    {
-      path: "/enroll",
-      name: "enroll",
-      component: Enroll
     },
     {
       path: "/vacancies",
