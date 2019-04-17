@@ -53,6 +53,7 @@ User.hasMany(WeekSchedule);
 module.exports = {
     User,
     Vacancy,
+    UserVacancy,
     Role,
     Timeslot,
     WeekSchedule
