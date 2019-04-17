@@ -1,9 +1,9 @@
 {
   "development": {
-    "username": "zhengk001",
-    "password": "uyHR9$Wk8eJ5.L",
-    "database": "zzhengk001",
-    "host": "oege.ie.hva.nl",
+    "username": "root",
+    "password": "root",
+    "database": "MijnInzet-local",
+    "host": "127.0.0.1",
     "dialect": "mysql"
   },
   "test": {
@@ -14,10 +14,10 @@
     "dialect": "mysql"
   },
   "production": {
-    "username": "root",
-    "password": null,
-    "database": "database_production",
-    "host": "127.0.0.1",
+    "username": "zhengk001",
+    "password": "uyHR9$Wk8eJ5.L",
+    "database": "zzhengk001",
+    "host": "oege.ie.hva.nl",
     "dialect": "mysql"
   }
 }
