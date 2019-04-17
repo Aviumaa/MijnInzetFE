@@ -28,7 +28,7 @@ const bodyParser = require('body-parser')
 // Add headers
 app.use(function (req, res, next) {
   // Website you wish to allow to connect
-  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8081');
+  res.setHeader('Access-Control-Allow-Origin', 'http://oege.ie.hva.nl/~goosb001/');
   // Request methods you wish to allow
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
   // Request headers you wish to allow
@@ -56,7 +56,7 @@ app.use(logger);
 // app.use('/api/courses', courses);
 // app.use('/', home);
 app.use('/api/users', users);
-app.use('/~goosb001/api/vacancies', vacancies);
+app.use('/api/vacancies', vacancies);
 app.use('/api/roles', roles);
 // app.use('/api/auth', auth);
 
