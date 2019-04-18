@@ -28,7 +28,7 @@ const bodyParser = require('body-parser')
 // Add headers
 app.use(function (req, res, next) {
   // Website you wish to allow to connect
-  res.setHeader('Access-Control-Allow-Origin', 'http://oege.ie.hva.nl/~goosb001/');
+  res.setHeader('Access-Control-Allow-Origin', 'https://oege.ie.hva.nl/');
   // Request methods you wish to allow
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
   // Request headers you wish to allow
