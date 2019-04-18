@@ -11,6 +11,7 @@ const users = require('./routes/users');
 const vacancies = require('./routes/vacancies');
 const roles = require('./routes/roles');
 const auth = require('./routes/auth');
+const userVacancy = require('./routes/userVacancies');
 const express = require('express');
 const app = express();
 const {
@@ -19,7 +20,9 @@ const {
   Role,
   Timeslot,
   WeekSchedule,
-  Vacancy
+  Vacancy,
+    UserVacancy,
+
 } = require('./sequelize')
 const bodyParser = require('body-parser')
 
@@ -58,6 +61,7 @@ app.use(logger);
 app.use('/api/users', users);
 app.use('/api/vacancies', vacancies);
 app.use('/api/roles', roles);
+app.use('/api/userVacancies', userVacancy);
 // app.use('/api/auth', auth);
 
 

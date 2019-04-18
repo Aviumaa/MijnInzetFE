@@ -28,31 +28,33 @@
 </template>
 
 <script>
-import TileButton from "@/components/TileButton.vue";
-export default {
-  data() {
-    return {};
-  },
-  components: {
-    TileButton
-  },
-  methods: {
-    navigateTo(route) {
-      this.$router.push(route);
-    }
-  }
-};
+    import TileButton from "@/components/TileButton.vue";
+
+    export default {
+        data() {
+            return {};
+        },
+        components: {
+            TileButton
+        },
+        methods: {
+            navigateTo(route) {
+                this.$router.push(route);
+            }
+        }
+    };
 </script>
 
 <style scoped>
+
 .tile-buttons {
   width: 220px;
   height: 220px;
 }
 
-.center {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-}
+    .center {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
 </style>

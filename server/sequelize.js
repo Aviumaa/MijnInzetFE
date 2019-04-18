@@ -50,9 +50,11 @@ User.hasMany(WeekSchedule);
 //     })
 
 module.exports = {
-  User,
-  Vacancy,
-  Role,
-  Timeslot,
-  WeekSchedule
-};
+    User,
+    Vacancy,
+    UserVacancy,
+    Role,
+    Timeslot,
+    WeekSchedule
+}
+
