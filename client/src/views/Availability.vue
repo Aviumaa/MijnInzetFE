@@ -30,7 +30,7 @@
           </v-flex>
         </v-layout>
         <div class="button__submit">
-          <v-btn round dark>Save availability</v-btn>
+          <v-btn round dark>Opslaan</v-btn>
         </div>
       </v-flex>
     </v-layout>
