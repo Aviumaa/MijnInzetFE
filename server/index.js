@@ -80,4 +80,4 @@ dbDebugger('Connected to the database...');
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Listening on port ${port}...`));
-console.log(process.env);
+console.log(vacancies);
