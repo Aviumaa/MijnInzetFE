@@ -1,6 +1,8 @@
 'use strict';
+
 module.exports = (sequelize, type) => {
-    return sequelize.define('vacancy', {
+
+    const Vacancy = sequelize.define('vacancy', {
         id: {
             type: type.INTEGER,
             primaryKey: true,
@@ -36,4 +38,12 @@ module.exports = (sequelize, type) => {
             allowNull: false
         },
     })
+
+    Vacancy.associate = models => {
+        Vacancy.hasMany(models.UserVacancy, {
+            foreignKey: "vacancy"
+        });
+    };
+
+    return Vacancy
 }

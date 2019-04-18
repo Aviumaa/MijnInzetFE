@@ -32,7 +32,7 @@
             <v-card>
                 <div class="topRow">
                     <v-flex>
-                        <HeaderTitle title="Vacature" :subTitle=this.selected.name></HeaderTitle>
+                        <HeaderTitle title="Vacature" :subTitle="this.selected.name"></HeaderTitle>
                     </v-flex>
                 </div>
                 <v-card-text>
@@ -46,7 +46,8 @@
                 </v-card-text>
                 <v-card-actions>
                     <v-spacer></v-spacer>
-                    <v-btn round color="indigo darken-4" class="solliciteerButton" @click="dialog = false">Solliciteer</v-btn>
+                    <v-btn round color="indigo darken-4" class="solliciteerButton" @click="solliciteer()">Solliciteer
+                    </v-btn>
                     <v-spacer></v-spacer>
                 </v-card-actions>
             </v-card>
@@ -57,6 +58,7 @@
 
 <script>
     import HeaderTitle from "@/components/HeaderTitle.vue";
+    import axios from "axios";
 
     export default {
         data() {
@@ -92,6 +94,16 @@
             showModal(item) {
                 this.selected = item;
                 this.dialog = true;
+            },
+            solliciteer() {
+                axios.post('http://localhost:3000/api/UserVacancies', {
+                    vacancyId: this.selected.id,
+                    userId: 1
+                }).then(function (response) {
+                    console.log(response);
+                }).catch(function (error) {
+                    console.log(error);
+                });
             }
         },
         components: {
