@@ -3,7 +3,7 @@
     <v-layout row>
       <v-flex class="center">
         <HeaderTitle title="Beschikbaarheid"/>
-
+        
         <v-layout row>
           <v-flex grow v-for="day in weekdays" :key="day.index">
             <v-card>
@@ -30,7 +30,9 @@
           </v-flex>
         </v-layout>
         <div class="button__submit">
-          <v-btn round dark>Save availability</v-btn>
+          <v-btn 
+          @click="sendAvailability"
+          round dark>Save availability</v-btn>
         </div>
       </v-flex>
     </v-layout>
@@ -81,8 +83,22 @@ export default {
       return this.checkboxes.includes(value);
     },
     logger(event) {
-      return console.log(event.target.value);
+      console.log("checkboxes: " + this.checkboxes);
+      console.log(event.target.value);
+    },
+    sendAvailability(checkboxes) {
+      axios.put("localhost:3000/api/timeslots/", {
+        timeslots: this.checkboxes
+      })
+      .then (response => {
+        console.log(response);
+      })
+      .catch (error => {
+        console.log(error);
+      });
+      return console.log("sendAvailability: " + this.checkboxes);
     }
+
     // moment: function() {
     //   return moment();
     // }
