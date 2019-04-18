@@ -95,7 +95,7 @@
                 this.selected = item;
                 this.dialog = true;
             },
-            solliciteer(){
+            solliciteer() {
                 axios.post('http://localhost:3000/api/UserVacancies', {
                     vacancyId: this.selected.id,
                     userId: 1

@@ -1,6 +1,8 @@
 'use strict';
+
 module.exports = (sequelize, type) => {
-    return sequelize.define('userVacancies', {
+
+    const UserVacancy = sequelize.define('userVacancies', {
         id: {
             type: type.INTEGER,
             primaryKey: true,
@@ -8,11 +10,19 @@ module.exports = (sequelize, type) => {
         },
         vacancy: {
             type: type.INTEGER,
+            references: {
+                model: "vacancies", // name of Target model
+                key: "id" // key in Target model that we're referencing
+            },
             allowNull: false
         },
         user: {
-          type: type.INTEGER,
-          allowNull: false
+            type: type.INTEGER,
+            references: {
+                model: "users", // name of Target model
+                key: "id" // key in Target model that we're referencing
+            },
+            allowNull: false
         },
         escalated: {
             type: type.BOOLEAN,
@@ -26,4 +36,14 @@ module.exports = (sequelize, type) => {
             type: type.TEXT
         },
     })
+
+    UserVacancy.associate = models => {
+        UserVacancy.belongsTo(models.User);
+    };
+
+    UserVacancy.associate = models => {
+        UserVacancy.belongsTo(models.Vacancy);
+    };
+
+    return UserVacancy
 }

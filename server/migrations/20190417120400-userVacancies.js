@@ -10,10 +10,18 @@ module.exports = {
             },
             vacancy: {
                 type: type.INTEGER,
+                references: {
+                    model: "vacancies", // name of Target model
+                    key: "id" // key in Target model that we're referencing
+                },
                 allowNull: false
             },
             user: {
                 type: type.INTEGER,
+                references: {
+                    model: "users", // name of Target model
+                    key: "id" // key in Target model that we're referencing
+                },
                 allowNull: false
             },
             escalated: {
