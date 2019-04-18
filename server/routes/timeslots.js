@@ -6,4 +6,6 @@ const { Timeslot } = require("../sequelize");
 // GET all timeslots from the authenticated user
 router.get("/", timeslotsController.getTimeslots);
 
+router.put("/:userId", timeslotsController.updateTimeslots);
+
 module.exports = router;

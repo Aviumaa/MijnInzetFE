@@ -10,9 +10,9 @@
           title="Reports"
         ></tile-button>
         <tile-button
-          @click.native="navigateTo({name: 'roster'})"
+          @click.native="navigateTo({name: 'availability'})"
           class="indigo lighten-1"
-          title="Rooster"
+          title="Availability"
         ></tile-button>
         <tile-button
           @click.native="navigateTo({name: 'vacancies'})"

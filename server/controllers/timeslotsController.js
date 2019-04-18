@@ -1,4 +1,5 @@
 const { Timeslot } = require("../sequelize");
+const { user } = require("../models/user");
 
 // GET all timeslots from the authenticated user
 exports.getTimeslots = (req, res) => {
@@ -8,3 +9,5 @@ exports.getTimeslots = (req, res) => {
     }
   }).then(timeslots => res.json(timeslots));
 };
+
+exports.updateTimeslots = (req, res) => {};

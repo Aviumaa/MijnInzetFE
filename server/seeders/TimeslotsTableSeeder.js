@@ -44,7 +44,7 @@ module.exports = {
         //   "21:10",
         //   "22:00"
         // ]),
-        day_of_week: faker.random.number({ min: 1, max: 7 }),
+        day_of_week: faker.random.number({ min: 1, max: 5 }),
         createdAt: new Date(),
         updatedAt: new Date()
       };
