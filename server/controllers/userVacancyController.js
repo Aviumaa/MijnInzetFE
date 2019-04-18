@@ -19,3 +19,13 @@ exports.getUserVacancyById = (req, res) => {
         res.status(200).json(userResponse)
     });
 }
+
+//POST new userVacancy
+exports.postUserVacancy = (req, res) => {
+    userVacancy.create({
+        user: req.body.userId,
+        vacancy: req.body.vacancyId
+    })
+        .then(userVacancies => res.json(userVacancies))
+        .catch(err => console.error(err));
+};
