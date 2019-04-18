@@ -70,7 +70,7 @@ export default {
   },
   mounted() {
     axios
-      .get("http://localhost:3000/api/vacancies/")
+      .get("http://oege.ie.hva.nl/~goosb001:3000/api/vacancies/")
       .then(response => {
         this.vacancies = response.data;
       })
