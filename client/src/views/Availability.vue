@@ -32,7 +32,7 @@
         <div class="button__submit">
           <v-btn 
           @click="sendAvailability"
-          round dark>Save availability</v-btn>
+          round dark>Opslaan</v-btn>
         </div>
       </v-flex>
     </v-layout>
