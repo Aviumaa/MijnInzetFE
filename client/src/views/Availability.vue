@@ -3,7 +3,7 @@
     <v-layout row>
       <v-flex class="center">
         <HeaderTitle title="Beschikbaarheid"/>
-        
+
         <v-layout row>
           <v-flex grow v-for="day in weekdays" :key="day.index">
             <v-card>
@@ -30,9 +30,7 @@
           </v-flex>
         </v-layout>
         <div class="button__submit">
-          <v-btn 
-          @click="sendAvailability"
-          round dark>Opslaan</v-btn>
+          <v-btn @click="sendAvailability" round dark>Opslaan</v-btn>
         </div>
       </v-flex>
     </v-layout>
@@ -44,13 +42,12 @@ import axios from "axios";
 import moment from "moment";
 import HeaderTitle from "@/components/HeaderTitle.vue";
 
-// const moment = require("moment");
 moment.locale("nl");
 
 export default {
   data() {
     return {
-      userId: '1',
+      userId: "1",
       moment: moment,
       checkboxes: [],
       weekdays: [1, 2, 3, 4, 5],
@@ -73,7 +70,7 @@ export default {
         "21:10",
         "22:00"
       ],
-      userTimeslots: []
+      userTimeslotData: []
     };
   },
   components: {
@@ -84,32 +81,47 @@ export default {
       return this.checkboxes.includes(value);
     },
     logger(event) {
-      console.log("checkboxes: " + this.checkboxes);
-      console.log(event.target.value);
+      // console.log("checkboxes: " + this.checkboxes);
+      // console.log(event.target.value);
+      this.parseJsonToString();
     },
     sendAvailability(checkboxes) {
-      axios.put(`localhost:3000/api/timeslots/${this.userId}`, {
-        timeslots: this.checkboxes
-      })
-      .then (response => {
-        console.log(response);
-      })
-      .catch (error => {
-        console.log(error);
-      });
+      axios
+        .put(`localhost:3000/api/timeslots/${this.userId}`, {
+          timeslots: this.checkboxes
+        })
+        .then(response => {
+          console.log(response);
+        })
+        .catch(error => {
+          console.log(error);
+        });
       return console.log("sendAvailability: " + this.checkboxes);
-    }
+    },
+    parseJsonToString() {
+      function replacer(key, value) {
+        return value.replace(/[^\w\s]/gi, "");
+      }
 
-    // moment: function() {
-    //   return moment();
-    // }
+      this.userTimeslotData.forEach(userTimeSlot => {
+        let dayOfWeek = JSON.stringify(userTimeSlot.day_of_week);
+        let startTime = JSON.stringify(userTimeSlot.start_time);
+
+        startTime.replace(/\\"/g, "\uFFFF"); //U+ FFFF
+        startTime = startTime
+          .replace(/\"([^"]+)\":/g, "$1:")
+          .replace(/\uFFFF/g, '\\"');
+
+        console.log(dayOfWeek + "-" + startTime);
+      });
+    }
   },
   mounted() {
     axios
       .get("http://localhost:3000/api/timeslots/")
       .then(response => {
-        this.userTimeslots = response.data;
-        console.log(this.userTimeslots);
+        this.userTimeslotData = response.data;
+        console.log(this.userTimeslotData);
       })
       .catch(error => {
         console.log(error);
