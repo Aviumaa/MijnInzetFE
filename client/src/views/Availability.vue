@@ -83,7 +83,6 @@ export default {
     logger(event) {
       // console.log("checkboxes: " + this.checkboxes);
       // console.log(event.target.value);
-      this.parseJsonToString();
     },
     sendAvailability(checkboxes) {
       axios
@@ -99,21 +98,19 @@ export default {
       return console.log("sendAvailability: " + this.checkboxes);
     },
     parseJsonToString() {
-      function replacer(key, value) {
-        return value.replace(/[^\w\s]/gi, "");
-      }
-
+      const timeslots = [];
       this.userTimeslotData.forEach(userTimeSlot => {
         let dayOfWeek = JSON.stringify(userTimeSlot.day_of_week);
         let startTime = JSON.stringify(userTimeSlot.start_time);
 
-        startTime.replace(/\\"/g, "\uFFFF"); //U+ FFFF
-        startTime = startTime
-          .replace(/\"([^"]+)\":/g, "$1:")
-          .replace(/\uFFFF/g, '\\"');
+        startTime = startTime.substring(1, startTime.length - 1);
 
-        console.log(dayOfWeek + "-" + startTime);
+        const timeslot = dayOfWeek + "-" + startTime;
+
+        timeslots.push(timeslot);
       });
+
+      this.checkboxes = timeslots;
     }
   },
   mounted() {
@@ -121,7 +118,7 @@ export default {
       .get("http://localhost:3000/api/timeslots/")
       .then(response => {
         this.userTimeslotData = response.data;
-        console.log(this.userTimeslotData);
+        this.parseJsonToString();
       })
       .catch(error => {
         console.log(error);
