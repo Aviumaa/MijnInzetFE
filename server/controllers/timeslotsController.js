@@ -28,4 +28,3 @@ exports.updateTimeslots = (req, res) => {
     console.log("updated"));
   }
 };
-  
