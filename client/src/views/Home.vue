@@ -21,8 +21,7 @@
         <tile-button
           @click.native="navigateTo({name: 'roster'})"
           class="teal lighten-1"
-          title="Mijn"
-          newLine="Profiel"
+          title="Mijn Profiel"
         ></tile-button>
       </v-flex>
     </v-layout>
@@ -34,7 +33,9 @@ import TileButton from "@/components/TileButton.vue";
 
 export default {
   data() {
-    return {};
+    return {
+      vacancyText: 'Hello Vue.\nThis ext.\nAnother line of text.\n'
+    };
   },
   components: {
     TileButton

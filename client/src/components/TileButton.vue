@@ -1,9 +1,11 @@
 <template>
   <v-btn
-    class="tile-buttons white--text font-weight-bold title mt-5"
-    font-weight-bold
-    text-md-center
-  >
+    class="tile-buttons 
+           white--text 
+           font-weight-bold 
+           title 
+           mt-5 
+           text-md-center">
     <br>
     {{title}}
     <br>
