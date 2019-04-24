@@ -87,7 +87,7 @@ export default {
     },
     sendAvailability(checkboxes) {
       axios
-        .put(`localhost:3000/api/timeslots/${this.userId}`, {
+        .put(`http://localhost:3000/api/timeslots/${this.userId}`, {
           timeslots: this.checkboxes
         })
         .then(response => {

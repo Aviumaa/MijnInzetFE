@@ -16,14 +16,11 @@ exports.updateTimeslots = (req, res) => {
     console.log(splitDate);
     console.log("day: " + splitDate[0] + " time: " + splitDate[1]);
   
-    let response = await Timeslot.update({
+    Timeslot.create({
       start_time: splitDate[1],
-      day_of_week: splitDate[0]
-    }, {
-      where: {
-        user_id: req.params.userId
-      } 
-      
+      day_of_week: splitDate[0],
+      user_id: req.params.userId
+    }, {      
   }).then(timeslots => 
     console.log("updated"));
   }
