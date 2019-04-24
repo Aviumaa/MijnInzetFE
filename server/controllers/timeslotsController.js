@@ -11,13 +11,14 @@ exports.getTimeslots = (req, res) => {
 };
 
 exports.updateTimeslots = (req, res) => {
-  
-  // Timeslot.create({
-  //   start_time,
-  //   day_of_week,
-  //   user_id,
-  // })
-;
-console.log("update: " + req);
-
+    Timeslot.update({
+      day_of_week: 4
+    }, {
+      where: {
+        user_id: 1
+      } 
+      
+  }).then(timeslots => 
+    console.log("updated"));
 };
+  
