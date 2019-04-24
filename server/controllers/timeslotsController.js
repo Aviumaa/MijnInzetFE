@@ -11,14 +11,21 @@ exports.getTimeslots = (req, res) => {
 };
 
 exports.updateTimeslots = (req, res) => {
-    Timeslot.update({
-      day_of_week: 4
+  for ( var i = 0; i < req.body.timeslots.length; i++) {
+    var splitDate = req.body.timeslots[i].split("-");
+    console.log(splitDate);
+    console.log("day: " + splitDate[0] + " time: " + splitDate[1]);
+  
+    let response = await Timeslot.update({
+      start_time: splitDate[1],
+      day_of_week: splitDate[0]
     }, {
       where: {
-        user_id: 1
+        user_id: req.params.userId
       } 
       
   }).then(timeslots => 
     console.log("updated"));
+  }
 };
   

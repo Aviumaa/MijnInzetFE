@@ -13,6 +13,7 @@ const timeslots = require("./routes/timeslots");
 const roles = require("./routes/roles");
 const auth = require("./routes/auth");
 const express = require("express");
+const cors = require('cors');
 const app = express();
 const {
   User,
@@ -25,9 +26,10 @@ const {
 const bodyParser = require("body-parser");
 
 // Add headers
+app.use(cors());
 app.use(function(req, res, next) {
   // Website you wish to allow to connect
-  res.setHeader("Access-Control-Allow-Origin", "http://localhost:8081");
+  res.setHeader("Access-Control-Allow-Origin", "*");
   // Request methods you wish to allow
   res.setHeader(
     "Access-Control-Allow-Methods",
@@ -64,7 +66,7 @@ app.use(logger);
 // app.use('/', home);
 app.use("/api/users", users);
 app.use("/api/vacancies", vacancies);
-app.use("/api/timeslots", timeslots);
+app.use("/api/timeslots", cors(), timeslots);
 app.use("/api/roles", roles);
 // app.use('/api/auth', auth);
 
