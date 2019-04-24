@@ -10,4 +10,14 @@ exports.getTimeslots = (req, res) => {
   }).then(timeslots => res.json(timeslots));
 };
 
-exports.updateTimeslots = (req, res) => {};
+exports.updateTimeslots = (req, res) => {
+  
+  // Timeslot.create({
+  //   start_time,
+  //   day_of_week,
+  //   user_id,
+  // })
+;
+console.log("update: " + req);
+
+};

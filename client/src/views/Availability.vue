@@ -50,6 +50,7 @@ moment.locale("nl");
 export default {
   data() {
     return {
+      userId: '1',
       moment: moment,
       checkboxes: [],
       weekdays: [1, 2, 3, 4, 5],
@@ -87,7 +88,7 @@ export default {
       console.log(event.target.value);
     },
     sendAvailability(checkboxes) {
-      axios.put("localhost:3000/api/timeslots/", {
+      axios.put(`localhost:3000/api/timeslots/${this.userId}`, {
         timeslots: this.checkboxes
       })
       .then (response => {
