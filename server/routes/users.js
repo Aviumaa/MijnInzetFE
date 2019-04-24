@@ -4,6 +4,8 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcrypt')
 
+const loginController = require("../controllers/loginController");
+
 router.post('/crypt/', async (req, res) => {
     // const { error } = validate(req.body);
     // if (error) return res.status(400).send(error.details[0].message);
@@ -21,8 +23,12 @@ router.post('/crypt/', async (req, res) => {
 
 
 router.get('/', (req, res) => {
-    User.findAll().then(users => res.json(users))
+    User.findAll({
+        attributes: ['id', 'username', 'password', 'createdAt', 'updatedAt']
+    }).then(users => res.json(users))
 })
+
+router.post('/login', loginController.doLogin);
 
 router.post('/', (req, res) => {
     User.create({

@@ -62,7 +62,7 @@ app.use('/api/users', users);
 app.use('/api/vacancies', vacancies);
 app.use('/api/roles', roles);
 app.use('/api/userVacancies', userVacancy);
-// app.use('/api/auth', auth);
+app.use('/api/auth', auth);
 
 
 
