@@ -81,4 +81,4 @@ if (app.get("env") === "development") {
 
 dbDebugger("Connected to the database...");
 
-app.listen(3000, 'http://oege.ie.hva.nl');
+app.listen(3000, "127.0.0.1");
