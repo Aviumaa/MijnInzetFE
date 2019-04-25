@@ -6,7 +6,7 @@ const UserVacancyModel = require("./models/userVacancy");
 const WeekScheduleModel = require("./models/weekSchedule");
 const TimeslotModel = require("./models/timeslot");
 
-const sequelize = new Sequelize("MijnInzet-local", "root", "hoihoihoi", {
+const sequelize = new Sequelize("MijnInzet-local", "root", "root", {
   host: "127.0.0.1",
   dialect: "mysql",
   pool: {

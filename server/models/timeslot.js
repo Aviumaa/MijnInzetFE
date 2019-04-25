@@ -13,6 +13,9 @@ module.exports = (sequelize, Sequelize) => {
     // },
     day_of_week: {
       type: Sequelize.INTEGER
+    },
+    user_id: {
+      type: Sequelize.INTEGER
     }
   });
 
