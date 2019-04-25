@@ -21,9 +21,11 @@ const {
   Role,
   Timeslot,
   WeekSchedule,
-  Vacancy
-} = require("./sequelize");
-const bodyParser = require("body-parser");
+  Vacancy,
+    UserVacancy,
+
+} = require('./sequelize')
+const bodyParser = require('body-parser')
 
 // Add headers
 app.use(cors());
@@ -68,6 +70,7 @@ app.use("/api/users", users);
 app.use("/api/vacancies", vacancies);
 app.use("/api/timeslots", cors(), timeslots);
 app.use("/api/roles", roles);
+app.use('/api/userVacancies', userVacancy);
 // app.use('/api/auth', auth);
 
 //Configuration

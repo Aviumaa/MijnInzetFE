@@ -1,27 +1,28 @@
 <template>
   <v-container>
     <v-layout row>
-      <v-flex class="center">
-        <tile-button class="indigo lighten-1" title="Login"></tile-button>
-        <tile-button class="teal lighten-1" title="Login"></tile-button>
+      <v-flex class="center mt-20">
         <tile-button
           @click.native="navigateTo({name: 'reports'})"
-          class="cyan darken-1"
-          title="Reports"
+          class="teal lighten-1"
+          title="Taakoverzicht"
         ></tile-button>
         <tile-button
-          @click.native="navigateTo({name: 'availability'})"
-          class="indigo lighten-1"
-          title="Availability"
+          @click.native="navigateTo({name: 'reports'})"
+          class="teal lighten-1"
+          title="Beschikbaarheid"
         ></tile-button>
         <tile-button
           @click.native="navigateTo({name: 'vacancies'})"
-          class="indigo lighten-1"
-          title="Vacancies"
+          class="teal lighten-1"
+          title="Openstaande"
+          newLine="vacatures"
         ></tile-button>
-        <tile-button class="indigo lighten-1" title="Register"></tile-button>
-        <tile-button class="indigo darken-4" title="Login"></tile-button>
-        <tile-button class="teal lighten-1" background-color="error" title="Login"></tile-button>
+        <tile-button
+          @click.native="navigateTo({name: 'roster'})"
+          class="teal lighten-1"
+          title="Mijn Profiel"
+        ></tile-button>
       </v-flex>
     </v-layout>
   </v-container>
@@ -29,9 +30,12 @@
 
 <script>
 import TileButton from "@/components/TileButton.vue";
+
 export default {
   data() {
-    return {};
+    return {
+      vacancyText: 'Hello Vue.\nThis ext.\nAnother line of text.\n'
+    };
   },
   components: {
     TileButton
@@ -54,5 +58,9 @@ export default {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
+}
+
+.mt-20 {
+  margin-top: 50px;
 }
 </style>

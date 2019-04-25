@@ -7,6 +7,12 @@ const {
 
 router.get("/", vacancyController.getVacancies);
 
+router.get("/open", vacancyController.getVacanciesOpen);
+
+router.get("/closed", vacancyController.getVacanciesClosed);
+
+router.get("/:vacancyId", vacancyController.getVacancyById);
+
 router.post("/", (req, res) => {
   Vacancy.create({
       name: req.body.name,
