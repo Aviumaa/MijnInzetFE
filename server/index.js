@@ -82,3 +82,4 @@ if (app.get("env") === "development") {
 dbDebugger("Connected to the database...");
 
 app.listen(8000, '0.0.0.0');
+console.log('Node server running on port 3000');
