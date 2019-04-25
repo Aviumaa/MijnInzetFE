@@ -26,7 +26,7 @@ const bodyParser = require("body-parser");
 // Add headers
 app.use(function(req, res, next) {
   // Website you wish to allow to connect
-  res.setHeader('Access-Control-Allow-Origin', 'http//oege.ie.hva.nl:3000/');
+  res.setHeader("Access-Control-Allow-Origin", "*");
   // Request methods you wish to allow
   res.setHeader(
     "Access-Control-Allow-Methods",
@@ -67,8 +67,6 @@ app.use("/api/vacancies", vacancies);
 app.use("/api/roles", roles);
 // app.use('/api/auth', auth);
 
-
-
 //Configuration
 console.log("Application Name: " + config.get("name"));
 console.log("Mail Server: " + config.get("mail.host"));
@@ -81,5 +79,5 @@ if (app.get("env") === "development") {
 
 dbDebugger("Connected to the database...");
 
-app.listen(4000, '0.0.0.0');
-console.log('Node server running on port 4000');
+app.listen(4000, "0.0.0.0");
+console.log("Node server running on port 4000");
