@@ -8,14 +8,18 @@ module.exports = (sequelize, type) => {
             primaryKey: true,
             autoIncrement: true
         },
-        name: {
+        task: {
+            type: type.STRING,
+            allowNull: false
+        },
+        title: {
             type: type.STRING,
             allowNull: false
         },
         description: {
             type: type.TEXT,
         },
-        moduleCoordinator: {
+        contactPerson: {
             type: type.STRING,
         },
         period: {
