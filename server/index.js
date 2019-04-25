@@ -71,7 +71,7 @@ app.use("/api/vacancies", vacancies);
 app.use("/api/timeslots", cors(), timeslots);
 app.use("/api/roles", roles);
 app.use('/api/userVacancies', userVacancy);
-// app.use('/api/auth', auth);
+app.use('/api/auth', auth);
 
 //Configuration
 console.log("Application Name: " + config.get("name"));

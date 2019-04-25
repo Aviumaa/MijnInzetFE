@@ -1,6 +1,7 @@
-module.exports = (sequelize, Sequelize) => {
+const Joi = require('joi');
 
-    const User = sequelize.define("user", {
+module.exports = (sequelize, type) => {
+    return sequelize.define('user', {
         id: {
             type: Sequelize.INTEGER,
             primaryKey: true,
@@ -10,17 +11,23 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.STRING
         },
         password: {
-            type: Sequelize.STRING
+            type: type.STRING,
+            allowNull: false
+        },
+        roleId:{
+            type: type.INTEGER,
+            allowNull: false
         }
-    });
+    })
+}
 
-    User.associate = models => {
-        User.hasMany(models.UserVacancy, {
-            foreignKey: "user"
-        });
+function validateUser(user){
+    const schema = {
+        name: Joi.string().min(5).max(50).required(),
+        password: Joi.string().min(5).max(255).required()
     };
 
-    return User;
+    return Joi.validate(user, schema);
 }
 
   User.associate = models => {
@@ -31,3 +38,6 @@ module.exports = (sequelize, Sequelize) => {
 
   return User;
 };
+
+exports.User = User;
+exports.validate = validateUser;
