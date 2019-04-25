@@ -21,11 +21,11 @@ router.post('/crypt/', async (req, res) => {
 
 
 router.get('/', (req, res) => {
-    User.findAll().then(users => res.json(users))
+    user.findAll().then(users => res.json(users))
 })
 
 router.post('/', (req, res) => {
-    User.create({
+    user.create({
         username: req.body.username,
         password: req.body.password,
         roleId: req.body.roleId
