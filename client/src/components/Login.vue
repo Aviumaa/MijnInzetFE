@@ -54,7 +54,14 @@ export default {
         })
         .then(response => {
           // JSON responses are automatically parsed.
-          window.location = "/";
+          console.log(response.status);
+          if (response.status == "200"){
+            // success
+            window.location = "/";
+          }
+          else{
+            // invalid credentials
+          }
         })
         .catch(e => {
           this.errors.push(e);

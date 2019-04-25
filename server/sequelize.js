@@ -38,7 +38,7 @@ User.belongsToMany(Vacancy, {
 Vacancy.belongsToMany(User, {
   through: UserVacancy
 });
-Role.hasMany(User);
+//Role.hasMany(User);
 WeekSchedule.hasMany(Timeslot);
 User.hasMany(WeekSchedule);
 

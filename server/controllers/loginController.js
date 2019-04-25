@@ -19,7 +19,14 @@ exports.doLogin = (req, res) => {
     },
     attributes: ['id', 'username', 'password', 'createdAt', 'updatedAt']
   }).then(userResponse => {
-    console.log(req.param)
-    res.status(200).json(userResponse)
+    console.log(req.param);
+    console.log(req.body);
+    console.log(userResponse);
+    if (userResponse == null){
+      res.status(400);
+    }
+    else{
+      res.status(200).json(userResponse);
+    }
   })
 }
