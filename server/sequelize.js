@@ -5,6 +5,7 @@ const RoleModel = require("./models/role");
 const UserVacancyModel = require("./models/userVacancy");
 const WeekScheduleModel = require("./models/weekSchedule");
 const TimeslotModel = require("./models/timeslot");
+const UserRoleModel = require("./models/userRole");
 
 const sequelize = new Sequelize("MijnInzet-local", "root", "root", {
   host: "127.0.0.1",
@@ -32,6 +33,7 @@ const Vacancy = VacancyModel(sequelize, Sequelize);
 const UserVacancy = UserVacancyModel(sequelize, Sequelize);
 const WeekSchedule = WeekScheduleModel(sequelize, Sequelize);
 const Timeslot = TimeslotModel(sequelize, Sequelize);
+const UserRole = UserRoleModel(sequelize, Sequelize);
 User.belongsToMany(Vacancy, {
   through: UserVacancy
 });
@@ -55,6 +57,7 @@ module.exports = {
     UserVacancy,
     Role,
     Timeslot,
-    WeekSchedule
+    WeekSchedule,
+    UserRole
 }
 

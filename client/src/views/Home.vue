@@ -23,6 +23,12 @@
           class="teal lighten-1"
           title="Mijn Profiel"
         ></tile-button>
+        <tile-button v-if="roleId == 1"
+          @click.native="navigateTo({name: '#'})"
+          class="teal lighten-1"
+          title="Onderwijsprogramma"
+          newLine="beheren"
+        ></tile-button>
       </v-flex>
     </v-layout>
   </v-container>
@@ -30,11 +36,13 @@
 
 <script>
 import TileButton from "@/components/TileButton.vue";
+import axios from "axios";
 
 export default {
   data() {
     return {
-      vacancyText: 'Hello Vue.\nThis ext.\nAnother line of text.\n'
+      vacancyText: 'Hello Vue.\nThis ext.\nAnother line of text.\n',
+      roleId: ""
     };
   },
   components: {
@@ -44,6 +52,21 @@ export default {
     navigateTo(route) {
       this.$router.push(route);
     }
+  },
+  mounted(){
+    axios
+        .post(`http://localhost:3000/api/users/isAdmin`,{
+              userId: 1
+        })
+        .then(response => {
+          if (response.data != null){
+            this.roleId = response.data.roleId;
+            console.log(this.roleId);
+          }
+        })
+        .catch(e => {
+          //this.errors.push(e);
+        });
   }
 };
 </script>

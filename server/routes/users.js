@@ -28,6 +28,8 @@ router.get('/', (req, res) => {
     }).then(users => res.json(users))
 })
 
+router.post('/isAdmin', loginController.isUserAdministrator)
+
 router.post('/login', loginController.doLogin);
 
 router.post('/', (req, res) => {
