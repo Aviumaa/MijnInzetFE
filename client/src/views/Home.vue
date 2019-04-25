@@ -8,7 +8,7 @@
           title="Taakoverzicht"
         ></tile-button>
         <tile-button
-          @click.native="navigateTo({name: 'reports'})"
+          @click.native="navigateTo({name: 'availability'})"
           class="teal lighten-1"
           title="Beschikbaarheid"
         ></tile-button>
@@ -34,7 +34,7 @@ import TileButton from "@/components/TileButton.vue";
 export default {
   data() {
     return {
-      vacancyText: 'Hello Vue.\nThis ext.\nAnother line of text.\n'
+      vacancyText: "Hello Vue.\nThis ext.\nAnother line of text.\n"
     };
   },
   components: {

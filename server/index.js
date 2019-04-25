@@ -10,10 +10,11 @@ const home = require("./routes/home");
 const users = require("./routes/users");
 const vacancies = require("./routes/vacancies");
 const timeslots = require("./routes/timeslots");
+const userVacancy = require("./routes/userVacancies");
 const roles = require("./routes/roles");
 const auth = require("./routes/auth");
 const express = require("express");
-const cors = require('cors');
+const cors = require("cors");
 const app = express();
 const {
   User,
@@ -22,10 +23,9 @@ const {
   Timeslot,
   WeekSchedule,
   Vacancy,
-    UserVacancy,
-
-} = require('./sequelize')
-const bodyParser = require('body-parser')
+  UserVacancy
+} = require("./sequelize");
+const bodyParser = require("body-parser");
 
 // Add headers
 app.use(cors());
@@ -70,7 +70,7 @@ app.use("/api/users", users);
 app.use("/api/vacancies", vacancies);
 app.use("/api/timeslots", cors(), timeslots);
 app.use("/api/roles", roles);
-app.use('/api/userVacancies', userVacancy);
+app.use("/api/userVacancies", userVacancy);
 // app.use('/api/auth', auth);
 
 //Configuration
