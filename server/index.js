@@ -79,5 +79,10 @@ if (app.get("env") === "development") {
 
 dbDebugger("Connected to the database...");
 
-app.listen(4000, "0.0.0.0");
-console.log("Node server running on port 4000");
+const http = require("http");
+const hostname = "0.0.0.0";
+const port = 3000;
+
+server.listen(port, hostname, () => {
+  console.log(`Server running at http://${hostname}:${port}/`);
+});
