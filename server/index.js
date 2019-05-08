@@ -81,7 +81,7 @@ dbDebugger("Connected to the database...");
 
 const http = require("http");
 const hostname = "0.0.0.0";
-const port = 65536;
+const port = 8000;
 
 console.log("hostname: " + hostname);
 console.log("port: " + port);
