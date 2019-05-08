@@ -83,6 +83,9 @@ const http = require("http");
 const hostname = "0.0.0.0";
 const port = 80000;
 
+console.log("hostname: " + hostname);
+console.log("port: " + port);
+
 app.listen(port, hostname, () => {
   console.log(`Server running at http://${hostname}:${port}/`);
 });
