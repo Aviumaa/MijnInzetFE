@@ -82,14 +82,13 @@ if (app.get("env") === "development") {
 dbDebugger("Connected to the database...");
 
 var key = fs.readFileSync('./oege.ie.hva.nl.key');
-    cert: fs.readFileSync( './oege.ie.hva.nl.cert' ),
-    requestCert: false,
-    rejectUnauthorized: false
+
 
 var options = {
   key: key,
-  cert: cert,
-  passphrase: "zhengk001"
+  cert: fs.readFileSync( './oege.ie.hva.nl.cert' ),
+  requestCert: false,
+  rejectUnauthorized: false
 };
 
 const http = require("https");
