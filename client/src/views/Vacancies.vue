@@ -70,7 +70,7 @@ export default {
   },
   mounted() {
     axios
-      .get("https://oege.ie.hva.nl:7000/api/vacancies/")
+      .get("https://oege.ie.hva.nl:8000/api/vacancies/")
       .then(response => {
         this.vacancies = response.data;
       })
