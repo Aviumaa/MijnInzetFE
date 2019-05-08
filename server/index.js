@@ -79,7 +79,7 @@ if (app.get("env") === "development") {
 
 dbDebugger("Connected to the database...");
 
-const http = require("http");
+const http = require("https");
 const hostname = "0.0.0.0";
 const port = 8000;
 
@@ -87,5 +87,5 @@ console.log("hostname: " + hostname);
 console.log("port: " + port);
 
 app.listen(port, hostname, () => {
-  console.log(`Server running at http://${hostname}:${port}/`);
+  console.log(`Server running at https://${hostname}:${port}/`);
 });
