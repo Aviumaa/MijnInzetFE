@@ -92,7 +92,7 @@ var options = {
 
 const http = require("https");
 const hostname = "0.0.0.0";
-const port = 7000;
+const port = 8000;
 
 console.log("hostname: " + hostname);
 console.log("port: " + port);
