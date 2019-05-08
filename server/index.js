@@ -82,11 +82,11 @@ if (app.get("env") === "development") {
 dbDebugger("Connected to the database...");
 
 var key = fs.readFileSync('./oege.ie.hva.nl.key');
-
+var cert = fs.readFileSync('./oege.ie.hva.nl.cert')
 
 var options = {
   key: key,
-  cert: fs.readFileSync( './oege.ie.hva.nl.cert' ),
+  cert: cert,
   requestCert: false,
   rejectUnauthorized: false
 };
