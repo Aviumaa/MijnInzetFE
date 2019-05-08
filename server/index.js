@@ -24,7 +24,6 @@ const {
   Vacancy
 } = require("./sequelize");
 const bodyParser = require("body-parser");
-
 // Add headers
 app.use(function(req, res, next) {
   // Website you wish to allow to connect
@@ -43,16 +42,12 @@ app.use(function(req, res, next) {
   // to the API (e.g. in case you use sessions)
   res.setHeader("Access-Control-Allow-Credentials", true);
   res.setHeader("Content-Type", "application/json");
-
   next();
 });
-
 app.set("view engine", "pug");
 app.set("views", "./views");
-
 // console.log(`NODE_ENV: ${process.env.NODE_ENV}`);
 // console.log(`app: ${app.get('env')}`);
-
 app.use(bodyParser.json());
 app.use(
   express.urlencoded({
@@ -68,34 +63,27 @@ app.use("/api/users", users);
 app.use("/api/vacancies", vacancies);
 app.use("/api/roles", roles);
 // app.use('/api/auth', auth);
-
 //Configuration
 console.log("Application Name: " + config.get("name"));
 console.log("Mail Server: " + config.get("mail.host"));
 //console.log('Mail Password: ' + config.get('mail.password'));
-
 if (app.get("env") === "development") {
   app.use(morgan("tiny"));
   startupDebugger("morgan enabled...");
 }
-
 dbDebugger("Connected to the database...");
-
-var key = fs.readFileSync('./oege.ie.hva.nl.key');
-    cert: fs.readFileSync( './oege.ie.hva.nl.cert' ),
-    requestCert: false,
-    rejectUnauthorized: false
-
+var key = fs.readFileSync("key.pem");
+var cert = fs.readFileSync("cert.pem");
 var options = {
   key: key,
   cert: cert,
+  passphrase: "zheng001"
   passphrase: "zhengk001"
 };
 
 const http = require("https");
 const hostname = "0.0.0.0";
 const port = 8000;
-
 console.log("hostname: " + hostname);
 console.log("port: " + port);
 https.createServer(options, app).listen(port, hostname, () => {
