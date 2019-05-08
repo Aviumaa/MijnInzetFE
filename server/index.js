@@ -79,13 +79,20 @@ if (app.get("env") === "development") {
 
 dbDebugger("Connected to the database...");
 
+var key = fs.readFileSync("key.pem");
+var cert = fs.readFileSync("cert.pem");
+
+var options = {
+  key: key,
+  cert: cert
+};
+
 const http = require("https");
 const hostname = "0.0.0.0";
 const port = 8000;
 
 console.log("hostname: " + hostname);
 console.log("port: " + port);
-
-app.listen(port, hostname, () => {
+https.createServer(options, app).listen(port, hostname, () => {
   console.log(`Server running at https://${hostname}:${port}/`);
 });
