@@ -1,28 +1,20 @@
-<template>
+<template class="background">
   <v-container>
     <v-layout row>
       <v-flex class="center mt-20">
         <tile-button
           @click.native="navigateTo({name: 'reports'})"
-          class="teal lighten-1"
+          class="tile-buttons"
           title="Taakoverzicht"
         ></tile-button>
-        <tile-button
-          @click.native="navigateTo({name: 'reports'})"
-          class="teal lighten-1"
-          title="Beschikbaarheid"
-        ></tile-button>
+        <tile-button @click.native="navigateTo({name: 'reports'})" class title="Beschikbaarheid"></tile-button>
         <tile-button
           @click.native="navigateTo({name: 'vacancies'})"
-          class="teal lighten-1"
+          class
           title="Openstaande"
           newLine="vacatures"
         ></tile-button>
-        <tile-button
-          @click.native="navigateTo({name: 'roster'})"
-          class="teal lighten-1"
-          title="Mijn Profiel"
-        ></tile-button>
+        <tile-button @click.native="navigateTo({name: 'roster'})" class title="Mijn Profiel"></tile-button>
       </v-flex>
     </v-layout>
   </v-container>
@@ -34,7 +26,7 @@ import TileButton from "@/components/TileButton.vue";
 export default {
   data() {
     return {
-      vacancyText: 'Hello Vue.\nThis ext.\nAnother line of text.\n'
+      vacancyText: "Hello Vue.\nThis ext.\nAnother line of text.\n"
     };
   },
   components: {
@@ -48,7 +40,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 .tile-buttons {
   width: 220px;
   height: 220px;
@@ -62,5 +54,9 @@ export default {
 
 .mt-20 {
   margin-top: 50px;
+}
+
+.background {
+  background-color: darkblue;
 }
 </style>
