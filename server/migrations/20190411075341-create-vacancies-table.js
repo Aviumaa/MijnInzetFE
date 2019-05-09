@@ -26,6 +26,9 @@ module.exports = {
       contactHours: {
         type: Sequelize.INTEGER
       },
+      contactPerson: {
+        type: Sequelize.STRING,
+      },
       startDate: {
         type: Sequelize.DATE
       },
@@ -34,6 +37,13 @@ module.exports = {
       },
       openSlots: {
         type: Sequelize.INTEGER
+      },
+      task: {
+        type: Sequelize.STRING,
+      },
+      title: {
+        type: Sequelize.STRING,
+        allowNull: false
       },
       createdAt: {
         allowNull: false,

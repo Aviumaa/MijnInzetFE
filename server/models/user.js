@@ -25,6 +25,3 @@ module.exports = (sequelize, Sequelize) => {
 
   return User;
 };
-
-exports.User = User;
-exports.validate = validateUser;

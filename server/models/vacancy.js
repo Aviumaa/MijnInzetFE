@@ -9,6 +9,12 @@ module.exports = (sequelize, Sequelize) => {
     name: {
       type: Sequelize.STRING
     },
+    task: {
+      type: Sequelize.STRING,
+    },
+    title: {
+      type: Sequelize.STRING,
+    },
     description: {
       type: Sequelize.TEXT
     },
@@ -24,6 +30,9 @@ module.exports = (sequelize, Sequelize) => {
     contactHours: {
       type: Sequelize.INTEGER
     },
+    contactPerson: {
+      type: Sequelize.STRING,
+    },
     startDate: {
       type: Sequelize.DATE
     },
@@ -32,58 +41,18 @@ module.exports = (sequelize, Sequelize) => {
     },
     openSlots: {
       type: Sequelize.INTEGER
+    },
+    task: {
+      type: Sequelize.STRING
     }
   });
-'use strict';
 
-module.exports = (sequelize, type) => {
+  Vacancy.associate = models => {
+    Vacancy.hasMany(models.UserVacancy, {
+        foreignKey: "vacancy"
+    });
+};
 
-    const Vacancy = sequelize.define('vacancy', {
-        id: {
-            type: type.INTEGER,
-            primaryKey: true,
-            autoIncrement: true
-        },
-        task: {
-            type: type.STRING,
-            allowNull: false
-        },
-        title: {
-          type: type.STRING,
-          allowNull: false
-        },
-        description: {
-            type: type.TEXT,
-        },
-        contactPerson: {
-            type: type.STRING,
-        },
-        period: {
-            type: type.STRING,
-        },
-        typeCourse: {
-            type: type.STRING,
-        },
-        contactHours: {
-            type: type.INTEGER,
-        },
-        startDate: {
-            type: type.DATE,
-        },
-        endDate: {
-            type: type.DATE,
-        },
-        openSlots: {
-            type: type.INTEGER,
-            allowNull: false
-        },
-    })
+return Vacancy;
 
-    Vacancy.associate = models => {
-        Vacancy.hasMany(models.UserVacancy, {
-            foreignKey: "vacancy"
-        });
-    };
-
-    return Vacancy
 }

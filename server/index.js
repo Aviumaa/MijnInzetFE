@@ -15,7 +15,6 @@ const roles = require("./routes/roles");
 const auth = require("./routes/auth");
 const express = require("express");
 const cors = require('cors');
-const userVacancy = require('./routes/userVacancies');
 const app = express();
 const {
   User,
