@@ -6,7 +6,15 @@ module.exports = {
     up: (queryInterface, Sequelize) => {
         const newData = [];
 
-        const roles = ["Administrateur", "Manager", "Docent", "Roosteraar"];
+        const roles = [
+            "Administrateur",
+            "Docent",
+            "Onderwijsprogrammacoordinator",
+            "Projectcoordinator",
+            "Modulecoordinator",
+            "Facilitator",
+            "Roosteraar"
+        ];
 
         for (let i = 0; roles.length > i; i++) {
             const seedData = {
