@@ -2,7 +2,8 @@ const _ = require('lodash')
 const { User } = require('../sequelize');
 const express = require('express');
 const router = express.Router();
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
 const loginController = require("../controllers/loginController");
 
@@ -23,9 +24,34 @@ router.post('/crypt/', async (req, res) => {
 
 
 router.get('/', (req, res) => {
-    User.findAll({
-        attributes: ['id', 'username', 'password', 'createdAt', 'updatedAt']
-    }).then(users => res.json(users))
+    // check header for the token
+    var token = req.cookies.token;
+    console.log(token);
+
+    // decode token
+    if (token) {
+
+      // verifies secret and checks if the token is expired
+      jwt.verify(token, "secretkey", (err, decoded) =>{      
+        if (err) {
+          return res.json({ message: err });    
+        } else {
+          // if everything is good, save to request for use in other routes
+          req.decoded = decoded;    
+          console.log('token is gucci');
+          return res.status(200).json(decoded);
+        }
+      });
+
+    } else {
+
+      // if there is no token  
+
+      res.send({ 
+
+          message: 'No token provided.' 
+      });
+    }
 })
 
 router.post('/isAdmin', loginController.isUserAdministrator)

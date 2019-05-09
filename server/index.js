@@ -12,6 +12,7 @@ const vacancies = require('./routes/vacancies');
 const roles = require('./routes/roles');
 const auth = require('./routes/auth');
 const userVacancy = require('./routes/userVacancies');
+const cookieParser = require('cookie-parser');
 const express = require('express');
 const app = express();
 const {
@@ -49,6 +50,7 @@ app.set('views', './views');
 // console.log(`NODE_ENV: ${process.env.NODE_ENV}`);
 // console.log(`app: ${app.get('env')}`);
 
+app.use(cookieParser());
 app.use(bodyParser.json())
 app.use(express.urlencoded({
   extended: true
