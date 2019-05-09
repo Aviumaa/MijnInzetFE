@@ -17,7 +17,6 @@
                 >
                   {{timeslot}}
                   <input
-                    @click="logger"
                     v-model="checkboxes"
                     :value="day + '-' + timeslot"
                     class="border"
@@ -79,10 +78,6 @@ export default {
   methods: {
     isChecked(value) {
       return this.checkboxes.includes(value);
-    },
-    logger(event) {
-      // console.log("checkboxes: " + this.checkboxes);
-      // console.log(event.target.value);
     },
     sendAvailability(checkboxes) {
       axios

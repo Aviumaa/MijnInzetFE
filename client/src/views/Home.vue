@@ -9,7 +9,7 @@
         ></tile-button>
         <tile-button
           @click.native="navigateTo({name: 'availability'})"
-          class="indigo lighten-1"
+          class="teal lighten-1"
           title="Availability"
         ></tile-button>
         <tile-button
