@@ -14,6 +14,10 @@ module.exports = (sequelize, Sequelize) => {
   });
 
   User.associate = models => {
+    User.hasMany(models.UserVacancy, {
+      foreignKey: "user"
+    });
+
     User.hasMany(models.Timeslot, {
       foreignKey: "user_id"
     });
@@ -21,3 +25,6 @@ module.exports = (sequelize, Sequelize) => {
 
   return User;
 };
+
+exports.User = User;
+exports.validate = validateUser;

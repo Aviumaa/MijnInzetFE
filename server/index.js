@@ -10,6 +10,7 @@ const home = require("./routes/home");
 const users = require("./routes/users");
 const vacancies = require("./routes/vacancies");
 const timeslots = require("./routes/timeslots");
+const userVacancy = require("./routes/userVacancies");
 const roles = require("./routes/roles");
 const auth = require("./routes/auth");
 const express = require("express");
@@ -23,10 +24,9 @@ const {
   Timeslot,
   WeekSchedule,
   Vacancy,
-    UserVacancy,
-
-} = require('./sequelize')
-const bodyParser = require('body-parser')
+  UserVacancy
+} = require("./sequelize");
+const bodyParser = require("body-parser");
 
 // Add headers
 app.use(cors());

@@ -34,7 +34,7 @@ import TileButton from "@/components/TileButton.vue";
 export default {
   data() {
     return {
-      vacancyText: 'Hello Vue.\nThis ext.\nAnother line of text.\n'
+      vacancyText: "Hello Vue.\nThis ext.\nAnother line of text.\n"
     };
   },
   components: {
