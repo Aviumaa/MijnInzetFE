@@ -1,5 +1,17 @@
 <template>
-  <v-btn class="tile-buttons white--text font-weight-bold title" font-weight-bold>{{title}}</v-btn>
+  <v-btn
+    class="tile-buttons 
+           white--text 
+           font-weight-bold 
+           title 
+           mt-5 
+           text-md-center">
+    <br>
+    {{title}}
+    <br>
+    <br>
+    {{newLine}}
+  </v-btn>
 </template>
 
 <script>
@@ -7,7 +19,7 @@ export default {
   data() {
     return {};
   },
-  props: ["title"]
+  props: ["title", "newLine"]
 };
 </script>
 

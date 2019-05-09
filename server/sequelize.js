@@ -52,9 +52,11 @@ const Timeslot = TimeslotModel(sequelize, Sequelize);
 //   });
 
 module.exports = {
-  User,
-  Vacancy,
-  Role,
-  Timeslot,
-  WeekSchedule
-};
+    User,
+    Vacancy,
+    UserVacancy,
+    Role,
+    Timeslot,
+    WeekSchedule
+}
+
