@@ -46,8 +46,7 @@ app.use(function(req, res, next) {
 });
 app.set("view engine", "pug");
 app.set("views", "./views");
-// console.log(`NODE_ENV: ${process.env.NODE_ENV}`);
-// console.log(`app: ${app.get('env')}`);
+
 app.use(bodyParser.json());
 app.use(
   express.urlencoded({
@@ -55,25 +54,21 @@ app.use(
   })
 ); //key=value&key=value
 app.use(express.static("public"));
-app.use(helmet());
 app.use(logger);
 // app.use('/api/courses', courses);
 // app.use('/', home);
 app.use("/api/users", users);
 app.use("/api/vacancies", vacancies);
 app.use("/api/roles", roles);
-// app.use('/api/auth', auth);
+
 //Configuration
-console.log("Application Name: " + config.get("name"));
-console.log("Mail Server: " + config.get("mail.host"));
-//console.log('Mail Password: ' + config.get('mail.password'));
 if (app.get("env") === "development") {
   app.use(morgan("tiny"));
   startupDebugger("morgan enabled...");
 }
 dbDebugger("Connected to the database...");
-var key = fs.readFileSync("rootCA.key");
-var cert = fs.readFileSync("rootCA.pem");
+var key = fs.readFileSync("20181992_oege.ie.hva.nl.key");
+var cert = fs.readFileSync("20181992_oege.ie.hva.nl.cert");
 var options = {
   key: key,
   cert: cert,
