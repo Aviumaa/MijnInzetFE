@@ -72,7 +72,7 @@ if (app.get("env") === "development") {
   startupDebugger("morgan enabled...");
 }
 dbDebugger("Connected to the database...");
-var key = fs.readFileSync("rootCa.key");
+var key = fs.readFileSync("rootCA.key");
 var cert = fs.readFileSync("rootCA.pem");
 var options = {
   key: key,
