@@ -6,15 +6,27 @@
           @click.native="navigateTo({name: 'reports'})"
           class="tile-buttons"
           title="Taakoverzicht"
+          icon="view_list"
         ></tile-button>
-        <tile-button @click.native="navigateTo({name: 'reports'})" class title="Beschikbaarheid"></tile-button>
+        <tile-button
+          @click.native="navigateTo({name: 'reports'})"
+          class
+          title="Beschikbaarheid"
+          icon="event_available"
+        ></tile-button>
         <tile-button
           @click.native="navigateTo({name: 'vacancies'})"
           class
           title="Openstaande"
           newLine="vacatures"
+          icon="assignment"
         ></tile-button>
-        <tile-button @click.native="navigateTo({name: 'roster'})" class title="Mijn Profiel"></tile-button>
+        <tile-button
+          @click.native="navigateTo({name: 'roster'})"
+          class
+          title="Mijn Profiel"
+          icon="face"
+        ></tile-button>
       </v-flex>
     </v-layout>
   </v-container>
