@@ -80,7 +80,7 @@ const hostname = "0.0.0.0";
 const port = 8000;
 console.log("hostname: " + hostname);
 console.log("port: " + port);
-https.createServer(app).listen(port, hostname, () => {
+http.createServer(app).listen(port, hostname, () => {
   console.log(`Server running at https://oege.ie.hva.nl:${hostname}:${port}/`);
 });
 
