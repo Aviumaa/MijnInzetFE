@@ -76,11 +76,11 @@ dbDebugger("Connected to the database...");
 // };
 
 const http = require("http");
-const hostname = "0.0.0.0";
-const port = 8000;
+const hostname = "oege.ie.hva.nl";
+const port = 3306;
 console.log("hostname: " + hostname);
 console.log("port: " + port);
-http.createServer(app).listen(port, hostname, () => {
+https.createServer(app).listen(port, hostname, () => {
   console.log(`Server running at https://oege.ie.hva.nl:${hostname}:${port}/`);
 });
 
