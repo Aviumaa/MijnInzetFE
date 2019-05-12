@@ -76,7 +76,7 @@ dbDebugger("Connected to the database...");
 // };
 
 const http = require("http");
-const hostname = "oege.ie.hva.nl";
+const hostname = "oege.ie.hva.nl/~goosb001/";
 const port = 3307;
 console.log("hostname: " + hostname);
 console.log("port: " + port);
