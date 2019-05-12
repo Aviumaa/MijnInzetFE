@@ -67,19 +67,19 @@ if (app.get("env") === "development") {
   startupDebugger("morgan enabled...");
 }
 dbDebugger("Connected to the database...");
-var key = fs.readFileSync("20181992_oege.ie.hva.nl.key");
-var cert = fs.readFileSync("20181992_oege.ie.hva.nl.cert");
-var options = {
-  key: key,
-  cert: cert,
-  passphrase: "goosb001"
-};
+// var key = fs.readFileSync("20181992_oege.ie.hva.nl.key");
+// var cert = fs.readFileSync("20181992_oege.ie.hva.nl.cert");
+// var options = {
+//   key: key,
+//   cert: cert,
+//   passphrase: "goosb001"
+// };
 
-const http = require("https");
+const http = require("http");
 const hostname = "0.0.0.0";
-const port = 8000;
+const port = 80;
 console.log("hostname: " + hostname);
 console.log("port: " + port);
-https.createServer(options, app).listen(port, hostname, () => {
+https.createServer(app).listen(port, hostname, () => {
   console.log(`Server running at https://${hostname}:${port}/`);
 });
