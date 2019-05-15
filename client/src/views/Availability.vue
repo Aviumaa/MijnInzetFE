@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-layout row>
-      <v-flex class="center">
+      <v-flex>
         <HeaderTitle title="Beschikbaarheid"/>
 
         <v-layout row>
