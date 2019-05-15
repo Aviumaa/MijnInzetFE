@@ -2,7 +2,12 @@
     <v-container>
         <v-layout>
             <v-flex>
-                <HeaderTitle title="Vacatures" subTitle="* uur beschikbaar"></HeaderTitle>
+                <div class="upperRow">
+                    <HeaderTitle title="Vacatures" subTitle="* uur beschikbaar"></HeaderTitle>
+                    <v-btn @click="navigateTo({name: 'createvacancy'})" fab dark color="indigo darken-4">
+                        <v-icon dark>add</v-icon>
+                    </v-btn>
+                </div>
                 <VacanciesDashboard :headers="headers" :content="vacancies"></VacanciesDashboard>
             </v-flex>
         </v-layout>
@@ -77,9 +82,19 @@
                 .catch(error => {
                     console.log(error);
                 });
+        },
+        methods: {
+            navigateTo(route) {
+                this.$router.push(route);
+            }
         }
     };
 </script>
 
 <style scoped>
+    .upperRow {
+        display: flex;
+        justify-content: space-between;
+    }
+
 </style>

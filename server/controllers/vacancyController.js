@@ -46,3 +46,23 @@ exports.getVacanciesClosed = (req, res) => {
     res.status(200).json(userResponse)
   })
 }
+
+//POST a new Vacancy
+exports.postVacancy = (req, res) => {
+  Vacancy.create({
+    task: req.body.task,
+    title: req.body.title,
+    description: req.body.description,
+    contactPerson: req.body.contactPerson,
+    period: req.body.period,
+    typeCourse: req.body.typeCourse,
+    contactHours: req.body.contactHours,
+    startDate: req.body.startDate,
+    endDate: req.body.endDate,
+    openSlots: req.body.openSlots,
+    createdAt: new Date(),
+    updatedAt: new Date()
+  })
+      .then(userVacancies => res.json(userVacancies))
+      .catch(err => console.error(err));
+};

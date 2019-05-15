@@ -37,12 +37,11 @@ export default new Router({
       path: "/vacancies",
       name: "vacancies",
       component: Vacancies
-
     },
     {
       path: "/createvacancy",
       name: "createvacancy",
       component: CreateVacancy
-    }
+    },
   ]
 });
