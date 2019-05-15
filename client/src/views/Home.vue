@@ -45,11 +45,6 @@ export default {
 </script>
 
 <style>
-.tile-buttons {
-  width: 220px;
-  height: 220px;
-}
-
 .center {
   display: flex;
   justify-content: center;
