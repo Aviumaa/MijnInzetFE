@@ -12,9 +12,9 @@
         >
             <template v-slot:items="props">
                 <tr @click="showModal(props.item)">
-                    <td class="px-3">{{ props.item.name }}</td>
-                    <td class="px-3 description ellipsis">{{ props.item.description }}</td>
-                    <td class="px-3">{{ props.item.moduleCoordinator }}</td>
+                    <td class="px-3">{{ props.item.task }}</td>
+                    <td class="px-3">{{ props.item.title }}</td>
+                    <td class="px-3">{{ props.item.contactPerson }}</td>
                     <td class="px-3">{{ props.item.period }}</td>
                     <td class="px-3">{{ props.item.typeCourse }}</td>
                     <td class="px-3">{{ props.item.contactHours }}</td>
@@ -22,7 +22,7 @@
             </template>
         </v-data-table>
         <div class="text-xs-right pt-2">
-            <v-pagination v-model="pagination.page" :length="pages" color="black"></v-pagination>
+            <v-pagination v-model="pagination.page" :length="pages" :total-visible="7" color="black"></v-pagination>
         </div>
 
         <v-dialog v-model="dialog" max-width="400">
@@ -34,7 +34,7 @@
                 </div>
                 <v-card-text>
                     <div class="informationRow">
-                        <div class="information"><strong>Coördinator: </strong>{{this.selected.moduleCoordinator}}</div>
+                        <div class="information"><strong>Contactpersoon: </strong>{{this.selected.contactPerson}}</div>
                         <div class="information" max-width="50px"><strong>Beschrijving: </strong>{{this.selected.description}}
                         </div>
                         <div class="information"><strong>Openstaande uren: </strong>{{this.selected.contactHours}}</div>
@@ -43,7 +43,8 @@
                 </v-card-text>
                 <v-card-actions>
                     <v-spacer></v-spacer>
-                    <v-btn round color="indigo darken-4" class="solliciteerButton" @click="solliciteer()">Solliciteer
+                    <v-btn round color="indigo darken-4" class="applyToVacancyButton" @click="applyToVacancy()">
+                        Solliciteer
                     </v-btn>
                     <v-spacer></v-spacer>
                 </v-card-actions>
@@ -63,7 +64,7 @@
                 pagination: {
                     search: "",
                     page: 1,
-                    rowsPerPage: 25
+                    rowsPerPage: 10
                 },
                 selected: [],
                 search: "",
@@ -92,7 +93,7 @@
                 this.selected = item;
                 this.dialog = true;
             },
-            solliciteer() {
+            applyToVacancy() {
                 axios.post('http://localhost:3000/api/UserVacancies', {
                     vacancyId: this.selected.id,
                     userId: 1
@@ -118,7 +119,7 @@
         height: 4.5em;
     }
 
-    .solliciteerButton {
+    .applyToVacancyButton {
         color: white;
         margin-bottom: 10px;
 
