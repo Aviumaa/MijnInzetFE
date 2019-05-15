@@ -24,22 +24,22 @@
             return {
                 headers: [
                     {
-                        text: "Vak",
+                        text: "Taak",
                         sortable: true,
-                        value: "name",
+                        value: "task",
                         width: "15%",
                         class: "px-3"
                     },
                     {
-                        text: "Beschrijving",
+                        text: "Titel",
                         sortable: true,
-                        value: "description",
+                        value: "title",
                         class: "px-3"
                     },
                     {
-                        text: "Module coordinator",
+                        text: "Contactpersoon",
                         sortable: true,
-                        value: "moduleCoordinator",
+                        value: "contactPerson",
                         width: "10%",
                         class: "px-3"
                     },
@@ -58,7 +58,7 @@
                         class: "px-3"
                     },
                     {
-                        text: "Contacttijd",
+                        text: "Inzet (uren)",
                         sortable: true,
                         value: "contactHours",
                         width: "2%",
@@ -72,11 +72,6 @@
         components: {
             HeaderTitle,
             VacanciesDashboard
-        },
-        methods: {
-            navigateTo(route) {
-                this.$router.push(route);
-            }
         },
         mounted() {
             axios

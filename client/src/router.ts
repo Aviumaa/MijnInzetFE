@@ -3,7 +3,7 @@ import Router from "vue-router";
 import Login from "./components/Login.vue";
 import Home from "./views/Home.vue";
 import Report from "./views/Report.vue";
-import Roster from "./views/Roster.vue";
+import Availability from "./views/Availability.vue";
 import Vacancies from "./views/Vacancies.vue";
 import CreateVacancy from "./views/CreateVacancy.vue";
 
@@ -29,9 +29,9 @@ export default new Router({
       component: Report
     },
     {
-      path: "/roster",
-      name: "roster",
-      component: Roster
+      path: "/availability",
+      name: "availability",
+      component: Availability
     },
     {
       path: "/vacancies",

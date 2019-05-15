@@ -32,22 +32,24 @@ const Vacancy = VacancyModel(sequelize, Sequelize);
 const UserVacancy = UserVacancyModel(sequelize, Sequelize);
 const WeekSchedule = WeekScheduleModel(sequelize, Sequelize);
 const Timeslot = TimeslotModel(sequelize, Sequelize);
-User.belongsToMany(Vacancy, {
-  through: UserVacancy
-});
-Vacancy.belongsToMany(User, {
-  through: UserVacancy
-});
-Role.hasMany(User);
-WeekSchedule.hasMany(Timeslot);
-User.hasMany(WeekSchedule);
+// User.belongsToMany(Vacancy, {
+//   through: UserVacancy
+// });
+// Vacancy.belongsToMany(User, {
+//   through: UserVacancy
+// });
+// Role.hasMany(User);
+// WeekSchedule.hasMany(Timeslot);
+// User.hasMany(Timeslot);
+// Timeslot.belongsTo(User);
 
-// sequelize.sync({
-//         force: true
-//     })
-//     .then(() => {
-//         console.log(`Database & tables created!`)
-//     })
+// sequelize
+//   .sync({
+//     force: true
+//   })
+//   .then(() => {
+//     console.log(`Database & tables created!`);
+//   });
 
 module.exports = {
     User,
