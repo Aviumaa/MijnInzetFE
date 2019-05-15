@@ -76,12 +76,12 @@ dbDebugger("Connected to the database...");
 // };
 
 const http = require("http");
-const hostname = "oege.ie.hva.nl/~goosb001";
+const hostname = "oege.ie.hva.nl";
 const port = 3307;
 console.log("hostname: " + hostname);
 console.log("port: " + port);
 https.createServer(app).listen(port, hostname, () => {
-  console.log(`Server running at https://oege.ie.hva.nl:${hostname}:${port}/`);
+  console.log(`Server running at https://oege.ie.hva.nl/${hostname}:${port}/`);
 });
 
 //https://oege.ie.hva.nl:3307/api/vacancies/
