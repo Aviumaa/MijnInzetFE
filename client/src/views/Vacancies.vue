@@ -82,6 +82,11 @@
                 .catch(error => {
                     console.log(error);
                 });
+        },
+        methods: {
+            navigateTo(route) {
+                this.$router.push(route);
+            }
         }
     };
 </script>
