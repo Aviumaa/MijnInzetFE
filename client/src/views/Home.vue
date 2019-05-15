@@ -8,9 +8,9 @@
           icon="view_list"
         ></tile-button>
         <tile-button
-          @click.native="navigateTo({name: 'reports'})"
-          title="Beschikbaarheid"
-          icon="event_available"
+          @click.native="navigateTo({name: 'availability'})"
+          class="teal lighten-1"
+          title="Availability"
         ></tile-button>
         <tile-button
           @click.native="navigateTo({name: 'vacancies'})"
