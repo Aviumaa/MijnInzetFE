@@ -5,7 +5,7 @@
     <br>
     <br>
     {{newLine}}
-    <v-icon right class="icon">{{icon}}</v-icon>
+    <v-icon right class="icon" color="teal darken-2">{{icon}}</v-icon>
   </v-btn>
 </template>
 
@@ -30,6 +30,5 @@ export default {
   margin-top: 75px;
   margin-left: 70px;
   font-size: 45px;
-  color: darkcyan !important;
 }
 </style>
