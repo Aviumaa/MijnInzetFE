@@ -55,16 +55,19 @@ export default {
   },
   mounted(){
     axios
-        .post(`http://localhost:3000/api/users/isAdmin`,{
-              userId: 1
-        })
+        .get(`http://localhost:3000/api/users/`, {
+          withCredentials: true
+          })
         .then(response => {
           if (response.data != null){
             this.roleId = response.data.roleId;
+            console.log("responsedata null");
             console.log(this.roleId);
+            console.log(response.data);
           }
         })
         .catch(e => {
+          console.log(e);
           //this.errors.push(e);
         });
   }

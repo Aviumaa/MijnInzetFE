@@ -26,6 +26,7 @@ router.post('/crypt/', async (req, res) => {
 router.get('/', (req, res) => {
     // check header for the token
     var token = req.cookies.token;
+    console.log("token is");
     console.log(token);
 
     // decode token

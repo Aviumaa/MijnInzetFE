@@ -51,13 +51,13 @@ export default {
         .post(`http://localhost:3000/api/users/login`,{
               username: this.user.username,
               password: this.user.password
-        })
+        }, {withCredentials: true})
         .then(response => {
           // JSON responses are automatically parsed.
-          console.log(response.status);
+          console.log(response);
           if (response.status == "200"){
             // success
-            window.location = "/";
+            //window.location = "/";
           }
           else{
             // invalid credentials
