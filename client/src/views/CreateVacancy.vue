@@ -79,7 +79,7 @@
                                         v-on="on"
                                 ></v-text-field>
                             </template>
-                            <v-date-picker v-model="startDate" no-title scrollable/>
+                            <v-date-picker v-model="startDate" :min="currentDate" no-title scrollable/>
                         </v-menu>
                         <v-menu
                                 ref="secondMenu"
@@ -101,7 +101,7 @@
                                         v-on="on"
                                 ></v-text-field>
                             </template>
-                            <v-date-picker v-model="endDate" no-title scrollable/>
+                            <v-date-picker v-model="endDate" :min="currentDate" no-title scrollable/>
                         </v-menu>
                     </v-card-text>
                     <v-divider class="mt-5"></v-divider>
@@ -150,7 +150,9 @@
             secondMenu: false,
             startDate: '',
             endDate: '',
-            openSlots: 1
+            openSlots: 1,
+
+            currentDate: new Date().toISOString()
         }),
         components: {
             HeaderTitle,
