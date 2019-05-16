@@ -26,10 +26,10 @@
         ></tile-button>
 
         <tile-button
-          v-if="roleId == 3"
+          v-if="roleId == 1"
           @click.native="navigateTo({name: '#'})"
-          title="Onderwijsprogramma"
-          newLine="beheren"
+          title="Onderwijs"
+          newLine="programma beheren"
         ></tile-button>
 
         <tile-button
