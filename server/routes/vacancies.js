@@ -13,13 +13,6 @@ router.get("/closed", vacancyController.getVacanciesClosed);
 
 router.get("/:vacancyId", vacancyController.getVacancyById);
 
-router.post("/", (req, res) => {
-  Vacancy.create({
-      name: req.body.name,
-      openSlots: req.body.openSlots
-    })
-    .then(vacancies => res.json(vacancies))
-    .catch(err => console.error(err));
-});
+router.post("/", vacancyController.postVacancy);
 
 module.exports = router;

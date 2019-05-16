@@ -1,43 +1,48 @@
-'use strict';
-
-module.exports = (sequelize, type) => {
-
-    const Vacancy = sequelize.define('vacancy', {
+"use strict";
+module.exports = (sequelize, Sequelize) => {
+    const Vacancy = sequelize.define("vacancy", {
         id: {
-            type: type.INTEGER,
+            type: Sequelize.INTEGER,
             primaryKey: true,
             autoIncrement: true
         },
         name: {
-            type: type.STRING,
-            allowNull: false
+            type: Sequelize.STRING
+        },
+        task: {
+            type: Sequelize.STRING,
+        },
+        title: {
+            type: Sequelize.STRING,
         },
         description: {
-            type: type.TEXT,
+            type: Sequelize.TEXT
         },
         moduleCoordinator: {
-            type: type.STRING,
+            type: Sequelize.STRING
         },
         period: {
-            type: type.STRING,
+            type: Sequelize.STRING
         },
         typeCourse: {
-            type: type.STRING,
+            type: Sequelize.STRING
         },
         contactHours: {
-            type: type.INTEGER,
+            type: Sequelize.INTEGER
+        },
+        contactPerson: {
+            type: Sequelize.STRING,
         },
         startDate: {
-            type: type.DATE,
+            type: Sequelize.DATE
         },
         endDate: {
-            type: type.DATE,
+            type: Sequelize.DATE
         },
         openSlots: {
-            type: type.INTEGER,
-            allowNull: false
-        },
-    })
+            type: Sequelize.INTEGER
+        }
+    });
 
     Vacancy.associate = models => {
         Vacancy.hasMany(models.UserVacancy, {
@@ -45,5 +50,6 @@ module.exports = (sequelize, type) => {
         });
     };
 
-    return Vacancy
+    return Vacancy;
+
 }

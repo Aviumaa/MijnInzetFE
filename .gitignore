@@ -21,3 +21,4 @@ yarn-error.log*
 *.sln
 *.sw*
 npmi
+server/config/config\.json

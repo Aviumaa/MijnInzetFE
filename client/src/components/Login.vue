@@ -52,34 +52,22 @@ export default {
     login() {
       console.log(this.user);
       axios
-        .post(`http://localhost:3000/api/users/login`,{
-              username: this.user.username,
-              password: this.user.password
-        }, {withCredentials: true})
+        .post(
+          `http://localhost:3000/api/users/login`,
+          {
+            username: this.user.username,
+            password: this.user.password
+          },
+          { withCredentials: true }
+        )
         .then(response => {
           // JSON responses are automatically parsed.
-          if (response.status == "200"){
+          console.log("response: " + response.data);
+          if (response.status == "200") {
             // success
-            //window.location = "/";
-
-            let token = response.data;
-            jwt.verify(token, "secretkey", (err, decoded) => {
-            if (err) {
-              console.log(err);
-              return res.json({
-                success: false,
-                message: 'Token is not valid'
-              });
-            } else {
-              console.log(decoded);
-              req.decoded = decoded;
-              res.json({
-                message: req.decoded
-              })
-            }
-          });
-          }
-          else{
+            window.localStorage.setItem("token", response.data);
+            window.location = "/";
+          } else {
             // invalid credentials
           }
         })
