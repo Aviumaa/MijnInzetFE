@@ -27,7 +27,8 @@
     "nodemon": "^1.18.10",
     "pug": "^2.0.3",
     "sequelize": "^5.6.0",
-    "sequelize-cli": "^5.4.0"
+    "sequelize-cli": "^5.4.0",
+    "vuejs-jwt": "^1.1.0"
   },
   "devDependencies": {
     "jshint": "^2.10.2"

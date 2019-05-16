@@ -48,18 +48,22 @@ export default {
     login() {
       console.log(this.user);
       axios
-        .post(`http://localhost:3000/api/users/login`,{
-              username: this.user.username,
-              password: this.user.password
-        }, {withCredentials: true})
+        .post(
+          `http://localhost:3000/api/users/login`,
+          {
+            username: this.user.username,
+            password: this.user.password
+          },
+          { withCredentials: true }
+        )
         .then(response => {
           // JSON responses are automatically parsed.
-          console.log(response);
-          if (response.status == "200"){
+          console.log("response: " + response.data);
+          if (response.status == "200") {
             // success
-            //window.location = "/";
-          }
-          else{
+            window.localStorage.setItem("token", response.data);
+            window.location = "/";
+          } else {
             // invalid credentials
           }
         })

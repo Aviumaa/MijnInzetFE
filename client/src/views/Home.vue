@@ -47,6 +47,8 @@
 import TileButton from "@/components/TileButton.vue";
 import axios from "axios";
 
+import jwt_decode from "jwt-decode";
+
 export default {
   data() {
     /*const ADMINISTRATEUR = 1;
@@ -69,23 +71,32 @@ export default {
       this.$router.push(route);
     }
   },
-  mounted(){
+  mounted() {
+    console.log("token jwt: " + localStorage.getItem("token"));
+    let token = localStorage.getItem("token");
+
+    // let token =
+    //   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTAwMDAwMSwidXNlcm5hbWUiOiJkb2NlbnQiLCJyb2xlIjoyLCJpYXQiOjE1NTc5OTkwODAsImV4cCI6MTU1ODAwMjY4MH0.M-piHCzQPNtfivFI5kdvxrZjlxO9astnAsVgWPm0lI8";
+
+    let decoded = jwt_decode(token);
+    console.log("decoded token: " + decoded.role);
+
     axios
-        .get(`http://localhost:3000/api/users/`, {
-          withCredentials: true
-          })
-        .then(response => {
-          if (response.data != null){
-            this.roleId = response.data.roleId;
-            console.log("responsedata null");
-            console.log(this.roleId);
-            console.log(response.data);
-          }
-        })
-        .catch(e => {
-          console.log(e);
-          //this.errors.push(e);
-        });
+      .get(`http://localhost:3000/api/users/`, {
+        withCredentials: true
+      })
+      .then(response => {
+        if (response.data != null) {
+          this.roleId = response.data.roleId;
+          console.log("responsedata null");
+          console.log(this.roleId);
+          console.log(response.data);
+        }
+      })
+      .catch(e => {
+        console.log(e);
+        //this.errors.push(e);
+      });
   }
 };
 </script>
