@@ -50,6 +50,8 @@
                 </v-card-actions>
             </v-card>
         </v-dialog>
+        <loading-dialog ref="loadingDialog"/>
+        <response-dialog ref="responseDialog"/>
     </div>
 </template>
 
@@ -57,6 +59,8 @@
 <script>
     import HeaderTitle from "@/components/HeaderTitle.vue";
     import axios from "axios";
+    import LoadingDialog from "@/components/LoadingDialog.vue";
+    import ResponseDialog from "./ResponseDialog";
 
     export default {
         data() {
@@ -68,7 +72,8 @@
                 },
                 selected: [],
                 search: "",
-                dialog: false
+                dialog: false,
+                status
             };
         },
         props: ["headers", "content"],
@@ -94,18 +99,33 @@
                 this.dialog = true;
             },
             applyToVacancy() {
+                this.dialog = false;
+                this.$refs.loadingDialog.open('Verzoek indienen');
                 axios.post('http://localhost:3000/api/UserVacancies', {
                     vacancyId: this.selected.id,
                     userId: 1
-                }).then(function (response) {
-                    console.log(response);
+                }).then((response) => {
+                    if (response.status === 201) {
+                        this.status = response.status;
+                        this.openResponseDialog(this.status);
+                    }
                 }).catch(function (error) {
                     console.log(error);
                 });
+            },
+            openResponseDialog(responseStatus) {
+                this.$refs.loadingDialog.close();
+                if (responseStatus === 201) {
+                    this.$refs.responseDialog.open('Verzoek is ingediend', "done");
+                } else {
+                    this.$refs.responseDialog.open('Verzoek kon niet worden ingediend', "clear");
+                }
             }
         },
         components: {
-            HeaderTitle
+            ResponseDialog,
+            HeaderTitle,
+            LoadingDialog
         }
     };
 </script>
