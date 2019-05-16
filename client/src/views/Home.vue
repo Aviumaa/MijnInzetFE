@@ -20,14 +20,14 @@
         ></tile-button>
         <tile-button
           @click.native="navigateTo({name: 'roster'})"
-          class="teal lighten-1"
-          title="Mijn Profiel"
+          title="Mijn"
+          newLine="Profiel"
+          icon="face"
         ></tile-button>
 
         <tile-button
           v-if="roleId == 3"
           @click.native="navigateTo({name: '#'})"
-          class="teal lighten-1"
           title="Onderwijsprogramma"
           newLine="beheren"
         ></tile-button>
@@ -37,7 +37,6 @@
                            roleId == 4 ||
                            roleId == 5"
           @click.native="navigateTo({name: '#'})"
-          class="teal lighten-1"
           title="Overzicht inzet"
         ></tile-button>
       </v-flex>
