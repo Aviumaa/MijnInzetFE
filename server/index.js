@@ -22,7 +22,7 @@ const {
   Timeslot,
   WeekSchedule,
   Vacancy,
-    UserVacancy,
+  UserVacancy,
 
 } = require('./sequelize')
 const bodyParser = require('body-parser')
@@ -32,7 +32,7 @@ const bodyParser = require('body-parser')
 // Add headers
 app.use(function (req, res, next) {
   // Website you wish to allow to connect
-  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8082');
+  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8081');
   // Request methods you wish to allow
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
   // Request headers you wish to allow

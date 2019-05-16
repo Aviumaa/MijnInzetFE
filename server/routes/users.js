@@ -53,7 +53,9 @@ router.get('/', (req, res) => {
           message: 'No token provided.' 
       });
     }
-})
+});
+
+router.get('/gebruikers', loginController.getUsers);
 
 router.post('/isAdmin', loginController.isUserAdministrator)
 

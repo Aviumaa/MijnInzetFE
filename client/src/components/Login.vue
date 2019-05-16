@@ -31,6 +31,10 @@ import axios from "axios";
 import Panel from "@/components/Panel.vue";
 import TileButton from "@/components/TileButton.vue";
 
+const jwt = require('jsonwebtoken');
+
+axios.defaults.withCredentials = true;
+
 export default {
   data() {
     return {
@@ -54,10 +58,26 @@ export default {
         }, {withCredentials: true})
         .then(response => {
           // JSON responses are automatically parsed.
-          console.log(response);
           if (response.status == "200"){
             // success
             //window.location = "/";
+
+            let token = response.data;
+            jwt.verify(token, "secretkey", (err, decoded) => {
+            if (err) {
+              console.log(err);
+              return res.json({
+                success: false,
+                message: 'Token is not valid'
+              });
+            } else {
+              console.log(decoded);
+              req.decoded = decoded;
+              res.json({
+                message: req.decoded
+              })
+            }
+          });
           }
           else{
             // invalid credentials

@@ -56,9 +56,11 @@ export default {
     const MODULE_COORDINATOR = 5;
     const FACILITATOR = 6;
     const ROOSTERAAR = 7;*/
+
+    const roleId = 0;
     return {
       vacancyText: 'Hello Vue.\nThis ext.\nAnother line of text.\n',
-      roleId: 3
+      roleId: 4
     };
   },
   components: {
@@ -78,7 +80,7 @@ export default {
           if (response.data != null){
             this.roleId = response.data.roleId;
             console.log("responsedata null");
-            console.log(this.roleId);
+            console.log(roleId);
             console.log(response.data);
           }
         })

@@ -60,10 +60,16 @@ exports.doLogin = async (req, res) => {
     res.status(401).json({message: "No role info found in database"});
   } else{
     var token = jwt.sign({ id: userData.id, username: userData.username, role: roleData.roleId }, "secretkey", cookie_options);
-    res.cookie('token', token, {httpOnly: true, secure: true}).status(200).json(userData);
+    res.cookie('token', token, {httpOnly: true, secure: true}).status(200).json(token);
   }
   
 };
+
+exports.getUsers = (req,res) => {
+  User.findAll().then(userResponse => {
+    res.status(200).json(userResponse);
+  })
+}
 
 exports.isUserAdministrator = (req,res) => {
   var userId = req.body.userId;
