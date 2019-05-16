@@ -23,11 +23,20 @@
           class="teal lighten-1"
           title="Mijn Profiel"
         ></tile-button>
-        <tile-button v-if="roleId == 1"
+
+        <tile-button v-if="roleId == 3"
           @click.native="navigateTo({name: '#'})"
           class="teal lighten-1"
           title="Onderwijsprogramma"
           newLine="beheren"
+        ></tile-button>
+
+        <tile-button v-if="roleId == 3 ||
+                           roleId == 4 ||
+                           roleId == 5"
+          @click.native="navigateTo({name: '#'})"
+          class="teal lighten-1"
+          title="Overzicht inzet"
         ></tile-button>
       </v-flex>
     </v-layout>
@@ -40,9 +49,16 @@ import axios from "axios";
 
 export default {
   data() {
+    /*const ADMINISTRATEUR = 1;
+    const DOCENT = 2;
+    const ONDERWIJSPROGRAMMA_COORDINATOR = 3;
+    const PROJECT_COORDINATOR = 4;
+    const MODULE_COORDINATOR = 5;
+    const FACILITATOR = 6;
+    const ROOSTERAAR = 7;*/
     return {
       vacancyText: 'Hello Vue.\nThis ext.\nAnother line of text.\n',
-      roleId: ""
+      roleId: 3
     };
   },
   components: {
