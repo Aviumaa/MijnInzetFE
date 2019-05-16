@@ -24,14 +24,16 @@
           title="Mijn Profiel"
         ></tile-button>
 
-        <tile-button v-if="roleId == 3"
+        <tile-button
+          v-if="roleId == 3"
           @click.native="navigateTo({name: '#'})"
           class="teal lighten-1"
           title="Onderwijsprogramma"
           newLine="beheren"
         ></tile-button>
 
-        <tile-button v-if="roleId == 3 ||
+        <tile-button
+          v-if="roleId == 3 ||
                            roleId == 4 ||
                            roleId == 5"
           @click.native="navigateTo({name: '#'})"
@@ -59,7 +61,7 @@ export default {
     const FACILITATOR = 6;
     const ROOSTERAAR = 7;*/
     return {
-      vacancyText: 'Hello Vue.\nThis ext.\nAnother line of text.\n',
+      vacancyText: "Hello Vue.\nThis ext.\nAnother line of text.\n",
       roleId: 3
     };
   },
@@ -74,6 +76,7 @@ export default {
   mounted() {
     console.log("token jwt: " + localStorage.getItem("token"));
     let token = localStorage.getItem("token");
+    console.log(this.roleId);
 
     // let token =
     //   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTAwMDAwMSwidXNlcm5hbWUiOiJkb2NlbnQiLCJyb2xlIjoyLCJpYXQiOjE1NTc5OTkwODAsImV4cCI6MTU1ODAwMjY4MH0.M-piHCzQPNtfivFI5kdvxrZjlxO9astnAsVgWPm0lI8";
@@ -87,7 +90,7 @@ export default {
       })
       .then(response => {
         if (response.data != null) {
-          this.roleId = response.data.roleId;
+          this.roleId = decoded.role;
           console.log("responsedata null");
           console.log(this.roleId);
           console.log(response.data);
