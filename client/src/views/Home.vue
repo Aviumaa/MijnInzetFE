@@ -30,6 +30,7 @@
           @click.native="navigateTo({name: '#'})"
           title="Onderwijs"
           newLine="programma beheren"
+          icon="build"
         ></tile-button>
 
         <tile-button

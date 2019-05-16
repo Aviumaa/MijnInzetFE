@@ -23,8 +23,8 @@ export default {
   -webkit-box-shadow: 8px 11px 0px -2px rgba(0, 0, 0, 0.37);
   -moz-box-shadow: 8px 11px 0px -2px rgba(0, 0, 0, 0.37);
   box-shadow: 8px 11px 0px -2px rgba(0, 0, 0, 0.37);
-  width: 220px;
-  height: 220px;
+  width: 250px;
+  height: 250px;
 }
 
 .icon {
