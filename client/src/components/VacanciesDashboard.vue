@@ -72,8 +72,7 @@
                 },
                 selected: [],
                 search: "",
-                dialog: false,
-                status
+                dialog: false
             };
         },
         props: ["headers", "content"],
@@ -106,8 +105,7 @@
                     userId: 1
                 }).then((response) => {
                     if (response.status === 201) {
-                        this.status = response.status;
-                        this.openResponseDialog(this.status);
+                        this.openResponseDialog(response.status);
                     }
                 }).catch(function (error) {
                     console.log(error);
