@@ -3,7 +3,7 @@ const {User} = require('../models/user');
 const mongoose = require('mongoose');
 const express = require('express');
 const router = express.Router();
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const Joi = require('joi')
 
 router.post('/', async (req, res) => {

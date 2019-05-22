@@ -14,7 +14,8 @@ const userVacancy = require("./routes/userVacancies");
 const roles = require("./routes/roles");
 const auth = require("./routes/auth");
 const express = require("express");
-const cors = require('cors');
+const cors = require("cors");
+const cookieParser = require("cookie-parser");
 const app = express();
 const {
   User,
@@ -28,10 +29,9 @@ const {
 const bodyParser = require("body-parser");
 
 // Add headers
-app.use(cors());
 app.use(function(req, res, next) {
   // Website you wish to allow to connect
-  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Origin", "http://localhost:8081");
   // Request methods you wish to allow
   res.setHeader(
     "Access-Control-Allow-Methods",
@@ -55,6 +55,7 @@ app.set("views", "./views");
 // console.log(`NODE_ENV: ${process.env.NODE_ENV}`);
 // console.log(`app: ${app.get('env')}`);
 
+app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(
   express.urlencoded({
@@ -66,12 +67,13 @@ app.use(helmet());
 app.use(logger);
 // app.use('/api/courses', courses);
 // app.use('/', home);
-app.use('/api/userVacancies', userVacancy);
+app.use("/api/userVacancies", userVacancy);
 app.use("/api/users", users);
 app.use("/api/vacancies", vacancies);
 app.use("/api/timeslots", cors(), timeslots);
 app.use("/api/roles", roles);
 // app.use('/api/auth', auth);
+app.use("/api/auth", auth);
 
 //Configuration
 console.log("Application Name: " + config.get("name"));

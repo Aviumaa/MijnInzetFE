@@ -1,6 +1,6 @@
 'use strict';
 module.exports = (sequelize, type) => {
-    return sequelize.define('role', {
+    const Role = sequelize.define('role', {
         id: {
             type: type.INTEGER,
             primaryKey: true,
@@ -12,4 +12,12 @@ module.exports = (sequelize, type) => {
         }
 
     })
+
+    Role.associate = (models) => {
+        Role.belongsToMany(models.User, {
+            through: "UserRole",
+            as: "role",
+            foreignKey: "roleId"
+        });
+    };
 }

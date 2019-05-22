@@ -46,17 +46,26 @@ export default {
 
   methods: {
     login() {
-      var params = new URLSearchParams();
-      params.append("username", this.user.username);
-      params.append("password", this.user.password);
-      console.log(this.user.username);
-
+      console.log(this.user);
       axios
-        .post(`https://mijn-inzet.herokuapp.com/api/login`, params)
+        .post(
+          `http://localhost:3000/api/users/login`,
+          {
+            username: this.user.username,
+            password: this.user.password
+          },
+          { withCredentials: true }
+        )
         .then(response => {
           // JSON responses are automatically parsed.
-          this.response = response.data;
-          console.log(response);
+          console.log("response: " + response.data);
+          if (response.status == "200") {
+            // success
+            window.localStorage.setItem("token", response.data);
+            window.location = "/";
+          } else {
+            // invalid credentials
+          }
         })
         .catch(e => {
           this.errors.push(e);
