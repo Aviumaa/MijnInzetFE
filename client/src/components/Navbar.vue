@@ -6,10 +6,7 @@
         <span @click="navigateTo({name: 'home'})">Inzet</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn @click="navigateTo({name: 'createvacancy'})" flat color="grey">
-        <span>create vacancy</span>
-      </v-btn>
-      <v-btn flat color="grey">
+      <v-btn flat color="grey" @click="logout()">
         <span>Sign Out</span>
         <v-icon right>exit_to_app</v-icon>
       </v-btn>
@@ -30,6 +27,10 @@ export default {
   methods: {
     navigateTo(route) {
       this.$router.push(route);
+    },
+    logout() {
+      localStorage.removeItem("token");
+      this.$router.push("login");
     }
   }
 };

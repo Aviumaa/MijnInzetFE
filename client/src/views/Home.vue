@@ -18,7 +18,26 @@
           newLine="vacatures"
           icon="assignment"
         ></tile-button>
-        <tile-button @click.native="navigateTo({name: 'roster'})" title="Mijn Profiel" icon="face"></tile-button>
+        <tile-button
+          @click.native="navigateTo({name: 'roster'})"
+          title="Mijn"
+          newLine="Profiel"
+          icon="face"
+        ></tile-button>
+        <tile-button
+          v-if="roleId == 1"
+          @click.native="navigateTo({name: '#'})"
+          title="Onderwijs"
+          newLine="programma beheren"
+          icon="build"
+        ></tile-button>
+        <tile-button
+          v-if="roleId == 3 ||
+                roleId == 4 ||
+                roleId == 5"
+          @click.native="navigateTo({name: '#'})"
+          title="Overzicht inzet"
+        ></tile-button>
       </v-flex>
     </v-layout>
   </v-container>
@@ -26,11 +45,14 @@
 
 <script>
 import TileButton from "@/components/TileButton.vue";
+import axios from "axios";
+
+import jwt_decode from "jwt-decode";
 
 export default {
   data() {
     return {
-      vacancyText: "Hello Vue.\nThis ext.\nAnother line of text.\n"
+      roleId: 3
     };
   },
   components: {
@@ -40,6 +62,31 @@ export default {
     navigateTo(route) {
       this.$router.push(route);
     }
+  },
+  mounted() {
+    console.log("token jwt: " + localStorage.getItem("token"));
+    let token = localStorage.getItem("token");
+    console.log(this.roleId);
+
+    let decoded = jwt_decode(token);
+    console.log("decoded token: " + decoded.role);
+
+    axios
+      .get(`http://localhost:3000/api/users/`, {
+        withCredentials: true
+      })
+      .then(response => {
+        if (response.data != null) {
+          this.roleId = decoded.role;
+          console.log("responsedata null");
+          console.log(this.roleId);
+          console.log(response.data);
+        }
+      })
+      .catch(e => {
+        console.log(e);
+        //this.errors.push(e);
+      });
   }
 };
 </script>

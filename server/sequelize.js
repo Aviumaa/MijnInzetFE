@@ -5,6 +5,7 @@ const RoleModel = require("./models/role");
 const UserVacancyModel = require("./models/userVacancy");
 const WeekScheduleModel = require("./models/weekSchedule");
 const TimeslotModel = require("./models/timeslot");
+const UserRoleModel = require("./models/userRole");
 
 const sequelize = new Sequelize("MijnInzet-local", "root", "root", {
   host: "127.0.0.1",
@@ -42,6 +43,7 @@ const Timeslot = TimeslotModel(sequelize, Sequelize);
 // WeekSchedule.hasMany(Timeslot);
 // User.hasMany(Timeslot);
 // Timeslot.belongsTo(User);
+const UserRole = UserRoleModel(sequelize, Sequelize);
 
 // sequelize
 //   .sync({
@@ -57,6 +59,7 @@ module.exports = {
     UserVacancy,
     Role,
     Timeslot,
-    WeekSchedule
+    WeekSchedule,
+    UserRole
 }
 
