@@ -15,7 +15,7 @@
                     <td class="px-3">{{ props.item.task }}</td>
                     <td class="px-3">{{ props.item.title }}</td>
                     <td class="px-3">{{ props.item.contactPerson }}</td>
-                    <td class="px-3">{{ props.item.period }}</td>
+                    <td class="px-3">{{ props.item.period }} | {{props.item.schoolYear}}</td>
                     <td class="px-3">{{ props.item.typeCourse }}</td>
                     <td class="px-3">{{ props.item.contactHours }}</td>
                 </tr>

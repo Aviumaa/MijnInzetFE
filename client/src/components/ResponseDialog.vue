@@ -59,9 +59,8 @@
     }
 
     .icon {
-        margin-top: 10px;
+        margin-top: 2%;
         margin-left: 36%;
-        font-size: 45px;
     }
 
     .messageRow {
