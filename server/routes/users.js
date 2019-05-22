@@ -6,6 +6,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
 const loginController = require("../controllers/loginController");
+const userController = require("../controllers/userController");
 
 router.post("/crypt/", async (req, res) => {
   // const { error } = validate(req.body);
@@ -50,9 +51,11 @@ router.get("/", (req, res) => {
 router.post("/isAdmin", loginController.isUserAdministrator);
 
 router.post("/login", loginController.doLogin);
-router.get('/', (req, res) => {
-    user.findAll().then(users => res.json(users))
-})
+router.get('/all', (req, res) => {
+    User.findAll().then(users => res.json(users))
+})  
+
+router.get("/:userId/edit", userController.editUser);
 
 router.post("/", (req, res) => {
   User.create({
