@@ -49,7 +49,7 @@ export default {
   },
   mounted() {
     axios
-      .get("http://localhost:3000/api/gebruikers/")// dit wordt nadat login werkt gewijzigd naar users
+      .get("http://localhost:3000/api/users/")// dit wordt nadat login werkt gewijzigd naar users
       .then(response => {
         this.users = response.data;
       })
