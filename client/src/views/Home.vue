@@ -26,9 +26,9 @@
         ></tile-button>
         <tile-button
           v-if="roleId == 1"
-          @click.native="navigateTo({name: '#'})"
-          title="Onderwijs"
-          newLine="programma beheren"
+          @click.native="navigateTo({name: 'educationTasks'})"
+          title="Taken"
+          newLine="Beheren"
           icon="build"
         ></tile-button>
         <tile-button
