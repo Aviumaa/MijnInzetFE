@@ -48,6 +48,7 @@ router.get("/", (req, res) => {
 });
 
 router.post("/login", loginController.doLogin);
+
 router.get("/", (req, res) => {
   user.findAll().then(users => res.json(users));
 });
