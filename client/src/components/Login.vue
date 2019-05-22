@@ -63,7 +63,7 @@ export default {
           if (response.status == "200") {
             // success
             window.localStorage.setItem("token", response.data);
-            window.location = "/";
+            window.location = "/dashboard";
           } else {
             // invalid credentials
           }
