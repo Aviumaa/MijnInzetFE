@@ -52,27 +52,21 @@ app.use(function(req, res, next) {
 app.set("view engine", "pug");
 app.set("views", "./views");
 
-// console.log(`NODE_ENV: ${process.env.NODE_ENV}`);
-// console.log(`app: ${app.get('env')}`);
-
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(
   express.urlencoded({
     extended: true
   })
-); //key=value&key=value
+);
 app.use(express.static("public"));
 app.use(helmet());
 app.use(logger);
-// app.use('/api/courses', courses);
-// app.use('/', home);
 app.use("/api/userVacancies", userVacancy);
 app.use("/api/users", users);
 app.use("/api/vacancies", vacancies);
 app.use("/api/timeslots", cors(), timeslots);
 app.use("/api/roles", roles);
-// app.use('/api/auth', auth);
 app.use("/api/auth", auth);
 
 //Configuration
