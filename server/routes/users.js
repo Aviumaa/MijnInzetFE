@@ -47,12 +47,10 @@ router.get("/", (req, res) => {
   }
 });
 
-router.post("/isAdmin", loginController.isUserAdministrator);
-
 router.post("/login", loginController.doLogin);
-router.get('/', (req, res) => {
-    user.findAll().then(users => res.json(users))
-})
+router.get("/", (req, res) => {
+  user.findAll().then(users => res.json(users));
+});
 
 router.post("/", (req, res) => {
   User.create({

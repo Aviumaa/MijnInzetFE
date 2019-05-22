@@ -24,7 +24,6 @@
           newLine="Profiel"
           icon="face"
         ></tile-button>
-
         <tile-button
           v-if="roleId == 1"
           @click.native="navigateTo({name: '#'})"
@@ -32,11 +31,10 @@
           newLine="programma beheren"
           icon="build"
         ></tile-button>
-
         <tile-button
           v-if="roleId == 3 ||
-                           roleId == 4 ||
-                           roleId == 5"
+                roleId == 4 ||
+                roleId == 5"
           @click.native="navigateTo({name: '#'})"
           title="Overzicht inzet"
         ></tile-button>
@@ -53,15 +51,7 @@ import jwt_decode from "jwt-decode";
 
 export default {
   data() {
-    /*const ADMINISTRATEUR = 1;
-    const DOCENT = 2;
-    const ONDERWIJSPROGRAMMA_COORDINATOR = 3;
-    const PROJECT_COORDINATOR = 4;
-    const MODULE_COORDINATOR = 5;
-    const FACILITATOR = 6;
-    const ROOSTERAAR = 7;*/
     return {
-      vacancyText: "Hello Vue.\nThis ext.\nAnother line of text.\n",
       roleId: 3
     };
   },
@@ -77,9 +67,6 @@ export default {
     console.log("token jwt: " + localStorage.getItem("token"));
     let token = localStorage.getItem("token");
     console.log(this.roleId);
-
-    // let token =
-    //   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTAwMDAwMSwidXNlcm5hbWUiOiJkb2NlbnQiLCJyb2xlIjoyLCJpYXQiOjE1NTc5OTkwODAsImV4cCI6MTU1ODAwMjY4MH0.M-piHCzQPNtfivFI5kdvxrZjlxO9astnAsVgWPm0lI8";
 
     let decoded = jwt_decode(token);
     console.log("decoded token: " + decoded.role);
