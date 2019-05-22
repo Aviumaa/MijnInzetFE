@@ -140,11 +140,14 @@
                 this.dialog = true;
             },
             applyToVacancy() {
+                let token = localStorage.getItem("token");
+                let decoded = jwt_decode(token);
+
                 this.dialog = false;
                 this.$refs.loadingDialog.open('Verzoek indienen');
                 axios.post('http://localhost:3000/api/UserVacancies', {
                     vacancyId: this.selected.id,
-                    userId: 1
+                    userId: decoded.id
                 }).then((response) => {
                     if (response.status === 201) {
                         this.openResponseDialog(response.status);
