@@ -86,7 +86,7 @@ export default {
       dialog: false
     };
   },
-  props: ["headers", "content"],
+  props: ["headers", "content", "token"],
   computed: {
     pages() {
       // eslint-disable-next-line
@@ -103,7 +103,6 @@ export default {
       );
     }
   },
-  props: ["token"],
   methods: {
     showModal(item) {
       this.selected = item;
