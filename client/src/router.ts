@@ -43,7 +43,8 @@ export default new Router({
       path: "/dashboard",
       name: "home",
       beforeEnter: guard,
-      component: Home
+      component: Home,
+      props: { token: decoded.role }
     },
     {
       path: "/reports",
@@ -62,7 +63,8 @@ export default new Router({
       path: "/vacancies",
       name: "vacancies",
       beforeEnter: guard,
-      component: Vacancies
+      component: Vacancies,
+      props: { token: decoded.id }
     },
     {
       path: "/createvacancy",

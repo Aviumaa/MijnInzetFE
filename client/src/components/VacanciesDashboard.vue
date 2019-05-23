@@ -103,19 +103,17 @@ export default {
       );
     }
   },
+  props: ["token"],
   methods: {
     showModal(item) {
       this.selected = item;
       this.dialog = true;
     },
     applyToVacancy() {
-      let token = localStorage.getItem("token");
-      let decoded = jwt_decode(token);
-
       axios
         .post("http://localhost:3000/api/UserVacancies", {
           vacancyId: this.selected.id,
-          userId: decoded.id
+          userId: this.token
         })
         .then(function(response) {
           console.log(response);

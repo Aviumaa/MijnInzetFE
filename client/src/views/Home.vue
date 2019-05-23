@@ -46,7 +46,6 @@
 <script>
 import TileButton from "@/components/TileButton.vue";
 import axios from "axios";
-import jwt_decode from "jwt-decode";
 
 export default {
   data() {
@@ -57,22 +56,20 @@ export default {
   components: {
     TileButton
   },
+  props: ["token"],
   methods: {
     navigateTo(route) {
       this.$router.push(route);
     }
   },
   mounted() {
-    let token = localStorage.getItem("token");
-    let decoded = jwt_decode(token);
-
     axios
       .get(`http://localhost:3000/api/users/`, {
         withCredentials: true
       })
       .then(response => {
         if (response.data != null) {
-          this.roleId = decoded.role;
+          this.roleId = this.token;
         }
       })
       .catch(e => {
