@@ -5,7 +5,7 @@
         <span @click="navigateTo({name: 'home'})" class="font-weight-light home">Mijn-</span>
         <span @click="navigateTo({name: 'home'})">Inzet</span>
       </v-toolbar-title>
-        <v-btn v-if="backbutton" @click="back()" flat color="grey">
+        <v-btn v-if="backButton" @click="back()" flat color="grey">
           <v-icon right>arrow_back</v-icon>
           <span>Terug</span>
         </v-btn>
@@ -27,7 +27,7 @@ export default {
   name: "navBar",
   data() {
     return {
-      backbutton: true 
+      backButton: true 
     }
       
   },
@@ -40,15 +40,13 @@ export default {
       this.$router.push("login");
     },
     back() {
-      console.log("test boolean: " + this.test);
-      console.log("routerpath" + this.$route.path);
       this.$router.go(-1);
     },
     setBackButton() {
         if (this.$route.path == "/") {
-        return this.backbutton = false;
+        return this.backButton = false;
       } else {
-        return this.backbutton = true;
+        return this.backButton = true;
       }
     }
   },
