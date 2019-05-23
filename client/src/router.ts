@@ -6,17 +6,19 @@ import Report from "./views/Report.vue";
 import Availability from "./views/Availability.vue";
 import Vacancies from "./views/Vacancies.vue";
 import CreateVacancy from "./views/CreateVacancy.vue";
+import jwt_decode from "jwt-decode";
 
 Vue.use(Router);
 
+let cookie: any = getCookie("token");
+let decoded: any = jwt_decode(cookie);
+
 function getCookie(name: any) {
-  var v = document.cookie.match("(^|;) ?" + name + "=([^;]*)(;|$)");
+  let v = document.cookie.match("(^|;) ?" + name + "=([^;]*)(;|$)");
   return v ? v[2] : null;
 }
 
 function guard(to: any, from: any, next: { (): void; (arg0: string): void }) {
-  let cookie = getCookie("token");
-
   if (cookie !== null) {
     next();
   } else {
@@ -53,7 +55,8 @@ export default new Router({
       path: "/availability",
       name: "availability",
       beforeEnter: guard,
-      component: Availability
+      component: Availability,
+      props: { token: decoded.id }
     },
     {
       path: "/vacancies",
