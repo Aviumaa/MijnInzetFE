@@ -55,7 +55,7 @@ exports.doLogin = async (req, res) => {
       cookie_options
     );
     res
-      .cookie("token", token, { httpOnly: true, secure: false })
+      .cookie("token", token, { httpOnly: false, secure: false })
       .status(200)
       .json(token);
   }

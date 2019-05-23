@@ -9,8 +9,15 @@ import CreateVacancy from "./views/CreateVacancy.vue";
 
 Vue.use(Router);
 
+function getCookie(name: any) {
+  var v = document.cookie.match("(^|;) ?" + name + "=([^;]*)(;|$)");
+  return v ? v[2] : null;
+}
+
 function guard(to: any, from: any, next: { (): void; (arg0: string): void }) {
-  if (localStorage.getItem("token") !== null) {
+  let cookie = getCookie("token");
+
+  if (cookie !== null) {
     next();
   } else {
     next("/login"); // go to '/login';
