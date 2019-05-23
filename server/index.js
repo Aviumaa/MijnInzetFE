@@ -14,7 +14,7 @@ const userVacancy = require("./routes/userVacancies");
 const roles = require("./routes/roles");
 const auth = require("./routes/auth");
 const express = require("express");
-const cors = require('cors');
+const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const app = express();
 const {
@@ -67,7 +67,7 @@ app.use(helmet());
 app.use(logger);
 // app.use('/api/courses', courses);
 // app.use('/', home);
-app.use('/api/userVacancies', userVacancy);
+app.use("/api/userVacancies", userVacancy);
 app.use("/api/users", users);
 app.use("/api/vacancies", vacancies);
 app.use("/api/timeslots", cors(), timeslots);

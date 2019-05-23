@@ -20,18 +20,17 @@
         ></tile-button>
         <tile-button
           @click.native="navigateTo({name: 'roster'})"
-          class="teal lighten-1"
-          title="Mijn Profiel"
+          title="Mijn"
+          newLine="Profiel"
+          icon="face"
         ></tile-button>
-
         <tile-button
-          v-if="roleId == 3"
+          v-if="roleId == 1"
           @click.native="navigateTo({name: '#'})"
-          class="teal lighten-1"
-          title="Onderwijsprogramma"
-          newLine="beheren"
+          title="Onderwijs"
+          newLine="programma beheren"
+          icon="build"
         ></tile-button>
-
         <tile-button
           v-if="roleId == 1"
           @click.native="navigateTo({name: 'users'})"
@@ -41,10 +40,9 @@
 
         <tile-button
           v-if="roleId == 3 ||
-                           roleId == 4 ||
-                           roleId == 5"
+                roleId == 4 ||
+                roleId == 5"
           @click.native="navigateTo({name: '#'})"
-          class="teal lighten-1"
           title="Overzicht inzet"
         ></tile-button>
       </v-flex>
@@ -70,7 +68,6 @@ export default {
 
     const roleId = 0;
     return {
-      vacancyText: "Hello Vue.\nThis ext.\nAnother line of text.\n",
       roleId: 3
     };
   },
@@ -86,9 +83,6 @@ export default {
     console.log("token jwt: " + localStorage.getItem("token"));
     let token = localStorage.getItem("token");
     console.log(this.roleId);
-
-    // let token =
-    //   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTAwMDAwMSwidXNlcm5hbWUiOiJkb2NlbnQiLCJyb2xlIjoyLCJpYXQiOjE1NTc5OTkwODAsImV4cCI6MTU1ODAwMjY4MH0.M-piHCzQPNtfivFI5kdvxrZjlxO9astnAsVgWPm0lI8";
 
     let decoded = jwt_decode(token);
     console.log("decoded token: " + decoded.role);

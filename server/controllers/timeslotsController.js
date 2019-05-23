@@ -5,7 +5,7 @@ const { user } = require("../models/user");
 exports.getTimeslots = (req, res) => {
   Timeslot.findAll({
     where: {
-      user_id: 1
+      user_id: req.params.userId
     }
   }).then(timeslots => res.json(timeslots));
 };

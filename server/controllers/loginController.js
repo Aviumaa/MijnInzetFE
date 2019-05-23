@@ -71,16 +71,3 @@ exports.getUsers = (req,res) => {
     res.status(200).json(userResponse);
   })
 }
-
-exports.isUserAdministrator = (req,res) => {
-  var userId = req.body.userId;
-  var user = UserRole.findOne({
-    where: {
-      userId: userId,
-      roleId: 1
-    },
-    attributes: ["id", "userId", "roleId"]
-  }).then(userResponse => {
-    res.status(200).json(userResponse);
-  });
-};

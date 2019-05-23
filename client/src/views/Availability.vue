@@ -40,13 +40,13 @@
 import axios from "axios";
 import moment from "moment";
 import HeaderTitle from "@/components/HeaderTitle.vue";
+import jwt_decode from "jwt-decode";
 
 moment.locale("nl");
 
 export default {
   data() {
     return {
-      userId: "1",
       moment: moment,
       checkboxes: [],
       weekdays: [1, 2, 3, 4, 5],
@@ -80,8 +80,10 @@ export default {
       return this.checkboxes.includes(value);
     },
     sendAvailability(checkboxes) {
+      let token = localStorage.getItem("token");
+      let decoded = jwt_decode(token);
       axios
-        .put(`http://localhost:3000/api/timeslots/${this.userId}`, {
+        .put(`http://localhost:3000/api/timeslots/${decoded.id}`, {
           timeslots: this.checkboxes
         })
         .then(response => {
@@ -109,8 +111,13 @@ export default {
     }
   },
   mounted() {
+    let token = localStorage.getItem("token");
+    let decoded = jwt_decode(token);
+
+    console.log("cookie " + decoded.id);
+
     axios
-      .get("http://localhost:3000/api/timeslots/")
+      .get(`http://localhost:3000/api/timeslots/${decoded.id}`)
       .then(response => {
         this.userTimeslotData = response.data;
         this.parseJsonToString();

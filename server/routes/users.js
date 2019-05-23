@@ -48,8 +48,6 @@ router.get("/", (req, res) => {
   }
 });
 
-router.post("/isAdmin", loginController.isUserAdministrator);
-
 router.post("/login", loginController.doLogin);
 router.get('/all', (req, res) => {
     User.findAll().then(users => res.json(users))
@@ -57,7 +55,9 @@ router.get('/all', (req, res) => {
 
 router.get("/:userId/edit", userController.editUser);
 router.put("/:userId/edit", userController.doEdit);
-
+router.get("/", (req, res) => {
+  user.findAll().then(users => res.json(users));
+});
 router.post("/", (req, res) => {
   User.create({
     username: req.body.username,
