@@ -15,12 +15,6 @@
                                 label="Gebruikersnaam"
                                 required
                         ></v-text-field>
-                        <v-text-field
-                                ref="password"
-                                v-model="user.password"
-                                label="Wachtwoord"
-                                required
-                        ></v-text-field>
                         <v-combobox
                             v-model="select"
                             

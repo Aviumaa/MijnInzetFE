@@ -34,7 +34,6 @@
         <tile-button
           v-if="roleId == 1"
           @click.native="navigateTo({name: 'users'})"
-          class="teal lighten-1"
           title="Gebruikers"
         ></tile-button>
 
