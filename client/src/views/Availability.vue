@@ -114,8 +114,6 @@ export default {
     let token = localStorage.getItem("token");
     let decoded = jwt_decode(token);
 
-    console.log("cookie " + decoded.id);
-
     axios
       .get(`http://localhost:3000/api/timeslots/${decoded.id}`)
       .then(response => {

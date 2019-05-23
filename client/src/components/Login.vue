@@ -62,7 +62,7 @@ export default {
           // console.log("response: " + response.data);
           if (response.status == "200") {
             // success
-            window.localStorage.setItem("token", response.data);
+            // window.localStorage.setItem("token", response.data);
             window.location = "/dashboard";
           } else {
             // invalid credentials

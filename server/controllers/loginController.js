@@ -24,17 +24,12 @@ exports.doLogin = async (req, res) => {
       password: password
     }
   }).then(userResponse => {
-    // console.log("userResponse");
-    // console.log(userResponse);
     userData = userResponse;
     if (userResponse == null) {
       res.status(400);
     } else {
     }
   });
-
-  // console.log("userData");
-  // console.log(userData);s
 
   await UserRole.findOne({
     where: {
@@ -60,7 +55,7 @@ exports.doLogin = async (req, res) => {
       cookie_options
     );
     res
-      .cookie("token", token, { httpOnly: true, secure: true })
+      .cookie("token", token, { httpOnly: true, secure: false })
       .status(200)
       .json(token);
   }
