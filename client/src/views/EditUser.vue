@@ -8,25 +8,26 @@
             <v-form ref="form">
                 <v-card>
                     <v-card-text>
-                        userid = {{userId}}
+                        userid = {{user.id}}
                         <v-text-field
                                 ref="username"
-                                v-model="task"
+                                v-model="user.username"
                                 label="Gebruikersnaam"
                                 required
                         ></v-text-field>
                         <v-text-field
                                 ref="password"
-                                v-model="title"
+                                v-model="user.password"
                                 label="Wachtwoord"
                                 required
                         ></v-text-field>
-                        <v-autocomplete
-                                ref="role"
-                                v-model="role"
-                                :items="roles"
-                                label="Rol"
-                        ></v-autocomplete>
+                        <v-combobox
+                            v-model="select"
+                            
+                        :items="roles"
+                        item-text="text"
+                            label="Select a favorite activity or create a new one"
+                        ></v-combobox>
                         
                     </v-card-text>
                     <v-divider class="mt-5"></v-divider>
@@ -47,22 +48,41 @@
 
     export default {
         data: () => ({
-            userId: '',
-            type: '',
-            roles: ['Administrateur',
-                    'Docent',
-                    'Onderwijsprogrammacoordinator',
-                    'Projectcoordinator',
-                    'Modulecoordinator',
-                    'Facilitator',
-                    'Roosteraar']
+            user: [],
+            username: '',
+            password: '',
+            role: '',
+
+            // de rollen zouden ook uit de db kunnen worden gehaald voor eventuele toekomstige toevoegingen aan rollen
+            roles: [{id: '1', text: 'Administrateur'},
+                    {id: '2', text: 'Docent'},
+                    {id: '3', text: 'Onderwijsprogrammacoordinator'},
+                    {id: '4', text: 'Projectcoordinator'},
+                    {id: '5', text: 'Modulecoordinator'},
+                    {id: '6', text: 'Facilitator'},
+                    {id: '7', text: 'Roosteraar'}
+                    ]
         }),
         components: {
             HeaderTitle,
             Panel
         },
         methods: {
-            send(){}
+            send(){
+                axios.put(`http://localhost:3000/api/users/${this.user.id}/edit`,{
+                    username: this.user.username,
+                    roleId: this.select.id
+                })
+                .then(response => {
+                console.log(response);
+                })
+                .catch(error => {
+                console.log(error);
+                });
+            }
+        },
+        mounted(){
+            this.user = this.$route.params.user;
         }
     };
 </script>

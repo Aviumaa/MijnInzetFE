@@ -12,7 +12,7 @@
         >
 
             <template v-slot:items="props">
-                <tr @click="navigateTo('editUser', props.item.id)">
+                <tr @click="navigateTo('editUser', props.item)">
                     <td class="px-3">{{ props.item.id }}</td>
                     <td class="px-3">{{ props.item.username }}</td>
                     <td class="px-3">todo</td>
@@ -66,9 +66,11 @@
             }
         },
         methods: {
-            navigateTo(route, id) {
+            navigateTo(route, user) {
                 //this.$router.push(route);
-                this.$router.push({name: route, params: { userId: id}});
+                console.log(user);
+                this.$router.push({name: route, params: { user: user}});
+                console.log(this.$route.params);
             }
         },
         components: {
