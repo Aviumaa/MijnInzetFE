@@ -54,6 +54,7 @@ exports.postVacancy = (req, res) => {
     title: req.body.title,
     description: req.body.description,
     contactPerson: req.body.contactPerson,
+    schoolYear: req.body.schoolYear,
     period: req.body.period,
     typeCourse: req.body.typeCourse,
     contactHours: req.body.contactHours,

@@ -26,6 +26,6 @@ exports.postUserVacancy = (req, res) => {
         user: req.body.userId,
         vacancy: req.body.vacancyId
     })
-        .then(userVacancies => res.json(userVacancies))
+        .then(userVacancies => res.status(201).json(userVacancies))
         .catch(err => console.error(err));
 };
