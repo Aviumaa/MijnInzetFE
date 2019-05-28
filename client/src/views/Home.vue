@@ -38,9 +38,7 @@
         ></tile-button>
 
         <tile-button
-          v-if="roleId == 3 ||
-                roleId == 4 ||
-                roleId == 5"
+          v-if="roleId == 8"
           @click.native="navigateTo({name: '#'})"
           title="Overzicht inzet"
         ></tile-button>
