@@ -33,8 +33,7 @@ module.exports = (sequelize, type) => {
     Course.associate = (models) => {
         Course.belongsToMany(models.EducationalProgram, {
             through: "educationalProgramCourse",
-            as: "educationalPrograms",
-            foreignKey: "educationalProgram"
+            foreignKey: "course"
         });
     };
 

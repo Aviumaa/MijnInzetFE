@@ -1,6 +1,6 @@
 'use strict';
 module.exports = (sequelize, type) => {
-    const EducationalProgramCourse = sequelize.define('educationalProgramcourse', {
+    const EducationalProgramCourse = sequelize.define('educationalProgramCourse', {
         id: {
             type: type.INTEGER,
             primaryKey: true,
@@ -8,9 +8,18 @@ module.exports = (sequelize, type) => {
         },
         educationalProgram: {
             type: type.INTEGER,
-        },
+            allowNull: false,
+            references: {
+                model: 'educationalProgram',
+                key: 'id'
+            },
         course: {
             type: type.INTEGER,
+            allowNull: false,
+            references: {
+                model: 'course',
+                key: 'id'
+            }}
         },
         createdAt: {
             allowNull: false,
@@ -21,6 +30,8 @@ module.exports = (sequelize, type) => {
             type: type.DATE,
         }
     });
+
+
 
     return EducationalProgramCourse;
 }
