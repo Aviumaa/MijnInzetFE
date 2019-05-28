@@ -69,7 +69,7 @@ export default {
       })
       .then(response => {
         if (response.data != null) {
-          this.roleId = this.token;
+          this.roleId = this.token.role;
         }
       })
       .catch(e => {

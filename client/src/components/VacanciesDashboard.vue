@@ -71,7 +71,6 @@
 <script>
 import HeaderTitle from "@/components/HeaderTitle.vue";
 import axios from "axios";
-import jwt_decode from "jwt-decode";
 
 export default {
   data() {
@@ -86,7 +85,7 @@ export default {
       dialog: false
     };
   },
-  props: ["headers", "content", "token"],
+  props: ["headers", "content", "authToken"],
   computed: {
     pages() {
       // eslint-disable-next-line
@@ -112,7 +111,7 @@ export default {
       axios
         .post("http://localhost:3000/api/UserVacancies", {
           vacancyId: this.selected.id,
-          userId: this.token
+          userId: this.authToken.id
         })
         .then(function(response) {
           console.log(response);

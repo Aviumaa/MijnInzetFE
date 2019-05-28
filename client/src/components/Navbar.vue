@@ -2,8 +2,10 @@
   <nav>
     <v-toolbar flat app class="black">
       <v-toolbar-title class="text-uppercase grey--text">
-        <span @click="navigateTo({name: 'home'})" class="font-weight-light home">Mijn-</span>
-        <span @click="navigateTo({name: 'home'})" class="home">Inzet</span>
+        <router-link :to="{name: 'home'}" class="font-weight-light home">
+          Mijn-
+          <span class="font-weight-bold">Inzet</span>
+        </router-link>
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-btn
@@ -26,12 +28,14 @@ export default {
     return {};
   },
   methods: {
-    navigateTo(route) {
-      this.$router.push(route);
-    },
     logout() {
-      localStorage.removeItem("token");
+      this.eraseCookie("token");
       this.$router.push("login");
+      location.reload();
+    },
+    eraseCookie(name) {
+      document.cookie =
+        name + "=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;";
     }
   }
 };
@@ -40,6 +44,8 @@ export default {
 <style>
 .home {
   cursor: pointer;
+  text-decoration: none;
+  color: unset;
 }
 </style>
 

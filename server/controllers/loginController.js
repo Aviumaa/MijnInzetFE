@@ -25,7 +25,7 @@ exports.doLogin = async (req, res) => {
     }
   }).then(userResponse => {
     userData = userResponse;
-    if (userResponse == null) {
+    if (userData == null) {
       res.status(400);
     } else {
     }

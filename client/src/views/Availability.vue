@@ -81,7 +81,7 @@ export default {
     },
     sendAvailability(checkboxes) {
       axios
-        .put(`http://localhost:3000/api/timeslots/${this.token}`, {
+        .put(`http://localhost:3000/api/timeslots/${this.token.id}`, {
           timeslots: this.checkboxes
         })
         .then(response => {
@@ -109,7 +109,7 @@ export default {
   },
   mounted() {
     axios
-      .get(`http://localhost:3000/api/timeslots/${this.token}`)
+      .get(`http://localhost:3000/api/timeslots/${this.token.id}`)
       .then(response => {
         this.userTimeslotData = response.data;
         this.parseJsonToString();
