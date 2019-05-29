@@ -13,7 +13,8 @@ module.exports = {
             "Projectcoordinator",
             "Modulecoordinator",
             "Facilitator",
-            "Roosteraar"
+            "Roosteraar",
+            "Coordinator"
         ];
 
         for (let i = 0; roles.length > i; i++) {

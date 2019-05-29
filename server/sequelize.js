@@ -6,6 +6,9 @@ const UserVacancyModel = require("./models/userVacancy");
 const WeekScheduleModel = require("./models/weekSchedule");
 const TimeslotModel = require("./models/timeslot");
 const UserRoleModel = require("./models/userRole");
+const CourseModel = require("./models/course");
+const EducationalProgramModel = require("./models/educationalProgram");
+const EducationalProgramCourseModel = require("./models/educationalProgramCourse");
 
 const sequelize = new Sequelize("MijnInzet-local", "root", "password", {
   host: "127.0.0.1",
@@ -33,6 +36,9 @@ const Vacancy = VacancyModel(sequelize, Sequelize);
 const UserVacancy = UserVacancyModel(sequelize, Sequelize);
 const WeekSchedule = WeekScheduleModel(sequelize, Sequelize);
 const Timeslot = TimeslotModel(sequelize, Sequelize);
+const Course = CourseModel(sequelize, Sequelize);
+const EducationalProgram = EducationalProgramModel(sequelize, Sequelize);
+const EducationalProgramCourse = EducationalProgramCourseModel(sequelize, Sequelize);
 // User.belongsToMany(Vacancy, {
 //   through: UserVacancy
 // });
@@ -55,10 +61,16 @@ const UserRole = UserRoleModel(sequelize, Sequelize);
 
 module.exports = {
   User,
-  Vacancy,
-  UserVacancy,
-  Role,
-  Timeslot,
-  WeekSchedule,
-  UserRole
+    Vacancy,
+    UserVacancy,
+    Role,
+    Timeslot,
+    WeekSchedule,
+    UserRole,
+    Course,
+    EducationalProgram,
+    EducationalProgramCourse,
+    sequelize
 };
+}
+

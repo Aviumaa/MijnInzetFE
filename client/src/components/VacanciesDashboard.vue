@@ -1,6 +1,5 @@
-<template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
-  <div>
-    <div>
+<template>
+<div>
       <v-data-table
         :headers="this.headers"
         :items="this.content"
@@ -108,7 +107,7 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-  </div>
+  </div>    
 </template>
 
 
@@ -192,6 +191,19 @@ export default {
     LoadingDialog
   }
 };
+                axios
+                    .post("http://localhost:3000/api/UserVacancies", {
+                        vacancyId: this.selected.id,
+                        userId: decoded.id
+                    })
+                    .then(function (response) {
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+            }
+        }
+    };
 </script>
 
 <style scoped>

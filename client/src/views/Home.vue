@@ -32,9 +32,13 @@
           icon="build"
         ></tile-button>
         <tile-button
-          v-if="roleId == 3 ||
-                roleId == 4 ||
-                roleId == 5"
+          v-if="roleId == 1"
+          @click.native="navigateTo({name: 'users'})"
+          title="Gebruikers"
+        ></tile-button>
+
+        <tile-button
+          v-if="roleId == 8"
           @click.native="navigateTo({name: '#'})"
           title="Overzicht inzet"
         ></tile-button>
@@ -51,6 +55,8 @@ import jwt_decode from "jwt-decode";
 
 export default {
   data() {
+
+    const roleId = 0;
     return {
       roleId: 3
     };
