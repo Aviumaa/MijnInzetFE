@@ -1,4 +1,4 @@
-<template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
+<template>
     <v-layout justify-center>
         <v-flex xs12 sm10 md8 lg6>
             <br>
@@ -35,7 +35,6 @@
 </template>
 
 <script>
-    import Panel from "@/components/Panel.vue";
     import HeaderTitle from "@/components/HeaderTitle.vue";
     import axios from "axios";
 
@@ -58,8 +57,7 @@
                     ]
         }),
         components: {
-            HeaderTitle,
-            Panel
+            HeaderTitle
         },
         methods: {
             send(){

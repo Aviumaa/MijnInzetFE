@@ -55,13 +55,6 @@ import jwt_decode from "jwt-decode";
 
 export default {
   data() {
-    /*const ADMINISTRATEUR = 1;
-    const DOCENT = 2;
-    const ONDERWIJSPROGRAMMA_COORDINATOR = 3;
-    const PROJECT_COORDINATOR = 4;
-    const MODULE_COORDINATOR = 5;
-    const FACILITATOR = 6;
-    const ROOSTERAAR = 7;*/
 
     const roleId = 0;
     return {

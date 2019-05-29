@@ -1,4 +1,4 @@
-<template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
+<template>
     <div>
         <v-data-table
                 :headers="this.headers"
@@ -66,7 +66,6 @@
         },
         methods: {
             navigateTo(route, user) {
-                //this.$router.push(route);
                 this.$router.push({name: route, params: { user: user}});
             }
         },
@@ -75,20 +74,3 @@
         }
     };
 </script>
-
-<style scoped>
-    .description.ellipsis {
-        text-overflow: ellipsis;
-        overflow: hidden;
-        white-space: nowrap;
-        max-width: 10vw;
-        height: 4.5em;
-    }
-
-    .solliciteerButton {
-        color: white;
-        margin-bottom: 10px;
-
-    }
-
-</style>
