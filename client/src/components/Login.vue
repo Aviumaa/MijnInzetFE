@@ -76,6 +76,13 @@ export default {
   },
   components: {
     Panel
+  },
+  mounted(){
+    window.addEventListener('keydown', (e) => {
+      if (e.key == 'Enter') {
+        this.login();
+      }
+    });
   }
 };
 </script>
