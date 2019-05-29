@@ -4,6 +4,7 @@ module.exports = {
     up: (queryInterface, Sequelize) => {
         const newData = [];
         //Seed data for the propedeuse
+        //First 18 courses are part of this program
         for (let i = 1; i < 18; i++) {
             const seedData = {
                 educationalProgram: 1,
@@ -14,6 +15,7 @@ module.exports = {
             newData.push(seedData);
         }
         //Seed data for second year SE.
+        //Courses 18 - 27 are part of this program.
         for (let i = 18; i < 27; i++) {
             const seedData = {
                 educationalProgram: 2,

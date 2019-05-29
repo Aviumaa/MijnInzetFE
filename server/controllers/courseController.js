@@ -17,7 +17,6 @@ exports.getCourseById = (req, res) => {
             id: req.params.courseId
         }
     }).then(course => {
-        console.log(req.param)
         res.status(200).json(course)
     });
 }

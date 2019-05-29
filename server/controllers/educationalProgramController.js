@@ -18,7 +18,6 @@ exports.getEducationalProgramById = (req, res) => {
             id: educationalProgramId
         }
     }).then(educationalProgram => {
-        console.log(req.param)
         res.status(200).json(educationalProgram)
     });
 }
