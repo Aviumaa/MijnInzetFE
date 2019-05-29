@@ -1,24 +1,25 @@
 <template>
-<div>
-    <tabs></tabs>
+  <div>
+    <tabs v-bind:class="{ 'color-text-tabs': isActiveNonEducation }"></tabs>
     <H1>Geen Onderwijstaken</H1>
-</div>
+  </div>
 </template>
 
 <script>
 import Tabs from "@/components/Tabs.vue";
 export default {
-    data() {
-        return {
-
-        }
-    },
-    components: {
-        Tabs
-    },
-}
+  data() {
+    return {};
+  },
+  components: {
+    Tabs
+  }
+};
 </script>
 
-<style lang="scss" scoped>
-
+<style>
+.color-text-tabs {
+  color: primary !important;
+  font-weight: 700;
+}
 </style>
