@@ -7,7 +7,7 @@ const {
 
 router.get("/", educationalProgramController.getEducationalPrograms);
 
-router.get("/:educationalProgramId", educationalProgramController.getEducationalProgramById);
+router.get("/:educationalProgramId", educationalProgramController.getEducationalProgramCourses);
 
 // router.post("/", educationalProgramController.postEducationalProgram);
 

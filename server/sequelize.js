@@ -69,6 +69,7 @@ module.exports = {
     UserRole,
     Course,
     EducationalProgram,
-    EducationalProgramCourse
+    EducationalProgramCourse,
+    sequelize
 }
 
