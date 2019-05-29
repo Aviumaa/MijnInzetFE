@@ -7,7 +7,7 @@ const WeekScheduleModel = require("./models/weekSchedule");
 const TimeslotModel = require("./models/timeslot");
 const UserRoleModel = require("./models/userRole");
 
-const sequelize = new Sequelize("MijnInzet-local", "root", "root", {
+const sequelize = new Sequelize("MijnInzet-local", "root", "password", {
   host: "127.0.0.1",
   dialect: "mysql",
   pool: {
@@ -54,12 +54,11 @@ const UserRole = UserRoleModel(sequelize, Sequelize);
 //   });
 
 module.exports = {
-    User,
-    Vacancy,
-    UserVacancy,
-    Role,
-    Timeslot,
-    WeekSchedule,
-    UserRole
-}
-
+  User,
+  Vacancy,
+  UserVacancy,
+  Role,
+  Timeslot,
+  WeekSchedule,
+  UserRole
+};

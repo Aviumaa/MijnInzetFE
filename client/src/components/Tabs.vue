@@ -1,39 +1,24 @@
 <template>
   <v-app>
-    <v-tabs fixed-tabs>
-      <v-tab
-      v-for="n  in 2"
-      :key="n"
-      ripple  
-      >{{ tabheaders[n-1] }}</v-tab>
-    <v-tab-item
-    v-for="n in 2"
-    :key="n"
-    >
-    <div v-if="n == 1">
-        <Tab1></Tab1>
-    </div>
-    <div v-if="n == 2">
-      <h1>hoi</h1>
-    </div>
-    </v-tab-item>
-  </v-tabs>
+    <v-tabs fixed-tabs dark>
+      <v-tab to="/educationTasks">Onderwijstaken</v-tab>
+      <v-tab to="/nonEducationTasks">Niet onderwijstaken</v-tab>
+    </v-tabs>
+    <h1>{{title}}</h1>
+    <router-view></router-view>
   </v-app>
 </template>
 
 <script>
-import Tab1 from '@/components/Tab1.vue';
-
+import Tab1 from "@/components/Tab1.vue";
 export default {
-  components: {
+  data() {
+    return {};
+  },
+  component: {
     Tab1
   },
-  data() {
-    return {
-      tabs: null,
-      tabheaders: ["Onderwijstaken", "Niet onderwijstaken"]
-    };
-  }
+  props: ["title"]
 };
 </script>
 
