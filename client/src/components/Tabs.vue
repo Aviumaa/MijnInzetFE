@@ -10,13 +10,9 @@
 </template>
 
 <script>
-import Tab1 from "@/components/Tab1.vue";
 export default {
   data() {
     return {};
-  },
-  component: {
-    Tab1
   },
   props: ["title"]
 };
