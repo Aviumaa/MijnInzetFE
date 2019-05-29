@@ -5,7 +5,9 @@ import Home from "./views/Home.vue";
 import Report from "./views/Report.vue";
 import Availability from "./views/Availability.vue";
 import Vacancies from "./views/Vacancies.vue";
+import Users from "./views/Users.vue";
 import CreateVacancy from "./views/CreateVacancy.vue";
+import EditUser from "./views/EditUser.vue";
 
 Vue.use(Router);
 
@@ -43,5 +45,15 @@ export default new Router({
       name: "createvacancy",
       component: CreateVacancy
     },
+    {
+      path: "/users",
+      name: "users",
+      component: Users
+    },
+    {
+      path: "/users/edit",
+      name: "editUser",
+      component: EditUser
+    }
   ]
 });

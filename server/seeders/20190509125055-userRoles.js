@@ -13,7 +13,8 @@ module.exports = {
       { userId: 1000004, roleId: 5 },
       { userId: 1000005, roleId: 6 },
       { userId: 1000006, roleId: 1 },
-      { userId: 1000007, roleId: 7 }
+      { userId: 1000007, roleId: 7 },
+      { userId: 1000008, roleId: 8 }
     ];
 
     for (let i = 0; i < accounts.length; i++) {

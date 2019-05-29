@@ -1,4 +1,4 @@
-<template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
+<template>
     <div>
         <div>
             <v-data-table
@@ -206,7 +206,6 @@
                         userId: decoded.id
                     })
                     .then(function (response) {
-                        console.log(response);
                     })
                     .catch(function (error) {
                         console.log(error);
