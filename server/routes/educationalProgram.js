@@ -7,8 +7,8 @@ const {
 
 router.get("/", educationalProgramController.getEducationalPrograms);
 
-router.get("/:educationalProgramId", educationalProgramController.getEducationalProgramCourses);
+router.get("/:educationalProgramId", educationalProgramController.getEducationalProgramById);
 
-// router.post("/", educationalProgramController.postEducationalProgram);
+router.post("/", educationalProgramController.postEducationalProgram);
 
 module.exports = router;

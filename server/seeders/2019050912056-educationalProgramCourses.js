@@ -24,7 +24,7 @@ module.exports = {
             newData.push(seedData);
         }
 
-        return queryInterface.bulkInsert('educationalProgramsCourses', newData);
+        return queryInterface.bulkInsert('educationalProgramCourses', newData);
     },
 
     down: (queryInterface, Sequelize) => {

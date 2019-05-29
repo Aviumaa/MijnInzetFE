@@ -13,7 +13,9 @@ const timeslots = require("./routes/timeslots");
 const userVacancy = require("./routes/userVacancies");
 const roles = require("./routes/roles");
 const auth = require("./routes/auth");
+const course = require("./routes/course")
 const educationalProgram = require("./routes/educationalProgram");
+const educationalProgramCourse = require("./routes/educationalProgramCourse");
 const express = require("express");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
@@ -27,6 +29,7 @@ const {
     Vacancy,
     UserVacancy,
     EducationalProgram,
+    EducationalProgramCourse,
 } = require("./sequelize");
 const bodyParser = require("body-parser");
 
@@ -76,7 +79,9 @@ app.use("/api/timeslots", cors(), timeslots);
 app.use("/api/roles", roles);
 // app.use('/api/auth', auth);
 app.use("/api/auth", auth);
+app.use("/api/course", course);
 app.use("/api/educationalProgram", educationalProgram);
+app.use("/api/educationalProgramCourse", educationalProgramCourse);
 
 //Configuration
 console.log("Application Name: " + config.get("name"));
