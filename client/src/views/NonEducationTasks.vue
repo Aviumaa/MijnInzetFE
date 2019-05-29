@@ -9,11 +9,12 @@
 import Tabs from "@/components/Tabs.vue";
 export default {
   data() {
-    return {};
+    return { isActiveNonEducation: true };
   },
   components: {
     Tabs
-  }
+  },
+  computed: {}
 };
 </script>
 

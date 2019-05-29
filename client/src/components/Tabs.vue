@@ -2,11 +2,11 @@
   <v-tabs color="grey lighten-2" fixed-tabs multiple>
     <v-tab
       v-bind:class="{ 'color-text-tabs': {isActiveEducation} }"
-      @click.native="navigateTo({name: 'educationTasks'}); isActiveEducation = true"
+      @click.native="navigateTo({name: 'educationTasks'});"
     >Onderwijstaken</v-tab>
     <v-tab
       v-bind:class="{ 'color-text-tabs': isActiveNonEducation }"
-      @click.native="navigateTo({name: 'nonEducationTasks'}); isActiveNonEducation = true"
+      @click.native="navigateTo({name: 'nonEducationTasks'})"
     >Niet Onderwijstaken</v-tab>
   </v-tabs>
 </template>
@@ -19,8 +19,6 @@ export default {
   methods: {
     navigateTo(route) {
       this.$router.push(route);
-      console.log(this.isActiveNonEducation);
-      console.log(this.isActiveEducation);
     }
   },
   props: {

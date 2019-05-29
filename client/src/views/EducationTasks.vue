@@ -10,13 +10,13 @@ import Tabs from "@/components/Tabs.vue";
 export default {
   data: function() {
     return {
-      isActiveEducation: true,
-      isActiveNonEducation: false
+      isActiveEducation: true
     };
   },
   components: {
     Tabs
-  }
+  },
+  computed: {}
 };
 </script>
 
