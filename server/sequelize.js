@@ -38,7 +38,10 @@ const WeekSchedule = WeekScheduleModel(sequelize, Sequelize);
 const Timeslot = TimeslotModel(sequelize, Sequelize);
 const Course = CourseModel(sequelize, Sequelize);
 const EducationalProgram = EducationalProgramModel(sequelize, Sequelize);
-const EducationalProgramCourse = EducationalProgramCourseModel(sequelize, Sequelize);
+const EducationalProgramCourse = EducationalProgramCourseModel(
+  sequelize,
+  Sequelize
+);
 // User.belongsToMany(Vacancy, {
 //   through: UserVacancy
 // });
@@ -61,16 +64,14 @@ const UserRole = UserRoleModel(sequelize, Sequelize);
 
 module.exports = {
   User,
-    Vacancy,
-    UserVacancy,
-    Role,
-    Timeslot,
-    WeekSchedule,
-    UserRole,
-    Course,
-    EducationalProgram,
-    EducationalProgramCourse,
-    sequelize
+  Vacancy,
+  UserVacancy,
+  Role,
+  Timeslot,
+  WeekSchedule,
+  UserRole,
+  Course,
+  EducationalProgram,
+  EducationalProgramCourse,
+  sequelize
 };
-}
-

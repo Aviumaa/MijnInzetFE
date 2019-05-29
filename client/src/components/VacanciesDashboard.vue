@@ -1,71 +1,28 @@
 <template>
-<div>
-      <v-data-table
-        :headers="this.headers"
-        :items="this.content"
-        :item-key="this.content.id"
-        :search="search"
-        :pagination.sync="pagination"
-        :disable-initial-sort="true"
-        hide-actions
-        class="elevation-3"
-      >
-        <template v-slot:items="props">
-          <tr @click="showModal(props.item)">
-            <td class="px-3">{{ props.item.task }}</td>
-            <td class="px-3">{{ props.item.title }}</td>
-            <td class="px-3">{{ props.item.contactPerson }}</td>
-            <td class="px-3">{{ props.item.period }} | {{props.item.schoolYear}}</td>
-            <td class="px-3">{{ props.item.typeCourse }}</td>
-            <td class="px-3">{{ props.item.contactHours }}</td>
-          </tr>
-        </template>
-      </v-data-table>
-      <div class="text-xs-right pt-2">
-        <v-pagination v-model="pagination.page" :length="pages" :total-visible="7" color="black"></v-pagination>
-      </div>
-
-      <v-dialog v-model="dialog" max-width="400">
-        <v-card>
-          <div class="topRow">
-            <v-flex>
-              <HeaderTitle title="Vacature" :subTitle="this.selected.name"></HeaderTitle>
-            </v-flex>
-          </div>
-          <v-card-text>
-            <div class="informationRow">
-              <div class="information">
-                <strong>Contactpersoon:</strong>
-                {{this.selected.contactPerson}}
-              </div>
-              <div class="information" max-width="50px">
-                <strong>Beschrijving:</strong>
-                {{this.selected.description}}
-              </div>
-              <div class="information">
-                <strong>Openstaande uren:</strong>
-                {{this.selected.contactHours}}
-              </div>
-              <div class="information">
-                <strong>Soort vacature:</strong>
-                {{this.selected.typeCourse}}
-              </div>
-            </div>
-          </v-card-text>
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn
-              round
-              color="indigo darken-4"
-              class="applyToVacancyButton"
-              @click="applyToVacancy()"
-            >Solliciteer</v-btn>
-            <v-spacer></v-spacer>
-          </v-card-actions>
-        </v-card>
-      </v-dialog>
-      <loading-dialog ref="loadingDialog"/>
-      <response-dialog ref="responseDialog"/>
+  <div>
+    <v-data-table
+      :headers="this.headers"
+      :items="this.content"
+      :item-key="this.content.id"
+      :search="search"
+      :pagination.sync="pagination"
+      :disable-initial-sort="true"
+      hide-actions
+      class="elevation-3"
+    >
+      <template v-slot:items="props">
+        <tr @click="showModal(props.item)">
+          <td class="px-3">{{ props.item.task }}</td>
+          <td class="px-3">{{ props.item.title }}</td>
+          <td class="px-3">{{ props.item.contactPerson }}</td>
+          <td class="px-3">{{ props.item.period }} | {{props.item.schoolYear}}</td>
+          <td class="px-3">{{ props.item.typeCourse }}</td>
+          <td class="px-3">{{ props.item.contactHours }}</td>
+        </tr>
+      </template>
+    </v-data-table>
+    <div class="text-xs-right pt-2">
+      <v-pagination v-model="pagination.page" :length="pages" :total-visible="7" color="black"></v-pagination>
     </div>
 
     <v-dialog v-model="dialog" max-width="400">
@@ -107,7 +64,9 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-  </div>    
+    <loading-dialog ref="loadingDialog"/>
+    <response-dialog ref="responseDialog"/>
+  </div>
 </template>
 
 
@@ -191,19 +150,6 @@ export default {
     LoadingDialog
   }
 };
-                axios
-                    .post("http://localhost:3000/api/UserVacancies", {
-                        vacancyId: this.selected.id,
-                        userId: decoded.id
-                    })
-                    .then(function (response) {
-                    })
-                    .catch(function (error) {
-                        console.log(error);
-                    });
-            }
-        }
-    };
 </script>
 
 <style scoped>
