@@ -24,8 +24,6 @@ exports.doLogin = async (req, res) => {
       password: password
     }
   }).then(userResponse => {
-    console.log("userResponse");
-    console.log(userResponse);
     userData = userResponse;
     if (userResponse == null) {
       res.status(400);
@@ -33,8 +31,7 @@ exports.doLogin = async (req, res) => {
     }
   });
 
-  console.log("userData");
-  console.log(userData);
+
 
   await UserRole.findOne({
     where: {

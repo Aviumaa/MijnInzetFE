@@ -50,7 +50,6 @@ export default {
 
   methods: {
     login() {
-      console.log(this.user);
       axios
         .post(
           `http://localhost:3000/api/users/login`,
@@ -62,7 +61,6 @@ export default {
         )
         .then(response => {
           // JSON responses are automatically parsed.
-          console.log("response: " + response.data);
           if (response.status == "200") {
             // success
             window.localStorage.setItem("token", response.data);

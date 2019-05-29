@@ -15,7 +15,6 @@
                 <tr @click="navigateTo('editUser', props.item)">
                     <td class="px-3">{{ props.item.id }}</td>
                     <td class="px-3">{{ props.item.username }}</td>
-                    <td class="px-3">todo</td>
                 </tr>
             </template>
 
@@ -68,9 +67,7 @@
         methods: {
             navigateTo(route, user) {
                 //this.$router.push(route);
-                console.log(user);
                 this.$router.push({name: route, params: { user: user}});
-                console.log(this.$route.params);
             }
         },
         components: {

@@ -30,13 +30,6 @@ export default {
           sortable: true,
           value: "gebruikersnaam",
           class: "px-3"
-        },
-        {
-          text: "Rollen",
-          sortable: true,
-          value: "rollen",
-          width: "10%",
-          class: "px-3"
         }
       ],
       content: [],

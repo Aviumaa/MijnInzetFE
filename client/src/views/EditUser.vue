@@ -8,7 +8,6 @@
             <v-form ref="form">
                 <v-card>
                     <v-card-text>
-                        userid = {{user.id}}
                         <v-text-field
                                 ref="username"
                                 v-model="user.username"
@@ -20,7 +19,7 @@
                             
                         :items="roles"
                         item-text="text"
-                            label="Select a favorite activity or create a new one"
+                            label="Selecteer een rol"
                         ></v-combobox>
                         
                     </v-card-text>
@@ -54,7 +53,8 @@
                     {id: '4', text: 'Projectcoordinator'},
                     {id: '5', text: 'Modulecoordinator'},
                     {id: '6', text: 'Facilitator'},
-                    {id: '7', text: 'Roosteraar'}
+                    {id: '7', text: 'Roosteraar'},
+                    {id: '8', text: 'Coordinator'}
                     ]
         }),
         components: {
@@ -68,7 +68,6 @@
                     roleId: this.select.id
                 })
                 .then(response => {
-                console.log(response);
                 })
                 .catch(error => {
                 console.log(error);

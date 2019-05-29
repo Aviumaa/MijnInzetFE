@@ -4,7 +4,6 @@ const Sequelize = require("sequelize");
 const Op = Sequelize.Op;
 
 exports.editUser = (req,res) => {
-    console.log("edituser");
     let userId = req.params.userId;
 
     User.findOne({
@@ -17,8 +16,6 @@ exports.editUser = (req,res) => {
   };
 
 exports.doEdit = (req, res) => {
-    console.log(req.params.userId);
-    console.log(req.params.roleId);
 
     let userId = req.params.userId;
     let roleId = req.body.roleId;
@@ -30,23 +27,6 @@ exports.doEdit = (req, res) => {
             id: userId
         }
     })
-    // .then(function(rowsUpdated){
-    //     res.json(rowsUpdated);
-    // })
-
-    console.log(req.params);
-
-    // UserRole.update({
-    //     roleId: req.body.roleId
-    // }, 
-    // {
-    //     where:{
-    //         userId: userId
-    // },
-    // attributes: ["userId", "roleId"]
-    // }).then(function(rowsUpdated){
-    //     res.json(rowsUpdated);
-    // })
 
     UserRole
         .findOne({ where: {userId: userId} })

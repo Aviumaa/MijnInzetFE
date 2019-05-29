@@ -60,6 +60,7 @@ module.exports = {
     Role,
     Timeslot,
     WeekSchedule,
-    UserRole
+    UserRole,
+    sequelize
 }
 
