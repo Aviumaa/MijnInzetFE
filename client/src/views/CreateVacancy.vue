@@ -77,6 +77,8 @@
                   prepend-icon="event"
                   readonly
                   v-on="on"
+                  :rules="dateRules"
+                  required
                 ></v-text-field>
               </template>
               <v-date-picker v-model="startDate" :min="currentDate" no-title scrollable/>
@@ -99,6 +101,8 @@
                   prepend-icon="event"
                   readonly
                   v-on="on"
+                  :rules="dateRules"
+                  required
                 ></v-text-field>
               </template>
               <v-date-picker v-model="endDate" :min="currentDate" no-title scrollable/>
@@ -150,6 +154,7 @@ export default {
         (v && v.length <= 255) ||
         "Contacturen moet korter zijn dan 255 karakters"
     ],
+    dateRules: [v => !!v || "Date is required"],
     menu: false,
     secondMenu: false,
     startDate: "",
@@ -159,8 +164,7 @@ export default {
     currentDate: new Date().toISOString()
   }),
   components: {
-    HeaderTitle,
-    Panel
+    HeaderTitle
   },
   methods: {
     send() {
