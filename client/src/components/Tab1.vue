@@ -12,7 +12,12 @@ export default {
       tabs: null,
       headers: ["Onderwijstaken", "Niet onderwijstaken"]
     };
-  }
+  },
+  methods: {
+    mounted() {
+      console.log('testtestets');
+    },
+  },
 };
 </script>
 
