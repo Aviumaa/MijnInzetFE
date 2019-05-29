@@ -28,9 +28,7 @@ exports.postCourse= (req, res) => {
         title: req.body.title,
         ects: req.body.ects,
         period: req.body.period,
-        type: req.body.type,
-        createdAt: new Date(),
-        updatedAt: new Date()
+        type: req.body.type
     })
         .then(course => res.status(201).json(course))
         .catch(err => console.error(err));

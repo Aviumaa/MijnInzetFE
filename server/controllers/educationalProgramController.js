@@ -28,9 +28,7 @@ exports.postEducationalProgram = (req, res) => {
     EducationalProgram.create({
         title: req.body.title,
         year: req.body.year,
-        study: req.body.study,
-        createdAt: new Date(),
-        updatedAt: new Date()
+        study: req.body.study
     })
         .then(educationalProgram => res.status(201).json(educationalProgram))
         .catch(err => console.error(err));
