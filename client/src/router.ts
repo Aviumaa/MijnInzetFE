@@ -8,6 +8,7 @@ import Vacancies from "./views/Vacancies.vue";
 import CreateVacancy from "./views/CreateVacancy.vue";
 import EducationTasks from "./views/EducationTasks.vue";
 import NonEducationTasks from "./views/NonEducationTasks.vue";
+import Tab1 from "./components/Tab1.vue";
 
 Vue.use(Router);
 
@@ -44,7 +45,8 @@ export default new Router({
       path: "/createvacancy",
       name: "createvacancy",
       component: CreateVacancy
-    },{
+    },
+    {
       path: "/educationTasks",
       name: "educationTasks",
       component: EducationTasks
@@ -54,5 +56,10 @@ export default new Router({
       name: "nonEducationTasks",
       component: NonEducationTasks
     },
+    {
+      path: "/Tab1",
+      name: "tab1",
+      component: Tab1
+    }
   ]
 });
