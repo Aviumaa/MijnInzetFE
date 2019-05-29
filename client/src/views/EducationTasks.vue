@@ -1,7 +1,6 @@
 <template>
   <div>
-    <tabs v-bind:class="{ 'color-text-tabs': {isActiveEducation} }"></tabs>
-    <H1>Onderwijstaken</H1>
+    <tabs title="Onderwijstaken"></tabs>
   </div>
 </template>
 
@@ -9,14 +8,11 @@
 import Tabs from "@/components/Tabs.vue";
 export default {
   data: function() {
-    return {
-      isActiveEducation: true
-    };
+    return {};
   },
   components: {
     Tabs
-  },
-  computed: {}
+  }
 };
 </script>
 
