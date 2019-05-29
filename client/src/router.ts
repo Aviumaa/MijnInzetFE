@@ -16,21 +16,6 @@ let decoded: any;
 if (cookie !== null) {
   decoded = jwt_decode(cookie);
 } else {
-  cookie = setCookie(
-    "testToken",
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c",
-    1
-  );
-}
-
-function setCookie(name: any, value: any, days: any) {
-  var expires = "";
-  if (days) {
-    var date = new Date();
-    date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
-    expires = "; expires=" + date.toUTCString();
-  }
-  document.cookie = name + "=" + (value || "") + expires + "; path=/";
 }
 
 function getCookie(name: any) {
@@ -39,8 +24,7 @@ function getCookie(name: any) {
 }
 
 function guard(to: any, from: any, next: { (): void; (arg0: string): void }) {
-  if (cookie !== undefined) {
-    jwt_decode(cookie);
+  if (cookie !== null) {
     next();
   } else {
     next("/"); // go to '/login';
