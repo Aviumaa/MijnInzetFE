@@ -38,12 +38,13 @@
                                 :rules="coordinatorRules"
                                 required
                         ></v-text-field>
-                        <v-text-field
+                        <v-autocomplete
                                 ref="period"
                                 v-model="period"
+                                :items="periods"
                                 label="Periode"
-                                placeholder="bijv. Blok 3|2019-2020"
-                        ></v-text-field>
+                                placeholder="bijv. Blok 3"
+                        ></v-autocomplete>
                         <v-autocomplete
                                 ref="type"
                                 v-model="type"
@@ -140,6 +141,7 @@
                 v => (v && v.length <= 255) || 'Contactpersoon moet korter zijn dan 255 karakters'
             ],
             period: '',
+            periods: ["Sem 1", "Sem 2", "Blok 1", "Blok 2", "Blok 3", "Blok 4"],
             contactHours: '',
             contactHoursRules: [
                 v => !!v || 'Contacturen is verplicht',
@@ -164,6 +166,7 @@
                         title: this.title,
                         description: this.description,
                         contactPerson: this.coordinator,
+                        schoolYear: this.calculateSchoolYear(this.startDate),
                         period: this.period,
                         typeCourse: this.getType(this.type),
                         contactHours: this.contactHours,
@@ -185,6 +188,15 @@
                     return "DT";
                 } else {
                     return "Onbekend";
+                }
+            },
+            //Calculates the schoolYear the vacancy is in using the startDate as input
+            calculateSchoolYear(input) {
+                var date = new Date(input);
+                if (date.getMonth() < 8) { //Check if date is before September
+                    return (date.getFullYear() -1) + '-' +  date.getFullYear();
+                } else {
+                    return date.getFullYear() + '-' + (date.getFullYear() + 1);
                 }
             }
         }
