@@ -92,7 +92,6 @@ export default {
         .catch(error => {
           console.log(error);
         });
-      return console.log("sendAvailability: " + this.checkboxes);
     },
     parseJsonToString() {
       const timeslots = [];
