@@ -15,7 +15,6 @@ let decoded: any;
 
 if (cookie !== null) {
   decoded = jwt_decode(cookie);
-} else {
 }
 
 function getCookie(name: any) {

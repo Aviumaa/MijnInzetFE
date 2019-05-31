@@ -4,7 +4,7 @@
       <v-flex>
         <HeaderTitle title="Beschikbaarheid"/>
 
-        <v-layout row>
+        <v-layout row class="list-availability">
           <v-flex grow v-for="day in weekdays" :key="day.index">
             <v-card>
               <v-card-title class="title text-capitalize font-weight-bold">{{moment.weekdays(day)}}</v-card-title>
@@ -122,18 +122,10 @@ export default {
 </script>
 
 <style>
-grid-container {
-  margin: 1em 0;
-  padding: 1.5em;
-  border: 1px solid black;
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-}
-
-.schedule--time,
-.schedule--day {
-  display: grid;
-  grid-template-rows: repeat(17, 1fr);
+@media (max-width: 700px) {
+  .list-availability {
+    flex-direction: column;
+  }
 }
 
 div.border {

@@ -1,14 +1,9 @@
 const { User } = require("../sequelize");
-
-var jwt = require("jsonwebtoken");
-
 const { UserRole } = require("../sequelize");
 
-const Sequelize = require("sequelize");
-const Op = Sequelize.Op;
-
+const jwt = require("jsonwebtoken");
 const cookie_options = {
-  expiresIn: 3600
+  expiresIn: 60
 };
 
 exports.doLogin = async (req, res) => {
