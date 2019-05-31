@@ -35,8 +35,8 @@
           v-if="roleId == 1"
           @click.native="navigateTo({name: 'users'})"
           title="Gebruikers"
+          icon="group"
         ></tile-button>
-
         <tile-button
           v-if="roleId == 8"
           @click.native="navigateTo({name: '#'})"
@@ -55,7 +55,6 @@ import jwt_decode from "jwt-decode";
 
 export default {
   data() {
-
     const roleId = 0;
     return {
       roleId: 3
@@ -70,12 +69,8 @@ export default {
     }
   },
   mounted() {
-    console.log("token jwt: " + localStorage.getItem("token"));
     let token = localStorage.getItem("token");
-    console.log(this.roleId);
-
     let decoded = jwt_decode(token);
-    console.log("decoded token: " + decoded.role);
 
     axios
       .get(`http://localhost:3000/api/users/`, {
@@ -84,9 +79,6 @@ export default {
       .then(response => {
         if (response.data != null) {
           this.roleId = decoded.role;
-          console.log("responsedata null");
-          console.log(this.roleId);
-          console.log(response.data);
         }
       })
       .catch(e => {
