@@ -13,7 +13,10 @@
       </v-btn>
       <v-spacer></v-spacer>
       <v-btn
-        v-if="['home', 'availability', 'vacancies', 'createvacancy'].includes($route.name)"
+        v-if="[
+          'home', 'availability', 'vacancies', 'createvacancy', 
+          'educationTasks', 'nonEducationTasks', 'users', 'editUser'
+          ].includes($route.name)"
         flat
         color="grey"
         @click="logout()"
