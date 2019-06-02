@@ -14,6 +14,9 @@ module.exports = {
             password: {
                 type: type.STRING
             },
+            email: {
+                type: type.STRING
+            },
             createdAt: {
                 allowNull: false,
                 type: type.DATE,

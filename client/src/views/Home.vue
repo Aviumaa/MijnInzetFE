@@ -19,7 +19,7 @@
           icon="assignment"
         ></tile-button>
         <tile-button
-          @click.native="navigateTo({name: 'roster'})"
+          @click.native="navigateTo({name: 'profile'})"
           title="Mijn"
           newLine="Profiel"
           icon="face"

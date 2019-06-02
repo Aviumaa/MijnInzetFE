@@ -11,6 +11,7 @@ import jwt_decode from "jwt-decode";
 import EducationTasks from "./views/EducationTasks.vue";
 import NonEducationTasks from "./views/NonEducationTasks.vue";
 import EditUser from "./views/EditUser.vue";
+import Profile from "./views/Profile.vue";
 
 Vue.use(Router);
 
@@ -99,6 +100,11 @@ export default new Router({
       path: "/users/edit",
       name: "editUser",
       component: EditUser
+    }
+    {
+      path: "/profile",
+      name: "profile",
+      component: Profile
     }
   ]
 });
