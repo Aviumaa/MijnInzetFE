@@ -19,7 +19,7 @@ module.exports = {
     const accounts = [
       {
         userId: 1000001,
-        roleId: 1,
+        roleId: 2,
         createdAt: new Date(),
         updatedAt: new Date()
       },

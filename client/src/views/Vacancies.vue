@@ -4,7 +4,13 @@
       <v-flex>
         <div class="upperRow">
           <HeaderTitle title="Vacatures"></HeaderTitle>
-          <v-btn @click="navigateTo({name: 'createvacancy'})" fab dark color="indigo darken-4">
+          <v-btn
+            v-if="authToken.role == '1'"
+            @click="navigateTo({name: 'createvacancy'})"
+            fab
+            dark
+            color="indigo darken-4"
+          >
             <v-icon dark>add</v-icon>
           </v-btn>
         </div>
