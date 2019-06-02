@@ -4,7 +4,7 @@
       <v-flex>
         <HeaderTitle title="Beschikbaarheid"/>
 
-        <v-layout row class="list-availability">
+        <v-layout class="list-availability">
           <v-flex grow v-for="day in weekdays" :key="day.index">
             <v-card>
               <v-card-title class="title text-capitalize font-weight-bold">{{moment.weekdays(day)}}</v-card-title>

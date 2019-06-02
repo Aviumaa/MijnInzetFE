@@ -43,8 +43,11 @@ export default {
       document.cookie =
         name + "=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;";
     },
+    back() {
+      this.$router.go(-1);
+    },
     setBackButton() {
-      if (this.$route.path == "/") {
+      if (this.$route.path == "/dashboard" || this.$route.path == "/") {
         return (this.backButton = false);
       } else {
         return (this.backButton = true);

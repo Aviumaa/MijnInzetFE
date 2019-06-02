@@ -42,6 +42,7 @@
               ref="period"
               v-model="period"
               label="Periode"
+              placeholder="bijv. Blok 3|2019-2020"
             ></v-text-field>
             <v-autocomplete
               ref="type"
@@ -116,7 +117,6 @@
       </v-form>
     </v-flex>
   </v-layout>
-              placeholder="bijv. Blok 3|2019-2020"
 </template>
 
 <script>
