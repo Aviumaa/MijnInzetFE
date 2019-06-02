@@ -3,7 +3,7 @@
     <v-layout>
       <v-flex>
         <div class="upperRow">
-          <HeaderTitle title="Vacatures" subTitle="* uur beschikbaar"></HeaderTitle>
+          <HeaderTitle title="Vacatures"></HeaderTitle>
           <v-btn @click="navigateTo({name: 'createvacancy'})" fab dark color="indigo darken-4">
             <v-icon dark>add</v-icon>
           </v-btn>
