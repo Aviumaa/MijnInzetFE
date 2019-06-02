@@ -8,12 +8,6 @@ module.exports = {
 
     for (let i = 0; i < 200; i++) {
       const seedData = {
-        task: faker.random.arrayElement([
-          "Lesgeven",
-          "Surveilleren",
-          "Begeleiding",
-          "Nakijken"
-        ]),
         title: faker.name.jobTitle(),
         description: faker.lorem.paragraph(),
         contactPerson: faker.name.findName(),

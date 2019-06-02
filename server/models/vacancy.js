@@ -6,9 +6,6 @@ module.exports = (sequelize, Sequelize) => {
       primaryKey: true,
       autoIncrement: true
     },
-    task: {
-      type: Sequelize.STRING
-    },
     title: {
       type: Sequelize.STRING
     },
@@ -24,13 +21,13 @@ module.exports = (sequelize, Sequelize) => {
     typeCourse: {
       type: Sequelize.STRING
     },
+    typeTask: {
+      type: Sequelize.STRING
+    },
     contactHours: {
       type: Sequelize.INTEGER
     },
     contactPerson: {
-      type: Sequelize.STRING
-    },
-    typeTask: {
       type: Sequelize.STRING
     },
     startDate: {

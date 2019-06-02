@@ -30,13 +30,6 @@ export default {
     return {
       headers: [
         {
-          text: "Taak",
-          sortable: true,
-          value: "task",
-          width: "15%",
-          class: "px-3"
-        },
-        {
           text: "Titel",
           sortable: true,
           value: "title",
@@ -46,35 +39,30 @@ export default {
           text: "Contactpersoon",
           sortable: true,
           value: "contactPerson",
-          width: "10%",
           class: "px-3"
         },
         {
           text: "Periode",
           sortable: true,
           value: "Period",
-          width: "20%",
           class: "px-3"
         },
         {
           text: "Type",
           sortable: true,
           value: "typeCourse",
-          width: "2%",
-          class: "px-3"
-        },
-        {
-          text: "Inzet (uren)",
-          sortable: true,
-          value: "contactHours",
-          width: "2%",
           class: "px-3"
         },
         {
           text: "Taak",
           sortable: true,
           value: "typeTask",
-          width: "2%",
+          class: "px-3"
+        },
+        {
+          text: "Inzet (uren)",
+          sortable: true,
+          value: "contactHours",
           class: "px-3"
         }
       ],

@@ -9,14 +9,6 @@
         <v-card>
           <v-card-text>
             <v-text-field
-              ref="task"
-              v-model="task"
-              label="Taak"
-              placeholder="bijv. Lesgeven"
-              :rules="taskRules"
-              required
-            ></v-text-field>
-            <v-text-field
               ref="title"
               v-model="title"
               label="Titel"
@@ -51,6 +43,14 @@
               label="Type"
               placeholder="bijv. Deeltijd"
             ></v-autocomplete>
+            <v-text-field
+              ref="task"
+              v-model="task"
+              label="Taak"
+              placeholder="bijv. Onderwijs"
+              :rules="taskRules"
+              required
+            ></v-text-field>
             <v-text-field
               ref="contactHours"
               v-model="contactHours"
@@ -120,8 +120,8 @@
 </template>
 
 <script>
-    import HeaderTitle from "@/components/HeaderTitle.vue";
-    import axios from "axios";
+import HeaderTitle from "@/components/HeaderTitle.vue";
+import axios from "axios";
 
 export default {
   data: () => ({
@@ -159,54 +159,58 @@ export default {
     startDate: "",
     endDate: "",
     openSlots: 1,
-            periods: ["Sem 1", "Sem 2", "Blok 1", "Blok 2", "Blok 3", "Blok 4"],
+    periods: ["Sem 1", "Sem 2", "Blok 1", "Blok 2", "Blok 3", "Blok 4"],
 
-            currentDate: new Date().toISOString()
-        }),
-        components: {
-            HeaderTitle
-        },
-        methods: {
-            send() {
-                if (this.$refs.form.validate()) {
-                    axios.post('http://localhost:3000/api/Vacancies', {
-                        task: this.task,
-                        title: this.title,
-                        description: this.description,
-                        contactPerson: this.coordinator,
-                        schoolYear: this.calculateSchoolYear(this.startDate),
-                        period: this.period,
-                        typeCourse: this.getType(this.type),
-                        contactHours: this.contactHours,
-                        startDate: this.startDate,
-                        endDate: this.endDate,
-                        openSlots: this.openSlots
-                    }).then(function (response) {
-                        console.log(response);
-                    }).catch(function (error) {
-                        console.log(error);
-                    });
-                }
-            },
-            //Replaces the given type with it's shortened version
-            getType(type) {
-                if (type === "Voltijd") {
-                    return "VT";
-                } else if (type === "Deeltijd") {
-                    return "DT";
-                } else {
-                    return "Onbekend";
-                }
-            },
-            //Calculates the schoolYear the vacancy is in using the startDate as input
-            calculateSchoolYear(input) {
-                var date = new Date(input);
-                if (date.getMonth() < 8) { //Check if date is before September
-                    return (date.getFullYear() -1) + '-' +  date.getFullYear();
-                } else {
-                    return date.getFullYear() + '-' + (date.getFullYear() + 1);
-                }
-            }
-        }
-    };
+    currentDate: new Date().toISOString()
+  }),
+  components: {
+    HeaderTitle
+  },
+  methods: {
+    send() {
+      if (this.$refs.form.validate()) {
+        axios
+          .post("http://localhost:3000/api/Vacancies", {
+            title: this.title,
+            description: this.description,
+            contactPerson: this.coordinator,
+            schoolYear: this.calculateSchoolYear(this.startDate),
+            period: this.period,
+            typeCourse: this.getType(this.type),
+            typeTask: this.task,
+            contactHours: this.contactHours,
+            startDate: this.startDate,
+            endDate: this.endDate,
+            openSlots: this.openSlots
+          })
+          .then(function(response) {
+            console.log(response);
+          })
+          .catch(function(error) {
+            console.log(error);
+          });
+      }
+    },
+    //Replaces the given type with it's shortened version
+    getType(type) {
+      if (type === "Voltijd") {
+        return "VT";
+      } else if (type === "Deeltijd") {
+        return "DT";
+      } else {
+        return "Onbekend";
+      }
+    },
+    //Calculates the schoolYear the vacancy is in using the startDate as input
+    calculateSchoolYear(input) {
+      var date = new Date(input);
+      if (date.getMonth() < 8) {
+        //Check if date is before September
+        return date.getFullYear() - 1 + "-" + date.getFullYear();
+      } else {
+        return date.getFullYear() + "-" + (date.getFullYear() + 1);
+      }
+    }
+  }
+};
 </script>

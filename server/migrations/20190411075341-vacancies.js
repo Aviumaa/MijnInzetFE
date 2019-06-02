@@ -8,13 +8,8 @@ module.exports = {
         primaryKey: true,
         autoIncrement: true
       },
-      task: {
-        type: type.STRING,
-        allowNull: false
-      },
       title: {
-        type: type.STRING,
-        allowNull: false
+        type: type.STRING
       },
       description: {
         type: type.TEXT
@@ -31,11 +26,11 @@ module.exports = {
       typeCourse: {
         type: type.STRING
       },
-      contactHours: {
-        type: type.INTEGER
-      },
       typeTask: {
         type: type.STRING
+      },
+      contactHours: {
+        type: type.INTEGER
       },
       startDate: {
         type: type.DATE
@@ -44,8 +39,8 @@ module.exports = {
         type: type.DATE
       },
       openSlots: {
-        type: type.INTEGER,
-        allowNull: false
+        allowNull: false,
+        type: type.INTEGER
       },
       createdAt: {
         allowNull: false,
