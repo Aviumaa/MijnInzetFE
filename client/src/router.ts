@@ -7,6 +7,8 @@ import Availability from "./views/Availability.vue";
 import Vacancies from "./views/Vacancies.vue";
 import Users from "./views/Users.vue";
 import CreateVacancy from "./views/CreateVacancy.vue";
+import EducationTasks from "./views/EducationTasks.vue";
+import NonEducationTasks from "./views/NonEducationTasks.vue";
 import EditUser from "./views/EditUser.vue";
 
 Vue.use(Router);
@@ -44,6 +46,16 @@ export default new Router({
       path: "/createvacancy",
       name: "createvacancy",
       component: CreateVacancy
+    },
+    {
+      path: "/educationTasks",
+      name: "educationTasks",
+      component: EducationTasks
+    },
+    {
+      path: "/nonEducationTasks",
+      name: "nonEducationTasks",
+      component: NonEducationTasks
     },
     {
       path: "/users",
