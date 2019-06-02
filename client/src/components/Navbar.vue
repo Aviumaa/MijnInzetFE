@@ -7,6 +7,10 @@
           <span class="font-weight-bold">Inzet</span>
         </router-link>
       </v-toolbar-title>
+      <v-btn v-if="backButton" @click="back()" flat color="grey">
+        <v-icon right>arrow_back</v-icon>
+        <span>Terug</span>
+      </v-btn>
       <v-spacer></v-spacer>
       <v-btn
         v-if="['home', 'availability', 'vacancies', 'createvacancy'].includes($route.name)"
@@ -25,7 +29,9 @@
 export default {
   name: "navBar",
   data() {
-    return {};
+    return {
+      backButton: true
+    };
   },
   methods: {
     logout() {
@@ -36,6 +42,21 @@ export default {
     eraseCookie(name) {
       document.cookie =
         name + "=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;";
+    },
+    setBackButton() {
+      if (this.$route.path == "/") {
+        return (this.backButton = false);
+      } else {
+        return (this.backButton = true);
+      }
+    }
+  },
+  mounted: function() {
+    this.setBackButton();
+  },
+  watch: {
+    $route: function() {
+      this.setBackButton();
     }
   }
 };

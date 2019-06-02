@@ -5,7 +5,11 @@ const router = express.Router();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
+const Model = require("../sequelize");
+
+const sequelize = Model.sequelize;
 const loginController = require("../controllers/loginController");
+const userController = require("../controllers/userController");
 
 router.post("/crypt/", async (req, res) => {
   // const { error } = validate(req.body);
@@ -46,11 +50,15 @@ router.get("/", (req, res) => {
 });
 
 router.post("/login", loginController.doLogin);
+router.get('/all', (req, res) => {
+    User.findAll().then(users => res.json(users))
+})  
 
+router.get("/:userId/edit", userController.editUser);
+router.put("/:userId/edit", userController.doEdit);
 router.get("/", (req, res) => {
   user.findAll().then(users => res.json(users));
 });
-
 router.post("/", (req, res) => {
   User.create({
     username: req.body.username,

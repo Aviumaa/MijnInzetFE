@@ -1,4 +1,4 @@
-<template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
+<template>
   <div>
     <v-data-table
       :headers="this.headers"
@@ -15,7 +15,7 @@
           <td class="px-3">{{ props.item.task }}</td>
           <td class="px-3">{{ props.item.title }}</td>
           <td class="px-3">{{ props.item.contactPerson }}</td>
-          <td class="px-3">{{ props.item.period }}</td>
+          <td class="px-3">{{ props.item.period }} | {{props.item.schoolYear}}</td>
           <td class="px-3">{{ props.item.typeCourse }}</td>
           <td class="px-3">{{ props.item.contactHours }}</td>
         </tr>
@@ -64,6 +64,8 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+    <loading-dialog ref="loadingDialog"/>
+    <response-dialog ref="responseDialog"/>
   </div>
 </template>
 
@@ -71,6 +73,8 @@
 <script>
 import HeaderTitle from "@/components/HeaderTitle.vue";
 import axios from "axios";
+import LoadingDialog from "@/components/LoadingDialog.vue";
+import ResponseDialog from "./ResponseDialog";
 
 export default {
   data() {
@@ -108,21 +112,38 @@ export default {
       this.dialog = true;
     },
     applyToVacancy() {
+      this.dialog = false;
+      this.$refs.loadingDialog.open("Verzoek indienen");
       axios
         .post("http://localhost:3000/api/UserVacancies", {
           vacancyId: this.selected.id,
           userId: this.authToken.id
         })
-        .then(function(response) {
-          console.log(response);
+        .then(response => {
+          if (response.status === 201) {
+            this.openResponseDialog(response.status);
+          }
         })
         .catch(function(error) {
           console.log(error);
         });
+    },
+    openResponseDialog(responseStatus) {
+      this.$refs.loadingDialog.close();
+      if (responseStatus === 201) {
+        this.$refs.responseDialog.open("Verzoek is ingediend", "done");
+      } else {
+        this.$refs.responseDialog.open(
+          "Verzoek kon niet worden ingediend",
+          "clear"
+        );
+      }
     }
   },
   components: {
-    HeaderTitle
+    ResponseDialog,
+    HeaderTitle,
+    LoadingDialog
   }
 };
 </script>

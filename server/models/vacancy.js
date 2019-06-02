@@ -6,9 +6,6 @@ module.exports = (sequelize, Sequelize) => {
             primaryKey: true,
             autoIncrement: true
         },
-        name: {
-            type: Sequelize.STRING
-        },
         task: {
             type: Sequelize.STRING,
         },
@@ -18,7 +15,7 @@ module.exports = (sequelize, Sequelize) => {
         description: {
             type: Sequelize.TEXT
         },
-        moduleCoordinator: {
+        schoolYear: {
             type: Sequelize.STRING
         },
         period: {

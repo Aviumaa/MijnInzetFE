@@ -34,6 +34,10 @@ import axios from "axios";
 import Panel from "@/components/Panel.vue";
 import TileButton from "@/components/TileButton.vue";
 
+const jwt = require('jsonwebtoken');
+
+axios.defaults.withCredentials = true;
+
 export default {
   data() {
     return {
@@ -81,6 +85,13 @@ export default {
   },
   components: {
     Panel
+  },
+  mounted(){
+    window.addEventListener('keydown', (e) => {
+      if (e.key == 'Enter') {
+        this.login();
+      }
+    });
   }
 };
 </script>

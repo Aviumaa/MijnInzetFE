@@ -26,15 +26,19 @@
         ></tile-button>
         <tile-button
           v-if="roleId == 1"
-          @click.native="navigateTo({name: '#'})"
-          title="Onderwijs"
-          newLine="programma beheren"
+          @click.native="navigateTo({name: 'educationTasks'})"
+          title="Taken"
+          newLine="Beheren"
           icon="build"
         ></tile-button>
         <tile-button
-          v-if="roleId == 3 ||
-                roleId == 4 ||
-                roleId == 5"
+          v-if="roleId == 1"
+          @click.native="navigateTo({name: 'users'})"
+          title="Gebruikers"
+          icon="group"
+        ></tile-button>
+        <tile-button
+          v-if="roleId == 8"
           @click.native="navigateTo({name: '#'})"
           title="Overzicht inzet"
         ></tile-button>
@@ -49,6 +53,7 @@ import axios from "axios";
 
 export default {
   data() {
+    const roleId = 0;
     return {
       roleId: null
     };

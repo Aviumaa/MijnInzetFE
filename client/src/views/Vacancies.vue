@@ -96,6 +96,7 @@ export default {
 <style scoped>
 .upperRow {
   display: flex;
+  align-items: baseline;
   justify-content: space-between;
 }
 </style>

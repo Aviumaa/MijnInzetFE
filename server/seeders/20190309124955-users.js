@@ -23,7 +23,8 @@ module.exports = {
             {id: 1000004, username: "modulecoordinator", password: "modulecoordinator", createdAt: new Date(), updatedAt: new Date()},
             {id: 1000005, username: "facilitator", password: "facilitator", createdAt: new Date(), updatedAt: new Date()},
             {id: 1000006, username: "admin", password: "admin", createdAt: new Date(), updatedAt: new Date()},
-            {id: 1000007, username: "roosteraar", password: "roosteraar", createdAt: new Date(), updatedAt: new Date()}
+            {id: 1000007, username: "roosteraar", password: "roosteraar", createdAt: new Date(), updatedAt: new Date()},
+            {id: 1000008, username: "coordinator", password: "coordinator", createdAt: new Date(), updatedAt: new Date()}
         ];
 
         for (let i = 0; i < accounts.length; i++){

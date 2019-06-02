@@ -55,3 +55,9 @@ exports.doLogin = async (req, res) => {
       .json(token);
   }
 };
+
+exports.getUsers = (req,res) => {
+  User.findAll().then(userResponse => {
+    res.status(200).json(userResponse);
+  })
+}
