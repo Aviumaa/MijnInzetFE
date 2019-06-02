@@ -14,14 +14,14 @@ module.exports = (sequelize, type) => {
         references: {
           model: "educationalProgram",
           key: "id"
-        },
-        courseId: {
-          type: type.INTEGER,
-          allowNull: false,
-          references: {
-            model: "course",
-            key: "id"
-          }
+        }
+      },
+      courseId: {
+        type: type.INTEGER,
+        allowNull: false,
+        references: {
+          model: "course",
+          key: "id"
         }
       },
       createdAt: {
