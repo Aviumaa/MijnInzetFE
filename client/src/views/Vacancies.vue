@@ -69,6 +69,13 @@ export default {
           value: "contactHours",
           width: "2%",
           class: "px-3"
+        },
+        {
+          text: "Taak",
+          sortable: true,
+          value: "typeTask",
+          width: "2%",
+          class: "px-3"
         }
       ],
       content: [],

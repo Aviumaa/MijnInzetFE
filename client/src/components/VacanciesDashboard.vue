@@ -18,6 +18,7 @@
           <td class="px-3">{{ props.item.period }} | {{props.item.schoolYear}}</td>
           <td class="px-3">{{ props.item.typeCourse }}</td>
           <td class="px-3">{{ props.item.contactHours }}</td>
+          <td class="px-3">{{ props.item.typeTask }}</td>
         </tr>
       </template>
     </v-data-table>
