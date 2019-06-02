@@ -100,7 +100,7 @@ export default new Router({
       path: "/users/edit",
       name: "editUser",
       component: EditUser
-    }
+    },
     {
       path: "/profile",
       name: "profile",
