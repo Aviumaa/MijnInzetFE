@@ -6,6 +6,16 @@ module.exports = {
   up: (queryInterface, Sequelize) => {
     const newData = [];
 
+    for (let i = 1; i < 200; i++) {
+      const seedData = {
+        userId: i,
+        roleId: faker.random.arrayElement([1, 2, 3, 4, 5, 6, 7, 8]),
+        createdAt: new Date(),
+        updatedAt: new Date()
+      };
+      newData.push(seedData);
+    }
+
     const accounts = [
       {
         userId: 1000001,
