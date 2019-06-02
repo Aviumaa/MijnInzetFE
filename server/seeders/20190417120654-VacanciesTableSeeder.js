@@ -32,7 +32,7 @@ module.exports = {
           "Persoonlijke taken",
           "Stages",
           "Afstudeerstages",
-          "werkgroepen/commissies"
+          "Werkgroepen/commissies"
         ]),
         startDate: faker.date.past(),
         endDate: faker.date.future(),

@@ -43,14 +43,15 @@
               label="Type"
               placeholder="bijv. Deeltijd"
             ></v-autocomplete>
-            <v-text-field
+            <v-autocomplete
               ref="task"
               v-model="task"
+              :items="typesOfTask"
               label="Taak"
               placeholder="bijv. Onderwijs"
               :rules="taskRules"
               required
-            ></v-text-field>
+            ></v-autocomplete>
             <v-text-field
               ref="contactHours"
               v-model="contactHours"
@@ -128,6 +129,14 @@ export default {
     type: "",
     types: ["Voltijd", "Deeltijd", "Anders"],
     task: "",
+    typesOfTask: [
+      "Onderwijs",
+      "Neventaken onderwijs",
+      "Persoonlijke taken",
+      "Stages",
+      "Afstudeerstages",
+      "werkgroepen/commissies"
+    ],
     taskRules: [
       v => !!v || "Taak is verplicht",
       v => (v && v.length <= 255) || "Taak moet korter zijn dan 255 karakters"
