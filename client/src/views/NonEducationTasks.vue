@@ -1,6 +1,9 @@
 <template>
   <div>
-    <tabs title="Geen Onderwijstaken"></tabs>
+    <tabs title="Geen Onderwijstaken">
+      <h1>Nick moder is dik</h1>
+    </tabs>
+    
   </div>
 </template>
 

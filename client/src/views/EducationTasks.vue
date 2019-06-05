@@ -10,6 +10,16 @@ export default {
   data: function() {
     return {};
   },
+   mounted() {
+    axios
+      .get("http://localhost:3000/api/educationalProgram/")
+      .then(response => {
+        this.vacancies = response.data;
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  },
   components: {
     Tabs
   }
