@@ -15,7 +15,8 @@
               item-text="text"
               label="Selecteer een rol"
               required
-            ></v-combobox>
+            ></v-combobox>  
+            <SelectFile></SelectFile>
           </v-card-text>
           <v-divider class="mt-5"></v-divider>
           <v-card-actions>
@@ -30,6 +31,7 @@
 
 <script>
 import HeaderTitle from "@/components/HeaderTitle.vue";
+import SelectFile from "@/components/SelectFile.vue";
 import axios from "axios";
 
 export default {
@@ -51,7 +53,8 @@ export default {
     ]
   }),
   components: {
-    HeaderTitle
+    HeaderTitle,
+    SelectFile
   },
   methods: {
     send() {
