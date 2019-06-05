@@ -31,6 +31,10 @@ import axios from "axios";
 import Panel from "@/components/Panel.vue";
 import TileButton from "@/components/TileButton.vue";
 
+const jwt = require('jsonwebtoken');
+
+axios.defaults.withCredentials = true;
+
 export default {
   data() {
     return {
@@ -46,7 +50,6 @@ export default {
 
   methods: {
     login() {
-      console.log(this.user);
       axios
         .post(
           `http://localhost:3000/api/users/login`,
@@ -58,7 +61,6 @@ export default {
         )
         .then(response => {
           // JSON responses are automatically parsed.
-          console.log("response: " + response.data);
           if (response.status == "200") {
             // success
             window.localStorage.setItem("token", response.data);
@@ -74,6 +76,13 @@ export default {
   },
   components: {
     Panel
+  },
+  mounted(){
+    window.addEventListener('keydown', (e) => {
+      if (e.key == 'Enter') {
+        this.login();
+      }
+    });
   }
 };
 </script>

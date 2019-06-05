@@ -117,7 +117,6 @@
 </template>
 
 <script>
-    import Panel from "@/components/Panel.vue";
     import HeaderTitle from "@/components/HeaderTitle.vue";
     import axios from "axios";
 
@@ -157,8 +156,7 @@
             currentDate: new Date().toISOString()
         }),
         components: {
-            HeaderTitle,
-            Panel
+            HeaderTitle
         },
         methods: {
             send() {

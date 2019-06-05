@@ -92,7 +92,6 @@ export default {
         .catch(error => {
           console.log(error);
         });
-      return console.log("sendAvailability: " + this.checkboxes);
     },
     parseJsonToString() {
       const timeslots = [];
@@ -113,8 +112,6 @@ export default {
   mounted() {
     let token = localStorage.getItem("token");
     let decoded = jwt_decode(token);
-
-    console.log("cookie " + decoded.id);
 
     axios
       .get(`http://localhost:3000/api/timeslots/${decoded.id}`)
