@@ -11,20 +11,8 @@ const course = require("./routes/course");
 const educationalProgram = require("./routes/educationalProgram");
 const educationalProgramCourse = require("./routes/educationalProgramCourse");
 const express = require("express");
-// const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const app = express();
-// const {
-//   User,
-//   Course,
-//   Role,
-//   Timeslot,
-//   WeekSchedule,
-//   Vacancy,
-//   UserVacancy,
-//   EducationalProgram,
-//   EducationalProgramCourse
-// } = require("./sequelize");
 const bodyParser = require("body-parser");
 
 // Add headers

@@ -42,7 +42,7 @@ User.belongsToMany(Role, {
 
 Role.belongsToMany(User, {
   through: "userRole",
-  foerignKey: "roleId"
+  foreignKey: "roleId"
 });
 
 Course.belongsToMany(EducationalProgram, {
