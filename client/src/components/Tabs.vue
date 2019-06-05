@@ -26,8 +26,13 @@
       <td class="text-xs-left">todo</td>
       <td class="text-xs-left">{{ props.item.study }}</td>
       <td class="text-xs-left">{{ props.item.year }}</td>
+      <v-btn  small color="primary" @click="navigateTo('editEducation')" ><v-icon>edit</v-icon></v-btn>
+
     </template>
   </v-data-table>
+          <v-btn  fab dark color="primary">
+      <v-icon dark>add</v-icon>
+    </v-btn>
     <router-view></router-view>
   </v-app>
 </template>
@@ -47,10 +52,16 @@ export default {
           { text: 'Coordinator',  align: 'left', value: 'coordinator' },
           { text: 'Studierichting',  align: 'left', value: 'study' },
           { text: 'Studiejaar',  align: 'left', value: 'year' },
+          { text: 'Bewerken',  align: 'left', value: 'year', sortable: false },
         ],
         educationalPrograms: []
       }
     },
+      methods: {
+    navigateTo(route, course) {
+      this.$router.push({ name: route, params: { course: course } });
+    }
+     },
     mounted() {
     axios
       .get("http://localhost:3000/api/educationalProgram/")

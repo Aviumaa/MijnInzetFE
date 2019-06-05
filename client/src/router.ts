@@ -12,6 +12,8 @@ import EducationTasks from "./views/EducationTasks.vue";
 import NonEducationTasks from "./views/NonEducationTasks.vue";
 import EditUser from "./views/EditUser.vue";
 import Profile from "./views/Profile.vue";
+import EditEducationTask from "./views/EditEducationTask.vue";
+import EditNonEducationTask from "./views/EditNonEducationTask.vue";
 
 Vue.use(Router);
 
@@ -105,6 +107,16 @@ export default new Router({
       path: "/profile",
       name: "profile",
       component: Profile
+    },
+    {
+      path: "/educationTasks/:educationId",
+      name: "editEducation",
+      component: EditEducationTask
+    },
+    {
+      path: "/nonEducationTasks/edit",
+      name: "editNonEducationTasks",
+      component: EditNonEducationTask
     }
   ]
 });
