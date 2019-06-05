@@ -2,7 +2,6 @@ const _ = require("lodash");
 const { User } = require("../sequelize");
 const express = require("express");
 const router = express.Router();
-const jwt = require("jsonwebtoken");
 const Model = require("../sequelize");
 
 const loginController = require("../controllers/loginController");

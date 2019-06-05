@@ -1,5 +1,5 @@
 const { User, Role, UserRole } = require("../sequelize");
-const Sequelize = require("sequelize");
+const jwt = require("jsonwebtoken");
 
 // GET decoded token from logged in user
 exports.getDecodedUserData = (req, res) => {
