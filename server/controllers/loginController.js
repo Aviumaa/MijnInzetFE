@@ -1,14 +1,9 @@
 const { User } = require("../sequelize");
-
-var jwt = require("jsonwebtoken");
-
 const { UserRole } = require("../sequelize");
 
-const Sequelize = require("sequelize");
-const Op = Sequelize.Op;
-
+const jwt = require("jsonwebtoken");
 const cookie_options = {
-  expiresIn: 3600
+  expiresIn: 60
 };
 
 exports.doLogin = async (req, res) => {
@@ -25,13 +20,11 @@ exports.doLogin = async (req, res) => {
     }
   }).then(userResponse => {
     userData = userResponse;
-    if (userResponse == null) {
+    if (userData == null) {
       res.status(400);
     } else {
     }
   });
-
-
 
   await UserRole.findOne({
     where: {
@@ -57,7 +50,7 @@ exports.doLogin = async (req, res) => {
       cookie_options
     );
     res
-      .cookie("token", token, { httpOnly: true, secure: true })
+      .cookie("token", token, { httpOnly: false, secure: false })
       .status(200)
       .json(token);
   }

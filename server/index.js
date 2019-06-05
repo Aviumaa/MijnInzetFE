@@ -11,20 +11,8 @@ const course = require("./routes/course");
 const educationalProgram = require("./routes/educationalProgram");
 const educationalProgramCourse = require("./routes/educationalProgramCourse");
 const express = require("express");
-const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const app = express();
-const {
-  User,
-  Course,
-  Role,
-  Timeslot,
-  WeekSchedule,
-  Vacancy,
-  UserVacancy,
-  EducationalProgram,
-  EducationalProgramCourse
-} = require("./sequelize");
 const bodyParser = require("body-parser");
 
 // Add headers
@@ -56,11 +44,9 @@ app.use(
   express.urlencoded({
     extended: true
   })
-); //key=value&key=value
+);
 app.use(express.static("public"));
 app.use(logger);
-// app.use('/api/courses', courses);
-// app.use('/', home);
 app.use("/api/userVacancies", userVacancy);
 app.use("/api/users", users);
 app.use("/api/vacancies", vacancies);

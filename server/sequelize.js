@@ -35,6 +35,26 @@ const EducationalProgramCourse = EducationalProgramCourseModel(
 );
 const UserRole = UserRoleModel(sequelize, Sequelize);
 
+User.belongsToMany(Role, {
+  through: "userRole",
+  foreignKey: "userId"
+});
+
+Role.belongsToMany(User, {
+  through: "userRole",
+  foreignKey: "roleId"
+});
+
+Course.belongsToMany(EducationalProgram, {
+  through: "educationalProgramCourse",
+  foreignKey: "courseId"
+});
+
+EducationalProgram.belongsToMany(Course, {
+  through: "educationalProgramCourse",
+  foreignKey: "educationalProgramId"
+});
+
 module.exports = {
   User,
   Vacancy,

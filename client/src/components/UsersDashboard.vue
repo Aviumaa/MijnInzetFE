@@ -14,6 +14,7 @@
         <tr @click="navigateTo('editUser', props.item)">
           <td class="px-3">{{ props.item.id }}</td>
           <td class="px-3">{{ props.item.username }}</td>
+          <td class="px-3" v-for="role in props.item.roles" :key="role.id">{{ role.name }}</td>
         </tr>
       </template>
     </v-data-table>

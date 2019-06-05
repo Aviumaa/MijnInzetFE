@@ -12,11 +12,11 @@
     >
       <template v-slot:items="props">
         <tr @click="showModal(props.item)">
-          <td class="px-3">{{ props.item.task }}</td>
           <td class="px-3">{{ props.item.title }}</td>
           <td class="px-3">{{ props.item.contactPerson }}</td>
           <td class="px-3">{{ props.item.period }} | {{props.item.schoolYear}}</td>
           <td class="px-3">{{ props.item.typeCourse }}</td>
+          <td class="px-3">{{ props.item.typeTask }}</td>
           <td class="px-3">{{ props.item.contactHours }}</td>
         </tr>
       </template>
@@ -75,7 +75,6 @@ import HeaderTitle from "@/components/HeaderTitle.vue";
 import axios from "axios";
 import LoadingDialog from "@/components/LoadingDialog.vue";
 import ResponseDialog from "./ResponseDialog";
-import jwt_decode from "jwt-decode";
 
 export default {
   data() {
@@ -90,7 +89,7 @@ export default {
       dialog: false
     };
   },
-  props: ["headers", "content"],
+  props: ["headers", "content", "authToken"],
   computed: {
     pages() {
       // eslint-disable-next-line
@@ -113,15 +112,12 @@ export default {
       this.dialog = true;
     },
     applyToVacancy() {
-      let token = localStorage.getItem("token");
-      let decoded = jwt_decode(token);
-
       this.dialog = false;
       this.$refs.loadingDialog.open("Verzoek indienen");
       axios
         .post("http://localhost:3000/api/UserVacancies", {
           vacancyId: this.selected.id,
-          userId: decoded.id
+          userId: this.authToken.id
         })
         .then(response => {
           if (response.status === 201) {

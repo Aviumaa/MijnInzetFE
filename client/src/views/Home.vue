@@ -19,7 +19,7 @@
           icon="assignment"
         ></tile-button>
         <tile-button
-          @click.native="navigateTo({name: 'roster'})"
+          @click.native="navigateTo({name: 'profile'})"
           title="Mijn"
           newLine="Profiel"
           icon="face"
@@ -51,34 +51,30 @@
 import TileButton from "@/components/TileButton.vue";
 import axios from "axios";
 
-import jwt_decode from "jwt-decode";
-
 export default {
   data() {
     const roleId = 0;
     return {
-      roleId: 3
+      roleId: null
     };
   },
   components: {
     TileButton
   },
+  props: ["token"],
   methods: {
     navigateTo(route) {
       this.$router.push(route);
     }
   },
   mounted() {
-    let token = localStorage.getItem("token");
-    let decoded = jwt_decode(token);
-
     axios
       .get(`http://localhost:3000/api/users/`, {
         withCredentials: true
       })
       .then(response => {
         if (response.data != null) {
-          this.roleId = decoded.role;
+          this.roleId = this.token.role;
         }
       })
       .catch(e => {

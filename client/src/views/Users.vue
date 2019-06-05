@@ -2,7 +2,7 @@
   <v-container>
     <v-layout>
       <v-flex>
-        <HeaderTitle title="Users"></HeaderTitle>
+        <HeaderTitle title="Gebruikers"></HeaderTitle>
         <UsersDashboard :headers="headers" :content="users"></UsersDashboard>
       </v-flex>
     </v-layout>
@@ -19,7 +19,7 @@ export default {
     return {
       headers: [
         {
-          text: "Id",
+          text: "ID",
           sortable: true,
           value: "id",
           width: "15%",
@@ -29,6 +29,12 @@ export default {
           text: "Gebruikersnaam",
           sortable: true,
           value: "gebruikersnaam",
+          class: "px-3"
+        },
+        {
+          text: "Gebruikersrol",
+          sortable: true,
+          value: "gebruikersrol",
           class: "px-3"
         }
       ],

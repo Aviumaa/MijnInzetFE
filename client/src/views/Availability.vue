@@ -4,7 +4,7 @@
       <v-flex>
         <HeaderTitle title="Beschikbaarheid"/>
 
-        <v-layout row>
+        <v-layout class="list-availability">
           <v-flex grow v-for="day in weekdays" :key="day.index">
             <v-card>
               <v-card-title class="title text-capitalize font-weight-bold">{{moment.weekdays(day)}}</v-card-title>
@@ -40,7 +40,6 @@
 import axios from "axios";
 import moment from "moment";
 import HeaderTitle from "@/components/HeaderTitle.vue";
-import jwt_decode from "jwt-decode";
 
 moment.locale("nl");
 
@@ -75,15 +74,14 @@ export default {
   components: {
     HeaderTitle
   },
+  props: ["token"],
   methods: {
     isChecked(value) {
       return this.checkboxes.includes(value);
     },
     sendAvailability(checkboxes) {
-      let token = localStorage.getItem("token");
-      let decoded = jwt_decode(token);
       axios
-        .put(`http://localhost:3000/api/timeslots/${decoded.id}`, {
+        .put(`http://localhost:3000/api/timeslots/${this.token.id}`, {
           timeslots: this.checkboxes
         })
         .then(response => {
@@ -110,11 +108,8 @@ export default {
     }
   },
   mounted() {
-    let token = localStorage.getItem("token");
-    let decoded = jwt_decode(token);
-
     axios
-      .get(`http://localhost:3000/api/timeslots/${decoded.id}`)
+      .get(`http://localhost:3000/api/timeslots/${this.token.id}`)
       .then(response => {
         this.userTimeslotData = response.data;
         this.parseJsonToString();
@@ -127,18 +122,10 @@ export default {
 </script>
 
 <style>
-grid-container {
-  margin: 1em 0;
-  padding: 1.5em;
-  border: 1px solid black;
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-}
-
-.schedule--time,
-.schedule--day {
-  display: grid;
-  grid-template-rows: repeat(17, 1fr);
+@media (max-width: 700px) {
+  .list-availability {
+    flex-direction: column;
+  }
 }
 
 div.border {
