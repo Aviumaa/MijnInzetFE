@@ -70,4 +70,5 @@ router.post("/", (req, res) => {
     .then(user => res.json(user))
     .catch(err => console.error(err));
 });
+router.put("/:userId/email", userController.updateEmail);
 module.exports = router;
