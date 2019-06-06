@@ -6,6 +6,7 @@
                 <v-card-title primary-title>
                   <div>
                     <div class="headline">Profile</div>
+                    <h3>Vul hier uw mail in om notificaties te ontvangen:</h3>
                     <v-text-field
                     v-model="inputEmail"
                     label="email"

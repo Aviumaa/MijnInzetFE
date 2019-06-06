@@ -11,4 +11,6 @@ router.get("/:userVacancyId", userVacancyController.getUserVacancyById);
 
 router.post("/", userVacancyController.postUserVacancy);
 
+router.get("/:userId", userVacancyController.getUserVacancyByUserId);
+
 module.exports = router;

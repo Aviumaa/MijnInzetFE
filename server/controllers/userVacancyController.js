@@ -29,3 +29,16 @@ exports.postUserVacancy = (req, res) => {
         .then(userVacancies => res.status(201).json(userVacancies))
         .catch(err => console.error(err));
 };
+
+//get a users vacancys by userId
+exports.getUserVacancyByUserId = (req, res) => {
+    var userId = req.params.userId;
+    UserVacancy.findAll({
+        where:{
+            user: userId
+        }
+    }).then(userResponse => {
+        console.log(req.param)
+        res.status(200).json(userResponse)
+    });
+}
