@@ -3,7 +3,7 @@ const { User, Role } = require("../sequelize");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const cookie_options = {
-  expiresIn: 60
+  expiresIn: 3600
 };
 
 exports.doLogin = async (req, res) => {
