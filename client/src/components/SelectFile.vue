@@ -16,20 +16,34 @@
 <script>
 const Papa = require('papaparse');
 
+import axios from "axios";
+
 export default {
-  data: {
-      file: null
-  },
   mounted(){
       document.getElementById("fileSelector").onchange = function() {
         let file = document.getElementById("fileSelector").files[0];
         if (file) {
             var data = Papa.parse(file, {
                 complete: function(results){
-                    console.log(results.data);
+                    results.data.forEach((row) => {
+                        console.log(row);
+                        if (row[0] != ""){
+                            axios.post("http://localhost:3000/api/course",{
+                                educationalProgramId: 1,
+                                title: row[0],
+                                ects: row[1],
+                                period: row[2],
+                                type: row[3]
+                            })
+                            .then(response => {
+                                if (response.status === 201) {
+                                    console.log(response);
+                                }
+                            });
+                        }
+                    })
                 }
             });
-            this.file = data;
         }
     }
   }
