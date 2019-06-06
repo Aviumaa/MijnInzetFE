@@ -24,15 +24,12 @@ module.exports = (sequelize, Sequelize) => {
     User.hasMany(models.Timeslot, {
       foreignKey: "user_id"
     });
+
+    User.belongsToMany(models.Role, {
+      through: "userRole",
+      foreignKey: "userId"
+    });
   };
 
-    User.associate = models => {
-        User.belongsToMany(models.Role, {
-            through: "UserRole",
-            as: "user",
-            foreignKey: "userId"
-        });
-    };
-
-    return User;
-}
+  return User;
+};

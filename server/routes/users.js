@@ -26,8 +26,6 @@ router.post("/crypt/", async (req, res) => {
 router.get("/", (req, res) => {
   // check header for the token
   var token = req.cookies.token;
-  console.log("token is");
-  console.log(token);
 
   // decode token
   if (token) {
@@ -52,9 +50,15 @@ router.get("/", (req, res) => {
 });
 
 router.post("/login", loginController.doLogin);
-router.get('/all', (req, res) => {
-    User.findAll().then(users => res.json(users))
-})  
+router.get("/all", (req, res) => {
+  User.findAll({
+    include: [
+      {
+        model: Model.Role
+      }
+    ]
+  }).then(users => res.json(users));
+});
 
 router.get("/:userId/edit", userController.editUser);
 router.put("/:userId/edit", userController.doEdit);
