@@ -63,7 +63,6 @@ export default {
         let role = response.data[i];
         this.roles.push(role);
       }
-      console.log(this.roles);
     });
 
     this.user = this.$route.params.user;

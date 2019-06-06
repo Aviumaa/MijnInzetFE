@@ -15,7 +15,6 @@ exports.getDecodedUserData = (req, res) => {
       } else {
         // if everything is good, save to request for use in other routes
         req.decoded = decoded;
-        console.log("token is gucci");
         return res.status(200).json(decoded);
       }
     });

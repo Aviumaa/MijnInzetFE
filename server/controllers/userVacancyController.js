@@ -13,7 +13,6 @@ exports.getUserVacancyById = (req, res) => {
       id: vacancyId
     }
   }).then(userResponse => {
-    console.log(req.param);
     res.status(200).json(userResponse);
   });
 };
