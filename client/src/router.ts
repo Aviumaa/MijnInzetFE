@@ -12,7 +12,6 @@ import jwt_decode from "jwt-decode";
 import EducationTasks from "./views/EducationTasks.vue";
 import NonEducationTasks from "./views/NonEducationTasks.vue";
 import EditUser from "./views/EditUser.vue";
->>>>>>>>> Temporary merge branch 2
 
 Vue.use(Router);
 
@@ -83,11 +82,13 @@ export default new Router({
       component: CreateVacancy
     },
     {
-<<<<<<<<< Temporary merge branch 1
       path: "/profile",
       name: "profile",
-      component: Profile
-=========
+      component: Profile,
+      beforeEnter: guard,
+      props: { token: decoded }
+    },
+    {
       path: "/educationTasks",
       name: "educationTasks",
       component: EducationTasks
@@ -106,11 +107,6 @@ export default new Router({
       path: "/users/edit",
       name: "editUser",
       component: EditUser
-    },
-    {
-      path: "/profile",
-      name: "profile",
-      component: Profile
     }
   ]
 });

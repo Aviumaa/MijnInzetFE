@@ -18,7 +18,7 @@
                 </v-card-title>
                 <v-data-table
                     :headers="headers"
-                    :items="desserts"
+                    :items="myVacancies"
                     class="elevation-1"
                 >
                     <template v-slot:no-data>
@@ -37,10 +37,10 @@
 import axios from "axios";
 
 export default {
+    props: ["token"],
     data() {
         return {
             inputEmail: '',
-            id: 1,
             headers: [
  {
           text: "Taak",
@@ -84,24 +84,37 @@ export default {
           class: "px-3"
         }
         ],
-        desserts: []
-
+        myVacancies: []
         }
         
     },
+mounted() {
+  this.fetchMyVacancies();
+},
 methods: {
     saveEmail() {
-        axios.put(`http://localhost:3000/api/users/${this.id}/email`, {
+        axios.put(`http://localhost:3000/api/users/${this.token.id}/email`, {
             email: this.inputEmail
         })
-        .then(function(response) {
+        .then(function(response) {  
             console.log(response);
         })
         .catch(function(error) {
             console.log(error);
         });
-        }
-    }   
+        },
+    
+    fetchMyVacancies() {
+        axios.get(`http://localhost:3000/api/uservacancies/user/${this.token.id}`)
+        .then(function(response) {
+          this.myVacancies = response.data;
+          console.log(response.data);
+        })
+        .catch(function(error) {
+          console.log(error);
+        })
+    }
+  }   
 };
 
 </script>
