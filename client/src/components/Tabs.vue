@@ -54,9 +54,6 @@
         </v-btn>
       </template>
     </v-data-table>
-    <v-btn fab dark color="primary">
-      <v-icon dark>add</v-icon>
-    </v-btn>
     <router-view></router-view>
   </v-app>
 </template>
@@ -119,5 +116,10 @@ export default {
 .color-text-tabs {
   color: primary !important;
   font-weight: 700;
+}
+
+.application--wrap {
+  min-height: 75vh;
+  background-color: white;
 }
 </style>
