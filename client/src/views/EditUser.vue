@@ -37,17 +37,7 @@ export default {
     user: [],
     username: "",
     selectedRole: [],
-    // de rollen zouden ook uit de db kunnen worden gehaald voor eventuele toekomstige toevoegingen aan rollen
-    roles: [
-      // { id: "1", text: "Administrateur" },
-      // { id: "2", text: "Docent" },
-      // { id: "3", text: "Onderwijsprogrammacoordinator" },
-      // { id: "4", text: "Projectcoordinator" },
-      // { id: "5", text: "Modulecoordinator" },
-      // { id: "6", text: "Facilitator" },
-      // { id: "7", text: "Roosteraar" },
-      // { id: "8", text: "Coordinator" }
-    ]
+    roles: []
   }),
   components: {
     HeaderTitle
