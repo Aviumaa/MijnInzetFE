@@ -109,7 +109,7 @@ export default new Router({
       component: Profile
     },
     {
-      path: "/educationTasks/:educationId",
+      path: "/educationTasks/edit",
       name: "editEducation",
       component: EditEducationTask
     },
