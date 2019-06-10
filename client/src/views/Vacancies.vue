@@ -78,7 +78,9 @@ export default {
   },
   mounted() {
     axios
-      .get("http://localhost:3000/api/vacancies/")
+      .get("http://localhost:3000/api/vacancies/", {
+        withCredentials: true
+      })
       .then(response => {
         this.vacancies = response.data;
       })
