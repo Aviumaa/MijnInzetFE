@@ -18,7 +18,7 @@ exports.doLogin = async (req, res) => {
     ]
   }).then(user => {
     if (!user) {
-      res.redirect("/login");
+      res.status(401).send({ error: "Username or password is incorrect" });
     } else {
       bcrypt.compare(req.body.password, user.password, (err, result) => {
         if (result == true) {
