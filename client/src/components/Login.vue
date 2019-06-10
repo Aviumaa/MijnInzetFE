@@ -25,7 +25,10 @@
         <v-spacer></v-spacer>
         <div class="submit">
           <v-btn color="primary" @click="login()">Login</v-btn>
-          <p v-if="loginError" class="mx-3 my-0 darken-4 red--text">Username or password is incorrect</p>
+          <p
+            v-if="loginError"
+            class="mx-3 my-0 darken-4 red--text"
+          >Gebruikersnaam of wachtwoord is incorrect</p>
         </div>
       </v-card-actions>
     </panel>
@@ -99,8 +102,5 @@ export default {
   align-items: center;
   justify-content: space-around;
   flex-direction: row-reverse;
-}
-
-.submit p {
 }
 </style>
