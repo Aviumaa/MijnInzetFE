@@ -21,7 +21,6 @@
                     :value="day + '-' + timeslot"
                     class="border"
                     type="checkbox"
-                    label="08:30"
                   >
                 </div>
               </v-list>
@@ -31,16 +30,9 @@
         <div class="button__submit">
           <div class="submit-content">
             <v-btn @click="sendAvailability" round dark>Opslaan</v-btn>
-            <p
-              v-if="timeslotsUpdated == true"
-              class="mx-3 my-0 darken-4 green--text"
-            >Beschikbaarheid opgeslagen</p>
-            <p
-              v-else-if="timeslotsUpdated == false"
-              class="mx-3 my-0 darken-4 red--text"
-            >Er ging iets fout</p>
           </div>
         </div>
+        <ResponseDialog ref="responseDialog"/>
       </v-flex>
     </v-layout>
   </v-container>
@@ -50,6 +42,7 @@
 import axios from "axios";
 import moment from "moment";
 import HeaderTitle from "@/components/HeaderTitle.vue";
+import ResponseDialog from "@/components/ResponseDialog";
 
 moment.locale("nl");
 
@@ -57,7 +50,6 @@ export default {
   data() {
     return {
       moment: moment,
-      timeslotsUpdated: undefined,
       checkboxes: [],
       weekdays: [1, 2, 3, 4, 5],
       timeslots: [
@@ -83,7 +75,8 @@ export default {
     };
   },
   components: {
-    HeaderTitle
+    HeaderTitle,
+    ResponseDialog
   },
   props: ["token"],
   methods: {
@@ -103,12 +96,12 @@ export default {
         )
         .then(response => {
           if (response.status == 200) {
-            this.timeslotsUpdated = true;
+            this.openResponseDialog(response.status);
           }
         })
         .catch(error => {
           if (error.response.status == 400) {
-            this.timeslotsUpdated = false;
+            this.openResponseDialog(error.response.status);
           }
         });
     },
@@ -126,6 +119,17 @@ export default {
       });
 
       this.checkboxes = timeslots;
+    },
+    openResponseDialog(responseStatus) {
+      console.log(responseStatus);
+      if (responseStatus == 200) {
+        this.$refs.responseDialog.open("Beschikbaarheid opgeslagen", "done");
+      } else if (responseStatus == 400) {
+        this.$refs.responseDialog.open(
+          "Beschikaarheid kan niet opgeslagen worden",
+          "clear"
+        );
+      }
     }
   },
   mounted() {
