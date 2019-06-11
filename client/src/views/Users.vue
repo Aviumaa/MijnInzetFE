@@ -53,9 +53,6 @@ export default {
       })
       .then(response => {
         this.users = response.data;
-      })
-      .catch(error => {
-        console.log(error);
       });
   }
 };

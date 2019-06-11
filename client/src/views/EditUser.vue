@@ -68,7 +68,6 @@ export default {
         });
     },
     openResponseDialog(responseStatus) {
-      console.log(responseStatus);
       if (responseStatus == 200) {
         this.$refs.responseDialog.open("Gebruiker gewijzigd", "done");
       } else if (responseStatus == 400) {

@@ -129,9 +129,6 @@ export default {
           if (response.status === 201) {
             this.openResponseDialog(response.status);
           }
-        })
-        .catch(function(error) {
-          console.log(error);
         });
     },
     openResponseDialog(responseStatus) {

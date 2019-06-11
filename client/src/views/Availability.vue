@@ -121,7 +121,6 @@ export default {
       this.checkboxes = timeslots;
     },
     openResponseDialog(responseStatus) {
-      console.log(responseStatus);
       if (responseStatus == 200) {
         this.$refs.responseDialog.open("Beschikbaarheid opgeslagen", "done");
       } else if (responseStatus == 400) {
@@ -140,9 +139,6 @@ export default {
       .then(response => {
         this.userTimeslotData = response.data;
         this.parseJsonToString();
-      })
-      .catch(error => {
-        console.log(error);
       });
   }
 };

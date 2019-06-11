@@ -83,9 +83,6 @@ export default {
       })
       .then(response => {
         this.vacancies = response.data;
-      })
-      .catch(error => {
-        console.log(error);
       });
   },
   methods: {
