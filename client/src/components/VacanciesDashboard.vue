@@ -200,11 +200,9 @@ export default {
   }
 
   .mobile table.v-table tr:nth-child(odd) {
-    /* border-left: 6px solid deeppink; */
   }
 
   .mobile table.v-table tr:nth-child(even) {
-    /* border-left: 6px solid cyan; */
     background: #f1f1f1;
   }
 

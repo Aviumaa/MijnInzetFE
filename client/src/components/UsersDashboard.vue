@@ -95,18 +95,6 @@ export default {
 </script>
 
 <style >
-/* .description.ellipsis {
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
-  max-width: 10vw;
-  height: 4.5em;
-}
-
-.applyToVacancyButton .v-btn__content {
-  color: white;
-} */
-
 .mobile {
   color: #333;
 }
