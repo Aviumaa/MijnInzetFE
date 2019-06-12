@@ -92,7 +92,9 @@ export default {
   },
   mounted() {
     axios
-      .get("http://localhost:3000/api/educationalProgram/schoolRelated")
+      .get("http://localhost:3000/api/educationalProgram/schoolRelated", {
+          withCredentials: true
+        })
       .then(response => {
         this.educationalPrograms = response.data;
       })
@@ -100,7 +102,9 @@ export default {
         console.log(error);
       });
     axios
-      .get("http://localhost:3000/api/educationalProgram/nonSchoolRelated")
+      .get("http://localhost:3000/api/educationalProgram/nonSchoolRelated", {
+          withCredentials: true
+        })
       .then(response => {
         this.nonEducationalPrograms = response.data;
       })

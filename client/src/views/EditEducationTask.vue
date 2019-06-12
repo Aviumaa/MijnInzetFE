@@ -62,7 +62,9 @@ export default {
       .get(
         `http://localhost:3000/api/educationalProgramCourse/${
           this.educationalProgram.id
-        }`
+        }`, {
+          withCredentials: true
+        }
       )
       .then(response => {
         this.courses = response.data[0].courses;
@@ -79,6 +81,8 @@ export default {
                 complete: function(results){
                   axios.post("http://localhost:3000/api/course/deleteAll", {
                       educationalProgramId: xxid
+                    }, {
+                      withCredentials: true
                     });
 
                     results.data.forEach((row) => {
@@ -91,6 +95,8 @@ export default {
                                 ects: row[1],
                                 period: row[2],
                                 type: row[3]
+                            }, {
+                              withCredentials: true
                             })
                             .then(response => {
                                 if (response.status === 201) {
