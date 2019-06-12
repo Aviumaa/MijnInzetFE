@@ -98,29 +98,6 @@ exports.doEdit = (req, res) => {
     });
 };
 
-    UserRole
-        .findOne({ where: {userId: userId} })
-        .then(function(obj) {
-            if(obj) { // update
-                UserRole.update({
-                    roleId: roleId
-                }, 
-                {
-                    where:{
-                        userId: userId
-                },
-                attributes: ["userId", "roleId"]
-                })
-            }
-            else { // insert
-                UserRole.create({
-                    userId: userId,
-                    roleId: roleId
-                })
-            }
-        })
-}
-
 exports.updateEmail = (req, res) => {
     console.log(req.body);
     let userId = req.params.userId;
