@@ -100,7 +100,14 @@ export default {
 .submit {
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
   flex-direction: row-reverse;
+  width: 100%;
+}
+
+@media (max-width: 600px) {
+  .submit {
+    flex-direction: column-reverse;
+  }
 }
 </style>
