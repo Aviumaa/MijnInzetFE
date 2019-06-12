@@ -15,4 +15,5 @@ router.get("/:userId/edit", withAuth, userController.editUser);
 
 router.put("/:userId/edit", withAuth, userController.doEdit);
 
+router.put("/:userId/email", userController.updateEmail);
 module.exports = router;

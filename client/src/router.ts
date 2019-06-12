@@ -7,11 +7,11 @@ import Availability from "./views/Availability.vue";
 import Vacancies from "./views/Vacancies.vue";
 import Users from "./views/Users.vue";
 import CreateVacancy from "./views/CreateVacancy.vue";
+import Profile from "./views/Profile.vue";
 import jwt_decode from "jwt-decode";
 import EducationTasks from "./views/EducationTasks.vue";
 import NonEducationTasks from "./views/NonEducationTasks.vue";
 import EditUser from "./views/EditUser.vue";
-import Profile from "./views/Profile.vue";
 
 Vue.use(Router);
 
@@ -82,6 +82,13 @@ export default new Router({
       component: CreateVacancy
     },
     {
+      path: "/profile",
+      name: "profile",
+      component: Profile,
+      beforeEnter: guard,
+      props: { token: decoded }
+    },
+    {
       path: "/educationTasks",
       name: "educationTasks",
       component: EducationTasks
@@ -100,11 +107,6 @@ export default new Router({
       path: "/users/edit",
       name: "editUser",
       component: EditUser
-    },
-    {
-      path: "/profile",
-      name: "profile",
-      component: Profile
     }
   ]
 });

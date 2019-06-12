@@ -55,6 +55,15 @@ EducationalProgram.belongsToMany(Course, {
   foreignKey: "educationalProgramId"
 });
 
+User.belongsToMany(Vacancy, {
+  through: "userVacancies",
+  foreignKey: "user"
+});
+
+Vacancy.belongsToMany(User, {
+  through: "userVacancies",
+  foreignKey: "vacancy"
+});
 module.exports = {
   User,
   Vacancy,
