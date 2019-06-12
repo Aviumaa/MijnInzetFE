@@ -1,5 +1,4 @@
 const { Timeslot } = require("../sequelize");
-const { user } = require("../models/user");
 
 // GET all timeslots from the authenticated user
 exports.getTimeslots = (req, res) => {
@@ -26,6 +25,8 @@ exports.updateTimeslots = (req, res) => {
       start_time: splitDate[1],
       day_of_week: splitDate[0],
       user_id: req.params.userId
-    }).then(timeslots => console.log("updated"));
+    })
+      .then(timeslots => res.status(200).send(console.log("updated")))
+      .catch(err => res.status(400).send(console.error(err)));
   }
 };

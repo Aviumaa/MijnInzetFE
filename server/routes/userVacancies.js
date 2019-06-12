@@ -1,14 +1,16 @@
 const express = require("express");
 const router = express.Router();
+const withAuth = require("../middelware/middleware");
 const userVacancyController = require("../controllers/userVacancyController");
-const {
-    UserVacancy
-} = require("../sequelize");
 
-router.get("/", userVacancyController.getUserVacancies);
+router.get("/", withAuth, userVacancyController.getUserVacancies);
 
-router.get("/:userVacancyId", userVacancyController.getUserVacancyById);
+router.get(
+  "/:userVacancyId",
+  withAuth,
+  userVacancyController.getUserVacancyById
+);
 
-router.post("/", userVacancyController.postUserVacancy);
+router.post("/", withAuth, userVacancyController.postUserVacancy);
 
 module.exports = router;

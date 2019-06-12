@@ -116,13 +116,15 @@
           </v-card-actions>
         </v-card>
       </v-form>
+      <ResponseDialog ref="responseDialog"/>
     </v-flex>
   </v-layout>
 </template>
 
 <script>
-import HeaderTitle from "@/components/HeaderTitle.vue";
 import axios from "axios";
+import HeaderTitle from "@/components/HeaderTitle.vue";
+import ResponseDialog from "@/components/ResponseDialog";
 
 export default {
   data: () => ({
@@ -173,30 +175,39 @@ export default {
     currentDate: new Date().toISOString()
   }),
   components: {
-    HeaderTitle
+    HeaderTitle,
+    ResponseDialog
   },
   methods: {
     send() {
       if (this.$refs.form.validate()) {
         axios
-          .post("http://localhost:3000/api/Vacancies", {
-            title: this.title,
-            description: this.description,
-            contactPerson: this.coordinator,
-            schoolYear: this.calculateSchoolYear(this.startDate),
-            period: this.period,
-            typeCourse: this.getType(this.type),
-            typeTask: this.task,
-            contactHours: this.contactHours,
-            startDate: this.startDate,
-            endDate: this.endDate,
-            openSlots: this.openSlots
+          .post(
+            "http://localhost:3000/api/Vacancies",
+            {
+              title: this.title,
+              description: this.description,
+              contactPerson: this.coordinator,
+              schoolYear: this.calculateSchoolYear(this.startDate),
+              period: this.period,
+              typeCourse: this.getType(this.type),
+              typeTask: this.task,
+              contactHours: this.contactHours,
+              startDate: this.startDate,
+              endDate: this.endDate,
+              openSlots: this.openSlots
+            },
+            { withCredentials: true }
+          )
+          .then(response => {
+            if (response.status == 200) {
+              this.openResponseDialog(response.status);
+            }
           })
-          .then(function(response) {
-            console.log(response);
-          })
-          .catch(function(error) {
-            console.log(error);
+          .catch(error => {
+            if (error.response.status == 400) {
+              this.openResponseDialog(error.response.status);
+            }
           });
       }
     },
@@ -218,6 +229,16 @@ export default {
         return date.getFullYear() - 1 + "-" + date.getFullYear();
       } else {
         return date.getFullYear() + "-" + (date.getFullYear() + 1);
+      }
+    },
+    openResponseDialog(responseStatus) {
+      if (responseStatus == 200) {
+        this.$refs.responseDialog.open("Nieuwe vacature is aangemaakt", "done");
+      } else if (responseStatus == 400) {
+        this.$refs.responseDialog.open(
+          "Vacature kan niet aangemaakt worden",
+          "clear"
+        );
       }
     }
   }

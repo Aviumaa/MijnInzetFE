@@ -12,11 +12,10 @@
             <v-combobox
               v-model="selectedRole"
               :items="roles"
-              item-text="text"
+              item-text="name"
               label="Selecteer een rol"
               required
             ></v-combobox>  
-            <SelectFile></SelectFile>
           </v-card-text>
           <v-divider class="mt-5"></v-divider>
           <v-card-actions>
@@ -25,53 +24,70 @@
           </v-card-actions>
         </v-card>
       </v-form>
+      <ResponseDialog ref="responseDialog"/>
     </v-flex>
   </v-layout>
 </template>
 
 <script>
-import HeaderTitle from "@/components/HeaderTitle.vue";
-import SelectFile from "@/components/SelectFile.vue";
 import axios from "axios";
+import HeaderTitle from "@/components/HeaderTitle.vue";
+import ResponseDialog from "@/components/ResponseDialog";
 
 export default {
   data: () => ({
     user: [],
     username: "",
     selectedRole: [],
-
-    // de rollen zouden ook uit de db kunnen worden gehaald voor eventuele toekomstige toevoegingen aan rollen
-    roles: [
-      { id: "1", text: "Administrateur" },
-      { id: "2", text: "Docent" },
-      { id: "3", text: "Onderwijsprogrammacoordinator" },
-      { id: "4", text: "Projectcoordinator" },
-      { id: "5", text: "Modulecoordinator" },
-      { id: "6", text: "Facilitator" },
-      { id: "7", text: "Roosteraar" },
-      { id: "8", text: "Coordinator" }
-    ]
+    roles: []
   }),
   components: {
     HeaderTitle,
-    SelectFile
+    ResponseDialog
   },
   methods: {
     send() {
       axios
-        .put(`http://localhost:3000/api/users/${this.user.id}/edit`, {
-          username: this.user.username,
-          roleId: this.selectedRole.id
-        })
+        .put(
+          `http://localhost:3000/api/users/${this.user.id}/edit`,
+          {
+            username: this.user.username,
+            roleId: this.selectedRole.id
+          },
+          { withCredentials: true }
+        )
         .then(response => {
-          console.log(response);
+          if (response.status == 200) {
+            this.openResponseDialog(response.status);
+          }
         })
         .catch(error => {
-          console.log(error);
+          if (error.response.status == 400) {
+            this.openResponseDialog(error.response.status);
+          }
         });
+    },
+    openResponseDialog(responseStatus) {
+      if (responseStatus == 200) {
+        this.$refs.responseDialog.open("Gebruiker gewijzigd", "done");
+      } else if (responseStatus == 400) {
+        this.$refs.responseDialog.open(
+          "Wijzigingen zijn niet opgeslagen",
+          "clear"
+        );
+      }
     }
   },
   mounted() {
+    axios
+      .get("http://localhost:3000/api/roles/", { withCredentials: true })
+      .then(response => {
+        for (let i = 0; i < response.data.length; i++) {
+          let role = response.data[i];
+          this.roles.push(role);
+        }
+      });
+
     this.user = this.$route.params.user;
 
     for (let i = 0; i < this.user.roles.length; i++) {

@@ -1,5 +1,4 @@
 const Model = require("../sequelize");
-const sequelize = Model.sequelize;
 
 const { EducationalProgram } = require("../sequelize");
 
