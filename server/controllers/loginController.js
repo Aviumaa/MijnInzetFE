@@ -20,7 +20,7 @@ exports.doLogin = async (req, res) => {
     if (!user) {
       res.status(401).send({ error: "Username or password is incorrect" });
     } else {
-      bcrypt.compare(req.body.password, user.password, (err, result) => {
+        result = bcrypt.compareSync(req.body.password, user.password);
         if (result == true) {
           const token = jwt.sign(
             {
@@ -35,8 +35,9 @@ exports.doLogin = async (req, res) => {
             .cookie("token", token, { httpOnly: false, secure: false })
             .status(200)
             .json(token);
-        }
-      });
+          } else {
+            console.log("result is not true");
+          }
     }
   });
 };

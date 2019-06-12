@@ -1,4 +1,8 @@
-const { UserVacancy } = require("../sequelize");
+const {
+    UserVacancy,
+    Vacancy,
+    User
+} = require('../sequelize');
 
 // GET all userVacancies
 exports.getUserVacancies = (req, res) => {
@@ -26,3 +30,22 @@ exports.postUserVacancy = (req, res) => {
     .then(userVacancies => res.status(201).json(userVacancies))
     .catch(err => console.error(err));
 };
+
+//get a users vacancies by userId
+exports.getUserVacancyByUserId = (req, res) => {
+    var userId = req.params.userId;
+    User.findOne({
+        where:{
+            id: userId
+        },
+        include: [
+            {
+                model: Vacancy,
+                attributes: ["id", "title", "description", "contactPerson", "schoolYear", "period", "typeCourse", "typeTask", "contactHours"]
+            }
+        ]
+    }).then(userResponse => {
+        console.log(req.param)
+        res.status(200).json(userResponse)
+    });
+}

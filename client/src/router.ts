@@ -84,6 +84,13 @@ export default new Router({
       component: CreateVacancy
     },
     {
+      path: "/profile",
+      name: "profile",
+      component: Profile,
+      beforeEnter: guard,
+      props: { token: decoded }
+    },
+    {
       path: "/educationTasks",
       name: "educationTasks",
       component: EducationTasks
@@ -102,11 +109,6 @@ export default new Router({
       path: "/users/edit",
       name: "editUser",
       component: EditUser
-    },
-    {
-      path: "/profile",
-      name: "profile",
-      component: Profile
     },
     {
       path: "/educationTasks/edit",
