@@ -93,12 +93,14 @@ export default new Router({
     {
       path: "/educationTasks",
       name: "educationTasks",
-      component: EducationTasks
+      component: EducationTasks,
+      beforeEnter: guard
     },
     {
       path: "/nonEducationTasks",
       name: "nonEducationTasks",
-      component: NonEducationTasks
+      component: NonEducationTasks,
+      beforeEnter: guard
     },
     {
       path: "/users",

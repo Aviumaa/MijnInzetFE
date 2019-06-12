@@ -14,8 +14,7 @@
 </template>
 
 <script>
-const Papa = require('papaparse');
-
+import Papa from "papaparse";
 import axios from "axios";
 
 export default {
