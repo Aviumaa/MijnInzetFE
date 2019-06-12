@@ -16,16 +16,20 @@
                     >Opslaan</v-btn>
                   </div>
                 </v-card-title>
+                <div class="headline pa-3">Mijn Vacatures</div>
                 <v-data-table
                     :headers="headers"
                     :items="myVacancies"
                     class="elevation-1"
                 >
-                    <template v-slot:no-data>
-                        <v-alert :value="true" color="error" icon="warning">
-                        Sorry, nothing to display here :(
-                        </v-alert>
-                    </template>
+                  <template v-slot:items="props">
+                    <td>{{ props.item.title }}</td>
+                    <td class="text-xs-left">{{ props.item.description }}</td>
+                    <td class="text-xs-left">{{ props.item.contactPerson }}</td>
+                    <td class="text-xs-left">{{ props.item.period }}</td>
+                    <td class="text-xs-left">{{ props.item.typeTask }}</td>
+                    <td class="text-xs-left">{{ props.item.contactHours }}</td>
+                  </template>
                 </v-data-table>
               </v-card>
             </v-flex>
@@ -43,14 +47,14 @@ export default {
             inputEmail: '',
             headers: [
  {
-          text: "Taak",
+          text: "Titel",
           sortable: true,
           value: "task",
           width: "15%",
           class: "px-3"
         },
         {
-          text: "Titel",
+          text: "Taak",
           sortable: true,
           value: "title",
           class: "px-3"
@@ -84,11 +88,12 @@ export default {
           class: "px-3"
         }
         ],
-        myVacancies: ['']
+        myVacancies: []
         }
         
     },
 mounted() {
+  console.log(this.token.id);
   this.fetchMyVacancies();
 },
 methods: {
@@ -106,14 +111,12 @@ methods: {
     
     fetchMyVacancies: function() {
         axios.get(`http://localhost:3000/api/uservacancies/user/${this.token.id}`)
-        .then(function(response) {
+        .then((response) => {
           for(let i = 0; i < response.data.vacancies.length; i++) {
             this.myVacancies.push(response.data.vacancies[i]);
           }
-          console.log("data= " + response);
-          console.log(this.myVacancies);
         })
-        .catch(function(error) {
+        .catch((error) => {
           console.log(error);
         })
     }
