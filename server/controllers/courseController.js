@@ -27,6 +27,7 @@ exports.getCourseById = (req, res) => {
 
 //POST new course
 exports.postCourse= (req, res) => {
+
     const newCourse = Course.create({
         title: req.body.title,
         ects: req.body.ects,
@@ -40,3 +41,15 @@ exports.postCourse= (req, res) => {
         .then(course => res.status(201).json(course))
     })
 };
+
+//DELETE all existing courses by program course id
+exports.destroyCoursesByProgramId = (req, res) => {
+    EducationalProgramCourse.destroy({
+        where: {
+            educationalProgramId: req.body.educationalProgramId
+        }
+    }).then(course => res.status(201).json(course))
+    .catch( error => {
+        console.log(error);
+    })
+}
