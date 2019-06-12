@@ -62,6 +62,6 @@ exports.postVacancy = (req, res) => {
     createdAt: new Date(),
     updatedAt: new Date()
   })
-    .then(userVacancies => res.json(userVacancies))
-    .catch(err => console.error(err));
+    .then(userVacancies => res.status(200).json(userVacancies))
+    .catch(err => res.status(400).send(console.error(err)));
 };

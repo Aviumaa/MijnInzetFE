@@ -122,13 +122,12 @@ methods: {
     }
   }   
 };
-
 </script>
 
 <style>
 .contentCard {
-    height: 500px;
-    width: 500px;
-    align-items: center;
+  height: 500px;
+  width: 500px;
+  align-items: center;
 }
 </style>

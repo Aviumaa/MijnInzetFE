@@ -76,10 +76,6 @@ export default {
         if (response.data != null) {
           this.roleId = this.token.role;
         }
-      })
-      .catch(e => {
-        console.log(e);
-        //this.errors.push(e);
       });
   }
 };
