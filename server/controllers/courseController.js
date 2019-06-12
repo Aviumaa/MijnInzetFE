@@ -1,5 +1,9 @@
 const { Course } = require("../sequelize");
 
+const {
+    EducationalProgramCourse
+} = require('../sequelize');
+
 // GET all courses
 exports.getCourses = (req, res) => {
   Course.findAll().then(courses => res.json(courses));
@@ -17,13 +21,30 @@ exports.getCourseById = (req, res) => {
 };
 
 //POST new course
-exports.postCourse = (req, res) => {
-  Course.create({
-    title: req.body.title,
-    ects: req.body.ects,
-    period: req.body.period,
-    type: req.body.type
-  })
-    .then(course => res.status(201).json(course))
-    .catch(err => console.error(err));
+exports.postCourse= (req, res) => {
+
+    const newCourse = Course.create({
+        title: req.body.title,
+        ects: req.body.ects,
+        period: req.body.period,
+        type: req.body.type
+    }).then(function(result){
+        EducationalProgramCourse.create({
+            educationalProgramId: req.body.educationalProgramId,
+            courseId: result.id
+        })
+        .then(course => res.status(201).json(course))
+    })
 };
+
+//DELETE all existing courses by program course id
+exports.destroyCoursesByProgramId = (req, res) => {
+    EducationalProgramCourse.destroy({
+        where: {
+            educationalProgramId: req.body.educationalProgramId
+        }
+    }).then(course => res.status(201).json(course))
+    .catch( error => {
+        console.log(error);
+    })
+}

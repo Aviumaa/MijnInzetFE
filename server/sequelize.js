@@ -10,7 +10,7 @@ const CourseModel = require("./models/course");
 const EducationalProgramModel = require("./models/educationalProgram");
 const EducationalProgramCourseModel = require("./models/educationalProgramCourse");
 
-const sequelize = new Sequelize("MijnInzet-local", "root", "root", {
+const sequelize = new Sequelize("mijninzet-local", "root", "root", {
   host: "127.0.0.1",
   dialect: "mysql",
   pool: {
@@ -55,6 +55,15 @@ EducationalProgram.belongsToMany(Course, {
   foreignKey: "educationalProgramId"
 });
 
+User.belongsToMany(Vacancy, {
+  through: "userVacancies",
+  foreignKey: "user"
+});
+
+Vacancy.belongsToMany(User, {
+  through: "userVacancies",
+  foreignKey: "vacancy"
+});
 module.exports = {
   User,
   Vacancy,

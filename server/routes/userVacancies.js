@@ -13,4 +13,6 @@ router.get(
 
 router.post("/", withAuth, userVacancyController.postUserVacancy);
 
+router.get("/user/:userId", userVacancyController.getUserVacancyByUserId);
+
 module.exports = router;

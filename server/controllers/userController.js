@@ -97,3 +97,21 @@ exports.doEdit = (req, res) => {
       res.status(400).send(console.error(err));
     });
 };
+
+exports.updateEmail = (req, res) => {
+    console.log(req.body);
+    let userId = req.params.userId;
+    let email = req.body.email;
+
+    User.update({
+        email: email
+    },
+    {
+        where: {
+            id: userId
+        },
+        attributes: ["userId", "email"]
+    }).then(response => {
+        res.status(200);
+    })
+}

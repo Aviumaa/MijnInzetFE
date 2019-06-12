@@ -9,7 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "bcrypt": "^3.0.5",
+    "bcrypt": "^3.0.6",
     "body-parser": "^1.19.0",
     "config": "^3.0.1",
     "cookie-parser": "^1.4.4",
@@ -28,6 +28,7 @@
     "morgan": "^1.9.1",
     "mysql2": "^1.6.5",
     "nodemon": "^1.18.10",
+    "papaparse": "^5.0.0",
     "passport": "^0.4.0",
     "pug": "^2.0.3",
     "save": "^2.3.3",

@@ -1,7 +1,7 @@
 <template class="background">
   <v-container>
     <v-layout row>
-      <v-flex class="center mt-20">
+      <v-flex class="center">
         <tile-button
           @click.native="navigateTo({name: 'reports'})"
           title="Taakoverzicht"
@@ -86,10 +86,6 @@ export default {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-}
-
-.mt-20 {
-  margin-top: 50px;
 }
 
 .background {
