@@ -26,7 +26,6 @@ export default {
             var data = Papa.parse(file, {
                 complete: function(results){
                     results.data.forEach((row) => {
-                        console.log(row);
                         if (row[0] != ""){
                             axios.post("http://localhost:3000/api/course",{
                                 educationalProgramId: 1,

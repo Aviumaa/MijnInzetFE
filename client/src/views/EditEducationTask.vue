@@ -57,7 +57,6 @@ export default {
   },
   mounted() {
     this.educationalProgram = this.$route.params.educationalProgram;
-    console.log(this.educationalProgram.id);
     axios
       .get(
         `http://localhost:3000/api/educationalProgramCourse/${
@@ -86,7 +85,6 @@ export default {
                     });
 
                     results.data.forEach((row) => {
-                        console.log(row);
                         try{
                         if (row[1] != "ECTS" && row != ""){
                             axios.post("http://localhost:3000/api/course",{
