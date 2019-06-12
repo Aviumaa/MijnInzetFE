@@ -23,7 +23,13 @@
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn color="primary" @click="login()">Login</v-btn>
+        <div class="submit">
+          <v-btn color="primary" @click="login()">Login</v-btn>
+          <p
+            v-if="loginError"
+            class="mx-3 my-0 darken-4 red--text"
+          >Gebruikersnaam of wachtwoord is incorrect</p>
+        </div>
       </v-card-actions>
     </panel>
   </div>
@@ -34,16 +40,13 @@ import axios from "axios";
 import Panel from "@/components/Panel.vue";
 import TileButton from "@/components/TileButton.vue";
 
-const jwt = require('jsonwebtoken');
-
-axios.defaults.withCredentials = true;
+const jwt = require("jsonwebtoken");
 
 export default {
   data() {
     return {
       valid: false,
-      response: [],
-      errors: [],
+      loginError: false,
       user: {
         username: "",
         password: ""
@@ -55,7 +58,6 @@ export default {
 
   methods: {
     login() {
-      axios.defaults.withCredentials = true;
       if (this.$refs.form.validate()) {
         this.valid = true;
 
@@ -69,26 +71,24 @@ export default {
             { withCredentials: true }
           )
           .then(response => {
-            if (response.status == "200") {
+            if (response.status == 200) {
               window.location = "/dashboard";
-            } else {
-              // invalid credentials
             }
           })
           .catch(e => {
-            this.errors.push(e);
+            if (e.response.status == 401) {
+              this.loginError = true;
+            }
           });
-      } else {
-        return;
       }
     }
   },
   components: {
     Panel
   },
-  mounted(){
-    window.addEventListener('keydown', (e) => {
-      if (e.key == 'Enter') {
+  mounted() {
+    window.addEventListener("keydown", e => {
+      if (e.key == "Enter") {
         this.login();
       }
     });
@@ -97,4 +97,17 @@ export default {
 </script>
 
 <style>
+.submit {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row-reverse;
+  width: 100%;
+}
+
+@media (max-width: 600px) {
+  .submit {
+    flex-direction: column-reverse;
+  }
+}
 </style>

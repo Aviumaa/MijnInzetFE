@@ -115,17 +115,20 @@ export default {
       this.dialog = false;
       this.$refs.loadingDialog.open("Verzoek indienen");
       axios
-        .post("http://localhost:3000/api/UserVacancies", {
-          vacancyId: this.selected.id,
-          userId: this.authToken.id
-        })
+        .post(
+          "http://localhost:3000/api/UserVacancies",
+          {
+            vacancyId: this.selected.id,
+            userId: this.authToken.id
+          },
+          {
+            withCredentials: true
+          }
+        )
         .then(response => {
           if (response.status === 201) {
             this.openResponseDialog(response.status);
           }
-        })
-        .catch(function(error) {
-          console.log(error);
         });
     },
     openResponseDialog(responseStatus) {

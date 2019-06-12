@@ -69,26 +69,31 @@ exports.doEdit = (req, res) => {
     }
   );
 
-  UserRole.findOne({ where: { userId: userId } }).then(function(obj) {
-    if (obj) {
-      // update
-      UserRole.update(
-        {
-          roleId: roleId
-        },
-        {
-          where: {
-            userId: userId
+  UserRole.findOne({ where: { userId: userId } })
+    .then(function(obj) {
+      if (obj) {
+        // update
+        UserRole.update(
+          {
+            roleId: roleId
           },
-          attributes: ["userId", "roleId"]
-        }
-      );
-    } else {
-      // insert
-      UserRole.create({
-        userId: userId,
-        roleId: roleId
-      });
-    }
-  });
+          {
+            where: {
+              userId: userId
+            },
+            attributes: ["userId", "roleId"]
+          }
+        );
+      } else {
+        // insert
+        UserRole.create({
+          userId: userId,
+          roleId: roleId
+        });
+      }
+      res.status(200).send(console.log("updated"));
+    })
+    .catch(err => {
+      res.status(400).send(console.error(err));
+    });
 };

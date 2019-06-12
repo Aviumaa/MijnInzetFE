@@ -21,7 +21,6 @@
                     :value="day + '-' + timeslot"
                     class="border"
                     type="checkbox"
-                    label="08:30"
                   >
                 </div>
               </v-list>
@@ -29,8 +28,11 @@
           </v-flex>
         </v-layout>
         <div class="button__submit">
-          <v-btn @click="sendAvailability" round dark>Opslaan</v-btn>
+          <div class="submit-content">
+            <v-btn @click="sendAvailability" round dark>Opslaan</v-btn>
+          </div>
         </div>
+        <ResponseDialog ref="responseDialog"/>
       </v-flex>
     </v-layout>
   </v-container>
@@ -40,6 +42,7 @@
 import axios from "axios";
 import moment from "moment";
 import HeaderTitle from "@/components/HeaderTitle.vue";
+import ResponseDialog from "@/components/ResponseDialog";
 
 moment.locale("nl");
 
@@ -72,7 +75,8 @@ export default {
     };
   },
   components: {
-    HeaderTitle
+    HeaderTitle,
+    ResponseDialog
   },
   props: ["token"],
   methods: {
@@ -81,14 +85,24 @@ export default {
     },
     sendAvailability(checkboxes) {
       axios
-        .put(`http://localhost:3000/api/timeslots/${this.token.id}`, {
-          timeslots: this.checkboxes
-        })
+        .put(
+          `http://localhost:3000/api/timeslots/${this.token.id}`,
+          {
+            timeslots: this.checkboxes
+          },
+          {
+            withCredentials: true
+          }
+        )
         .then(response => {
-          console.log(response);
+          if (response.status == 200) {
+            this.openResponseDialog(response.status);
+          }
         })
         .catch(error => {
-          console.log(error);
+          if (error.response.status == 400) {
+            this.openResponseDialog(error.response.status);
+          }
         });
     },
     parseJsonToString() {
@@ -105,17 +119,26 @@ export default {
       });
 
       this.checkboxes = timeslots;
+    },
+    openResponseDialog(responseStatus) {
+      if (responseStatus == 200) {
+        this.$refs.responseDialog.open("Beschikbaarheid opgeslagen", "done");
+      } else if (responseStatus == 400) {
+        this.$refs.responseDialog.open(
+          "Beschikaarheid kan niet opgeslagen worden",
+          "clear"
+        );
+      }
     }
   },
   mounted() {
     axios
-      .get(`http://localhost:3000/api/timeslots/${this.token.id}`)
+      .get(`http://localhost:3000/api/timeslots/${this.token.id}`, {
+        withCredentials: true
+      })
       .then(response => {
         this.userTimeslotData = response.data;
         this.parseJsonToString();
-      })
-      .catch(error => {
-        console.log(error);
       });
   }
 };
@@ -151,5 +174,15 @@ div.border input {
   display: flex;
   flex-direction: row-reverse;
   margin: 1em 0;
+}
+
+.submit-content {
+  display: flex;
+  align-items: center;
+  flex-direction: row-reverse;
+}
+
+.submit-content p {
+  margin: 0 1em;
 }
 </style>

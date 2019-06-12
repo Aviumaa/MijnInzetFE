@@ -24,13 +24,15 @@
           </v-card-actions>
         </v-card>
       </v-form>
+      <ResponseDialog ref="responseDialog"/>
     </v-flex>
   </v-layout>
 </template>
 
 <script>
-import HeaderTitle from "@/components/HeaderTitle.vue";
 import axios from "axios";
+import HeaderTitle from "@/components/HeaderTitle.vue";
+import ResponseDialog from "@/components/ResponseDialog";
 
 export default {
   data: () => ({
@@ -40,30 +42,51 @@ export default {
     roles: []
   }),
   components: {
-    HeaderTitle
+    HeaderTitle,
+    ResponseDialog
   },
   methods: {
     send() {
       axios
-        .put(`http://localhost:3000/api/users/${this.user.id}/edit`, {
-          username: this.user.username,
-          roleId: this.selectedRole.id
-        })
+        .put(
+          `http://localhost:3000/api/users/${this.user.id}/edit`,
+          {
+            username: this.user.username,
+            roleId: this.selectedRole.id
+          },
+          { withCredentials: true }
+        )
         .then(response => {
-          console.log(response);
+          if (response.status == 200) {
+            this.openResponseDialog(response.status);
+          }
         })
         .catch(error => {
-          console.log(error);
+          if (error.response.status == 400) {
+            this.openResponseDialog(error.response.status);
+          }
         });
+    },
+    openResponseDialog(responseStatus) {
+      if (responseStatus == 200) {
+        this.$refs.responseDialog.open("Gebruiker gewijzigd", "done");
+      } else if (responseStatus == 400) {
+        this.$refs.responseDialog.open(
+          "Wijzigingen zijn niet opgeslagen",
+          "clear"
+        );
+      }
     }
   },
   mounted() {
-    axios.get("http://localhost:3000/api/roles/").then(response => {
-      for (let i = 0; i < response.data.length; i++) {
-        let role = response.data[i];
-        this.roles.push(role);
-      }
-    });
+    axios
+      .get("http://localhost:3000/api/roles/", { withCredentials: true })
+      .then(response => {
+        for (let i = 0; i < response.data.length; i++) {
+          let role = response.data[i];
+          this.roles.push(role);
+        }
+      });
 
     this.user = this.$route.params.user;
 

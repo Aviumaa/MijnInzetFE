@@ -31,7 +31,7 @@ function guard(to: any, from: any, next: { (): void; (arg0: string): void }) {
   if (cookie !== null) {
     next();
   } else {
-    next("/"); // go to '/login';
+    next("/");
   }
 }
 

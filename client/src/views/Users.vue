@@ -48,12 +48,11 @@ export default {
   },
   mounted() {
     axios
-      .get("http://localhost:3000/api/users/all/")
+      .get("http://localhost:3000/api/users/all/", {
+        withCredentials: true
+      })
       .then(response => {
         this.users = response.data;
-      })
-      .catch(error => {
-        console.log(error);
       });
   }
 };
