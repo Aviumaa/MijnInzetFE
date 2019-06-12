@@ -4,9 +4,20 @@ const { EducationalProgram } = require("../sequelize");
 
 // GET all educationalPrograms
 exports.getEducationalPrograms = (req, res) => {
-  EducationalProgram.findAll().then(vacancies => res.json(vacancies));
+  EducationalProgram.findAll({
+    where: {
+      schoolRelated: 1
+    }
+  }).then(vacancies => res.json(vacancies));
 };
 
+exports.getNonEducationalPrograms = (req, res) => {
+  EducationalProgram.findAll({
+    where: {
+      schoolRelated: 0
+    }
+  }).then(vacancies => res.json(vacancies));
+};
 // GET educationalProgram by id
 exports.getEducationalProgramById = (req, res) => {
   var educationalProgramId = req.params.educationalProgramId;

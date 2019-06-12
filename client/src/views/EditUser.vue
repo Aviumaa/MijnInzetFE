@@ -15,7 +15,7 @@
               item-text="name"
               label="Selecteer een rol"
               required
-            ></v-combobox>
+            ></v-combobox>  
           </v-card-text>
           <v-divider class="mt-5"></v-divider>
           <v-card-actions>
