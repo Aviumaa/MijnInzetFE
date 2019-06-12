@@ -5,7 +5,7 @@
               <v-card height="80vh" color="white" class="grey--text">
                 <v-card-title primary-title>
                   <div>
-                    <div class="headline">Profile</div>
+                    <div class="headline">Profiel</div>
                     <h3>Vul hier uw mail in om notificaties te ontvangen:</h3>
                     <v-text-field
                     v-model="inputEmail"
@@ -84,7 +84,7 @@ export default {
           class: "px-3"
         }
         ],
-        myVacancies: []
+        myVacancies: ['']
         }
         
     },
@@ -104,11 +104,14 @@ methods: {
         });
         },
     
-    fetchMyVacancies() {
+    fetchMyVacancies: function() {
         axios.get(`http://localhost:3000/api/uservacancies/user/${this.token.id}`)
         .then(function(response) {
-          this.myVacancies = response.data;
-          console.log(response.data);
+          for(let i = 0; i < response.data.vacancies.length; i++) {
+            this.myVacancies.push(response.data.vacancies[i]);
+          }
+          console.log("data= " + response);
+          console.log(this.myVacancies);
         })
         .catch(function(error) {
           console.log(error);
