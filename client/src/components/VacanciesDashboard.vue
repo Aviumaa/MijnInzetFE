@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-resize="onResize" column>
     <v-data-table
       :headers="this.headers"
       :items="this.content"
@@ -9,9 +9,11 @@
       :disable-initial-sort="true"
       hide-actions
       class="elevation-3"
+      :hide-headers="isMobile"
+      :class="{mobile: isMobile}"
     >
       <template v-slot:items="props">
-        <tr @click="showModal(props.item)">
+        <tr @click="showModal(props.item)" v-if="!isMobile">
           <td class="px-3">{{ props.item.title }}</td>
           <td class="px-3">{{ props.item.contactPerson }}</td>
           <td class="px-3">{{ props.item.period }} | {{props.item.schoolYear}}</td>
@@ -19,10 +21,27 @@
           <td class="px-3">{{ props.item.typeTask }}</td>
           <td class="px-3">{{ props.item.contactHours }}</td>
         </tr>
+        <tr v-else>
+          <td>
+            <ul class="flex-content" @click="showModal(props.item)">
+              <li class="flex-item" :data-label="headers[0].text">{{ props.item.title }}</li>
+              <li class="flex-item" :data-label="headers[1].text">{{ props.item.contactPerson }}</li>
+              <li class="flex-item" :data-label="headers[2].text">{{ props.item.period }}</li>
+              <li class="flex-item" :data-label="headers[3].text">{{ props.item.typeCourse }}</li>
+              <li class="flex-item" :data-label="headers[4].text">{{ props.item.typeTask }}</li>
+              <li class="flex-item" :data-label="headers[5].text">{{ props.item.contactHours }}</li>
+            </ul>
+          </td>
+        </tr>
       </template>
     </v-data-table>
     <div class="text-xs-right pt-2">
-      <v-pagination v-model="pagination.page" :length="pages" :total-visible="7" color="black"></v-pagination>
+      <v-pagination
+        v-model="pagination.page"
+        :length="pages"
+        :total-visible="isMobile ? 5 : 7"
+        color="black"
+      ></v-pagination>
     </div>
 
     <v-dialog v-model="dialog" max-width="400">
@@ -86,7 +105,8 @@ export default {
       },
       selected: [],
       search: "",
-      dialog: false
+      dialog: false,
+      isMobile: false
     };
   },
   props: ["headers", "content", "authToken"],
@@ -141,6 +161,10 @@ export default {
           "clear"
         );
       }
+    },
+    onResize() {
+      if (window.innerWidth < 769) this.isMobile = true;
+      else this.isMobile = false;
     }
   },
   components: {
@@ -151,7 +175,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style >
 .description.ellipsis {
   text-overflow: ellipsis;
   overflow: hidden;
@@ -160,8 +184,69 @@ export default {
   height: 4.5em;
 }
 
-.applyToVacancyButton {
+.applyToVacancyButton .v-btn__content {
   color: white;
-  margin-bottom: 10px;
+}
+
+.mobile {
+  color: #333;
+}
+
+@media screen and (max-width: 768px) {
+  .mobile table.v-table tr {
+    max-width: 100%;
+    position: relative;
+    display: block;
+  }
+
+  .mobile table.v-table tr:nth-child(odd) {
+    /* border-left: 6px solid deeppink; */
+  }
+
+  .mobile table.v-table tr:nth-child(even) {
+    /* border-left: 6px solid cyan; */
+    background: #f1f1f1;
+  }
+
+  .mobile table.v-table tr td {
+    display: flex;
+    width: 100%;
+    border-bottom: 1px solid #f5f5f5;
+    height: auto;
+    padding: 10px;
+  }
+
+  .mobile table.v-table tr td ul li:before {
+    content: attr(data-label);
+    padding-right: 0.5em;
+    text-align: left;
+    display: block;
+    color: #545454;
+  }
+  .v-datatable__actions__select {
+    width: 50%;
+    margin: 0px;
+    justify-content: flex-start;
+  }
+  .mobile .theme--light.v-table tbody tr:hover:not(.v-datatable__expand-row) {
+    background: transparent;
+  }
+}
+.flex-content {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.flex-item {
+  padding: 5px;
+  width: 50%;
+  font-weight: bold;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 </style>
