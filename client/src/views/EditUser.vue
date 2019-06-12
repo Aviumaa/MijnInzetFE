@@ -12,7 +12,7 @@
             <v-combobox
               v-model="selectedRole"
               :items="roles"
-              item-text="text"
+              item-text="name"
               label="Selecteer een rol"
               required
             ></v-combobox>
@@ -37,18 +37,7 @@ export default {
     user: [],
     username: "",
     selectedRole: [],
-
-    // de rollen zouden ook uit de db kunnen worden gehaald voor eventuele toekomstige toevoegingen aan rollen
-    roles: [
-      { id: "1", text: "Administrateur" },
-      { id: "2", text: "Docent" },
-      { id: "3", text: "Onderwijsprogrammacoordinator" },
-      { id: "4", text: "Projectcoordinator" },
-      { id: "5", text: "Modulecoordinator" },
-      { id: "6", text: "Facilitator" },
-      { id: "7", text: "Roosteraar" },
-      { id: "8", text: "Coordinator" }
-    ]
+    roles: []
   }),
   components: {
     HeaderTitle
@@ -69,6 +58,13 @@ export default {
     }
   },
   mounted() {
+    axios.get("http://localhost:3000/api/roles/").then(response => {
+      for (let i = 0; i < response.data.length; i++) {
+        let role = response.data[i];
+        this.roles.push(role);
+      }
+    });
+
     this.user = this.$route.params.user;
 
     for (let i = 0; i < this.user.roles.length; i++) {

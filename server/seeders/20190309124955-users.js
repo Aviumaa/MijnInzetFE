@@ -1,6 +1,8 @@
 "use strict";
 
 const faker = require("faker");
+const bcrypt = require("bcrypt");
+const salt = bcrypt.genSaltSync();
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
@@ -9,7 +11,7 @@ module.exports = {
     for (let i = 0; i < 200; i++) {
       const seedData = {
         username: faker.internet.userName(),
-        password: faker.internet.password(),
+        password: bcrypt.hashSync(faker.internet.password(), salt),
         email: faker.internet.email(),
         createdAt: new Date(),
         updatedAt: new Date()
@@ -17,11 +19,11 @@ module.exports = {
       newData.push(seedData);
     }
 
-    const accounts = [
+    const hashedAccounts = [
       {
         id: 1000001,
         username: "docent",
-        password: "docent",
+        password: bcrypt.hashSync("docent", salt),
         email: "docent@hva.nl",
         createdAt: new Date(),
         updatedAt: new Date()
@@ -29,7 +31,7 @@ module.exports = {
       {
         id: 1000002,
         username: "onderwijsprogrammacoordinator",
-        password: "onderwijsprogrammacoordinator",
+        password: bcrypt.hashSync("onderwijsprogrammacoordinator", salt),
         email: "coordinator@hva.nl",
         createdAt: new Date(),
         updatedAt: new Date()
@@ -37,7 +39,7 @@ module.exports = {
       {
         id: 1000003,
         username: "projectcoordinator",
-        password: "projectcoordinator",
+        password: bcrypt.hashSync("projectcoordinator", salt),
         email: "projectcoordinator@hva.nl",
         createdAt: new Date(),
         updatedAt: new Date()
@@ -45,7 +47,7 @@ module.exports = {
       {
         id: 1000004,
         username: "modulecoordinator",
-        password: "modulecoordinator",
+        password: bcrypt.hashSync("modulecoordinator", salt),
         email: "modulecoordinator@hva.nl",
         createdAt: new Date(),
         updatedAt: new Date()
@@ -53,7 +55,7 @@ module.exports = {
       {
         id: 1000005,
         username: "facilitator",
-        password: "facilitator",
+        password: bcrypt.hashSync("facilitator", salt),
         email: "facilitator@hva.nl",
         createdAt: new Date(),
         updatedAt: new Date()
@@ -61,7 +63,7 @@ module.exports = {
       {
         id: 1000006,
         username: "admin",
-        password: "admin",
+        password: bcrypt.hashSync("admin", salt),
         email: "admin@hva.nl",
         createdAt: new Date(),
         updatedAt: new Date()
@@ -69,7 +71,7 @@ module.exports = {
       {
         id: 1000007,
         username: "roosteraar",
-        password: "roosteraar",
+        password: bcrypt.hashSync("roosteraar", salt),
         email: "roosteraar@hva.nl",
         createdAt: new Date(),
         updatedAt: new Date()
@@ -77,15 +79,15 @@ module.exports = {
       {
         id: 1000008,
         username: "coordinator",
-        password: "coordinator",
+        password: bcrypt.hashSync("coordinator", salt),
         email: "roosteraar@hva.nl",
         createdAt: new Date(),
         updatedAt: new Date()
       }
     ];
 
-    for (let i = 0; i < accounts.length; i++) {
-      newData.push(accounts[i]);
+    for (let i = 0; i < hashedAccounts.length; i++) {
+      newData.push(hashedAccounts[i]);
     }
 
     return queryInterface.bulkInsert("users", newData);

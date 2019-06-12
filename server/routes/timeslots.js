@@ -1,11 +1,10 @@
 const express = require("express");
 const router = express.Router();
+const withAuth = require("../middelware/middleware");
 const timeslotsController = require("../controllers/timeslotsController");
-const { Timeslot } = require("../sequelize");
 
-// GET all timeslots from the authenticated user
-router.get("/:userId", timeslotsController.getTimeslots);
+router.get("/:userId", withAuth, timeslotsController.getTimeslots);
 
-router.put("/:userId", timeslotsController.updateTimeslots);
+router.put("/:userId", withAuth, timeslotsController.updateTimeslots);
 
 module.exports = router;
