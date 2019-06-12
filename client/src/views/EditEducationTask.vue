@@ -1,6 +1,11 @@
 <template>
   <div>
-    <v-data-table :headers="headers" :items="this.courses" class="elevation-1">
+    <v-data-table
+      :headers="headers"
+      :items="this.courses"
+      :rows-per-page-items="rowsPerPageItems"
+      class="elevation-1"
+    >
       <template v-slot:items="props">
         <td>{{ props.item.title }}</td>
         <td class="text-xs-left">{{ props.item.ects }}</td>
@@ -36,6 +41,7 @@ export default {
   data() {
     return {
       educationalProgram: "",
+      rowsPerPageItems: [15, 20, 30, 40],
       headers: [
         {
           text: "Naam",
