@@ -20,7 +20,7 @@
         </tr>
         <tr v-else>
           <td>
-            <ul class="flex-content" @click="showModal(props.item)">
+            <ul class="flex-content" @click="navigateTo('editUser', props.item)">
               <li class="flex-item" :data-label="headers[0].text">{{ props.item.id }}</li>
               <li class="flex-item" :data-label="headers[1].text">{{ props.item.username }}</li>
               <li
@@ -93,62 +93,3 @@ export default {
   }
 };
 </script>
-
-<style >
-.mobile {
-  color: #333;
-}
-
-@media screen and (max-width: 768px) {
-  .mobile table.v-table tr {
-    max-width: 100%;
-    position: relative;
-    display: block;
-  }
-
-  .mobile table.v-table tr:nth-child(even) {
-    background: #f1f1f1;
-  }
-
-  .mobile table.v-table tr td {
-    display: flex;
-    width: 100%;
-    border-bottom: 1px solid #f5f5f5;
-    height: auto;
-    padding: 10px;
-  }
-
-  .mobile table.v-table tr td ul li:before {
-    content: attr(data-label);
-    padding-right: 0.5em;
-    text-align: left;
-    display: block;
-    color: #545454;
-  }
-  .v-datatable__actions__select {
-    width: 50%;
-    margin: 0px;
-    justify-content: flex-start;
-  }
-  .mobile .theme--light.v-table tbody tr:hover:not(.v-datatable__expand-row) {
-    background: transparent;
-  }
-}
-.flex-content {
-  padding: 0;
-  margin: 0;
-  list-style: none;
-  display: flex;
-  flex-wrap: wrap;
-  width: 100%;
-}
-
-.flex-item {
-  padding: 5px;
-  width: 50%;
-  font-weight: bold;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
-}
-</style>

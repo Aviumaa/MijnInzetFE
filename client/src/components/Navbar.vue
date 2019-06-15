@@ -1,6 +1,6 @@
 <template>
   <nav>
-    <v-toolbar flat app class="black">
+    <v-toolbar flat app class="black" height="56px">
       <v-toolbar-title class="text-uppercase grey--text">
         <router-link :to="{name: 'home'}" class="font-weight-light home">
           Mijn-
@@ -69,6 +69,12 @@ export default {
 </script>
 
 <style>
+@media (max-width: 960px) {
+  .navbar {
+    height: 64px;
+  }
+}
+
 .home {
   cursor: pointer;
   text-decoration: none;
