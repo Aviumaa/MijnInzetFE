@@ -7,15 +7,16 @@
           <span class="font-weight-bold">Inzet</span>
         </router-link>
       </v-toolbar-title>
-      <v-btn v-if="backButton" @click="back()" flat color="grey">
+      <v-btn v-if="backButton" @click="back()" flat color="grey" class="back-button">
         <v-icon right>arrow_back</v-icon>
         <span>Terug</span>
       </v-btn>
       <v-spacer></v-spacer>
       <v-btn
         v-if="[
-          'home', 'availability', 'vacancies', 'createvacancy', 
-          'educationTasks', 'nonEducationTasks', 'users', 'editUser'
+          'home', 'availability', 'vacancies', 'createvacancy', 'profile',
+          'educationTasks', 'nonEducationTasks', 'editEducation', 'editNonEducationTasks', 
+          'users', 'editUser', 
           ].includes($route.name)"
         flat
         color="grey"
@@ -72,6 +73,10 @@ export default {
 @media (max-width: 960px) {
   .navbar {
     height: 64px;
+  }
+
+  .back-button {
+    display: none;
   }
 }
 
