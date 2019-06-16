@@ -2,7 +2,7 @@
 
 const faker = require("faker");
 const bcrypt = require("bcrypt");
-const salt = bcrypt.genSaltSync();
+const salt = bcrypt.genSaltSync(6);
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
