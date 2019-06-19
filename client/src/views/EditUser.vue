@@ -47,6 +47,7 @@ export default {
   },
   methods: {
     send() {
+      console.log(this.user)
       axios
         .put(
           `http://localhost:3000/api/users/${this.user.id}/edit`,

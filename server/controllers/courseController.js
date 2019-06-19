@@ -20,6 +20,51 @@ exports.getCourseById = (req, res) => {
   });
 };
 
+// UPDATE course
+exports.doEdit = (req, res) => {
+  let userId = req.params.userId;
+  let roleId = req.body.roleId;
+
+  Course.update(
+    {
+      username: req.body.username
+    },
+    {
+      where: {
+        id: req.params.courseId
+      }
+    }
+  );
+
+  UserRole.findOne({ where: { id: req.params.courseId} })
+    .then(function(obj) {
+      if (obj) {
+        // update
+        UserRole.update(
+          {
+            roleId: roleId
+          },
+          {
+            where: {
+              userId: userId
+            },
+            attributes: ["userId", "roleId"]
+          }
+        );
+      } else {
+        // insert
+        UserRole.create({
+          userId: userId,
+          roleId: roleId
+        });
+      }
+      res.status(200).send(console.log("updated"));
+    })
+    .catch(err => {
+      res.status(400).send(console.error(err));
+    });
+};
+
 //POST new course
 exports.postCourse= (req, res) => {
 
