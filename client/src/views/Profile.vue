@@ -6,10 +6,12 @@
                 <v-card-title primary-title>
                   <div>
                     <div class="headline">Profiel</div>
-                    <h3>Vul hier uw mail in om notificaties te ontvangen:</h3>
+                    <p class=.body-1>Gebruikersnaam: {{ userName }} </p>
+                    
+                    <p class=.body-1>Vul hier uw mail in om notificaties te ontvangen:</p>
                     <v-text-field
                     v-model="inputEmail"
-                    label="email"
+                    label=email                 
                     ></v-text-field>
                     <v-btn
                     @click="saveEmail"
@@ -34,17 +36,26 @@
               </v-card>
             </v-flex>
         </v-layout>
-    </v-container>
+    <loading-dialog ref="loadingDialog"/>
+    <response-dialog ref="responseDialog"/>
+    </v-container>    
 </template>
 
 <script>
 import axios from "axios";
+import LoadingDialog from "@/components/LoadingDialog.vue";
+import ResponseDialog from "@/components/ResponseDialog.vue";
 
 export default {
     props: ["token"],
-    data() {
+    components: {
+      LoadingDialog,
+      ResponseDialog
+    },
+    data: () => {
         return {
-            inputEmail: '',
+            inputEmail: 'mijn@email.nl',
+            userName: 'gebruikersnaam',
             headers: [
  {
           text: "Titel",
@@ -88,23 +99,24 @@ export default {
           class: "px-3"
         }
         ],
-        myVacancies: []
+        myVacancies: [],
         }
         
     },
-mounted() {
+mounted: function () {
   console.log(this.token.id);
   this.fetchMyVacancies();
 },
 methods: {
     saveEmail() {
+        this.$refs.loadingDialog.open("Email updaten");
         axios.put(`http://localhost:3000/api/users/${this.token.id}/email`, {
             email: this.inputEmail
         })
-        .then(function(response) {  
-            console.log(response);
+        .then((response) => {
+            this.openResponseDialog(response.status);
         })
-        .catch(function(error) {
+        .catch((error) => {
             console.log(error);
         });
         },
@@ -112,6 +124,8 @@ methods: {
     fetchMyVacancies: function() {
         axios.get(`http://localhost:3000/api/uservacancies/user/${this.token.id}`)
         .then((response) => {
+          this.userName = response.data.username;
+          this.inputEmail = response.data.email;
           for(let i = 0; i < response.data.vacancies.length; i++) {
             this.myVacancies.push(response.data.vacancies[i]);
           }
@@ -119,6 +133,17 @@ methods: {
         .catch((error) => {
           console.log(error);
         })
+    },
+    openResponseDialog: function(responseStatus) {
+      this.$refs.loadingDialog.close();
+      if (responseStatus === 200) {
+        this.$refs.responseDialog.open("Email is geüpdatet", "done");
+      } else {
+        this.$refs.responseDialog.open(
+          "email kon niet worden geüpdatet",
+          "clear"
+        );
+      }
     }
   }   
 };
