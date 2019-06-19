@@ -19,7 +19,6 @@
                 ( props.item.userVacancies.status == 2 ? 'vacancyRejected' : 'vacancyPending')]"
               >
                 <td>{{ props.item.title }}</td>
-                <td class="text-xs-left">{{ props.item.description }}</td>
                 <td class="text-xs-left">{{ props.item.contactPerson }}</td>
                 <td class="text-xs-left">{{ props.item.period }}</td>
                 <td class="text-xs-left">{{ props.item.typeTask }}</td>
@@ -46,58 +45,45 @@ export default {
         {
           text: "Titel",
           sortable: true,
-          value: "task",
-          width: "15%",
-          class: "px-3"
-        },
-        {
-          text: "Taak",
-          sortable: true,
-          value: "title",
-          class: "px-3"
+          value: "task"
         },
         {
           text: "Contactpersoon",
           sortable: true,
-          value: "contactPerson",
-          width: "10%",
-          class: "px-3"
+          value: "contactPerson"
         },
         {
           text: "Periode",
           sortable: true,
-          value: "Period",
-          width: "20%",
-          class: "px-3"
+          value: "Period"
         },
         {
           text: "Type",
           sortable: true,
-          value: "typeCourse",
-          width: "2%",
-          class: "px-3"
+          value: "typeCourse"
         },
         {
           text: "Inzet (uren)",
           sortable: true,
-          value: "contactHours",
-          width: "2%",
-          class: "px-3"
+          value: "contactHours"
         }
       ],
       myVacancies: []
     };
   },
   mounted() {
-    console.log(this.token.id);
     this.fetchMyVacancies();
   },
   methods: {
     saveEmail() {
       axios
-        .put(`http://localhost:3000/api/users/${this.token.id}/email`, {
-          email: this.inputEmail
-        })
+        .put(
+          `http://localhost:3000/api/users/${this.token.id}/email`,
+          { withCredentials: true },
+          {
+            email: this.inputEmail
+          }
+        )
         .then(function(response) {
           console.log(response);
         })
@@ -108,7 +94,9 @@ export default {
 
     fetchMyVacancies: function() {
       axios
-        .get(`http://localhost:3000/api/uservacancies/user/${this.token.id}`)
+        .get(`http://localhost:3000/api/uservacancies/user/${this.token.id}`, {
+          withCredentials: true
+        })
         .then(response => {
           for (let i = 0; i < response.data.vacancies.length; i++) {
             this.myVacancies.push(response.data.vacancies[i]);

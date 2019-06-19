@@ -73,6 +73,30 @@ module.exports = {
         status: 0,
         createdAt: new Date(),
         updatedAt: new Date()
+      },
+      {
+        id: 100007,
+        userId: 1000006,
+        vacancyId: faker.random.number(120),
+        status: 1,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        id: 100008,
+        userId: 1000006,
+        vacancyId: faker.random.number(120),
+        status: 1,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        id: 100009,
+        userId: 1000006,
+        vacancyId: faker.random.number(120),
+        status: 1,
+        createdAt: new Date(),
+        updatedAt: new Date()
       }
     ];
 

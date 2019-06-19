@@ -61,7 +61,8 @@ export default new Router({
       path: "/taskList",
       name: "taskList",
       beforeEnter: guard,
-      component: TaskList
+      component: TaskList,
+      props: { token: decoded }
     },
     {
       path: "/availability",

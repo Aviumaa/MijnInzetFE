@@ -14,7 +14,7 @@
       <v-spacer></v-spacer>
       <v-btn
         v-if="[
-          'home', 'availability', 'vacancies', 'createvacancy', 
+          'home', 'taskList', 'availability', 'vacancies', 'createvacancy', 
           'educationTasks', 'nonEducationTasks', 'users', 'editUser'
           ].includes($route.name)"
         flat

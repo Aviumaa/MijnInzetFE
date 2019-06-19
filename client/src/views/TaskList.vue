@@ -1,18 +1,20 @@
 <template>
   <v-container>
     <v-layout row>
-      <v-flex class="center">
+      <v-flex>
         <div class="upperRow">
-          <HeaderTitle title="Vacatures"></HeaderTitle>
-          <v-btn
-            v-if="authToken.role == '1'"
-            @click="navigateTo({name: 'createvacancy'})"
-            fab
-            dark
-            color="indigo darken-4"
-          >
-            <v-icon dark>add</v-icon>
-          </v-btn>
+          <HeaderTitle title="Taakoverzicht"></HeaderTitle>
+          <v-data-table :headers="headers" :items="acceptedVacancies" class="elevation-1">
+            <template v-slot:items="props">
+              <tr class="vacancyAccepted">
+                <td>{{ props.item.vacancy.title }}</td>
+                <td class="text-xs-left">{{ props.item.vacancy.contactPerson }}</td>
+                <td class="text-xs-left">{{ props.item.vacancy.period }}</td>
+                <td class="text-xs-left">{{ props.item.vacancy.typeTask }}</td>
+                <td class="text-xs-left">{{ props.item.vacancy.contactHours }}</td>
+              </tr>
+            </template>
+          </v-data-table>
         </div>
       </v-flex>
     </v-layout>
@@ -25,7 +27,49 @@ import HeaderTitle from "@/components/HeaderTitle.vue";
 
 export default {
   data() {
-    return {};
+    return {
+      acceptedVacancies: [],
+      headers: [
+        {
+          text: "Titel",
+          sortable: true,
+          value: "task"
+        },
+        {
+          text: "Contactpersoon",
+          sortable: true,
+          value: "contactPerson"
+        },
+        {
+          text: "Periode",
+          sortable: true,
+          value: "Period"
+        },
+        {
+          text: "Type",
+          sortable: true,
+          value: "typeCourse"
+        },
+        {
+          text: "Inzet (uren)",
+          sortable: true,
+          value: "contactHours"
+        }
+      ]
+    };
+  },
+  props: ["token"],
+  components: { HeaderTitle },
+  mounted() {
+    axios
+      .get(`http://localhost:3000/api/userVacancies/user/${this.token.id}/1`, {
+        withCredentials: true
+      })
+      .then(response => {
+        for (let i = 0; i < response.data.length; i++) {
+          this.acceptedVacancies.push(response.data[i]);
+        }
+      });
   }
 };
 </script>
