@@ -41,7 +41,7 @@ exports.postCourse= (req, res) => {
 exports.destroyCoursesByProgramId = (req, res) => {
     EducationalProgramCourse.destroy({
         where: {
-            educationalProgramId: req.body.educationalProgramId
+            educationalProgramId: req.params.id
         }
     }).then(course => res.status(201).json(course))
     .catch( error => {
