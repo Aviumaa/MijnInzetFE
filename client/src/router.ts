@@ -87,40 +87,44 @@ export default new Router({
     {
       path: "/profile",
       name: "profile",
-      component: Profile,
       beforeEnter: guard,
+      component: Profile,
       props: { token: decoded }
     },
     {
       path: "/educationTasks",
       name: "educationTasks",
-      component: EducationTasks,
-      beforeEnter: guard
+      beforeEnter: guard,
+      component: EducationTasks
     },
     {
       path: "/nonEducationTasks",
       name: "nonEducationTasks",
-      component: NonEducationTasks,
-      beforeEnter: guard
+      beforeEnter: guard,
+      component: NonEducationTasks
     },
     {
       path: "/users",
       name: "users",
+      beforeEnter: guard,
       component: Users
     },
     {
       path: "/users/edit",
       name: "editUser",
+      beforeEnter: guard,
       component: EditUser
     },
     {
       path: "/educationTasks/edit",
       name: "editEducation",
+      beforeEnter: guard,
       component: EditEducationTask
     },
     {
       path: "/nonEducationTasks/edit",
       name: "editNonEducationTasks",
+      beforeEnter: guard,
       component: EditNonEducationTask
     }
   ]

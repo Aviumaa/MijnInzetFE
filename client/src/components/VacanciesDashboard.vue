@@ -1,33 +1,52 @@
 <template>
-  <div>
-    <v-card>
+  <div v-resize="onResize" column>
+    <v-data-table
+      :headers="this.headers"
+      :items="this.content"
+      :item-key="this.content.id"
+      :search="search"
+      :pagination.sync="pagination"
+      :disable-initial-sort="true"
+      hide-actions
+      class="elevation-3"
+      :hide-headers="isMobile"
+      :class="{mobile: isMobile}"
+    >
+      <template v-slot:items="props">
+        <tr @click="showModal(props.item)" v-if="!isMobile">
+          <td class="px-3">{{ props.item.title }}</td>
+          <td class="px-3">{{ props.item.contactPerson }}</td>
+          <td class="px-3">{{ props.item.period }} | {{props.item.schoolYear}}</td>
+          <td class="px-3">{{ props.item.typeCourse }}</td>
+          <td class="px-3">{{ props.item.typeTask }}</td>
+          <td class="px-3">{{ props.item.contactHours }}</td>
+        </tr>
+        <tr v-else>
+          <td>
+            <ul class="flex-content" @click="showModal(props.item)">
+              <li class="flex-item" :data-label="headers[0].text">{{ props.item.title }}</li>
+              <li class="flex-item" :data-label="headers[1].text">{{ props.item.contactPerson }}</li>
+              <li class="flex-item" :data-label="headers[2].text">{{ props.item.period }}</li>
+              <li class="flex-item" :data-label="headers[3].text">{{ props.item.typeCourse }}</li>
+              <li class="flex-item" :data-label="headers[4].text">{{ props.item.typeTask }}</li>
+              <li class="flex-item" :data-label="headers[5].text">{{ props.item.contactHours }}</li>
+            </ul>
+          </td>
+        </tr>
+      </template>
+    </v-data-table>
       <v-card-title>
         <v-text-field v-model="search" append-icon="search" label="Search" single-line hide-details></v-text-field>
       </v-card-title>
       <v-data-table
-        :headers="this.headers"
-        :items="this.content"
-        :item-key="this.content.id"
-        :search="search"
-        :pagination.sync="pagination"
-        :disable-initial-sort="true"
         :custom-filter="customFilter"
-        hide-actions
-      >
-        <template v-slot:items="props">
-          <tr @click="showModal(props.item)">
-            <td class="px-3">{{ props.item.title }}</td>
-            <td class="px-3">{{ props.item.contactPerson }}</td>
-            <td class="px-3">{{ props.item.period }} | {{props.item.schoolYear}}</td>
-            <td class="px-3">{{ props.item.typeCourse }}</td>
-            <td class="px-3">{{ props.item.typeTask }}</td>
-            <td class="px-3">{{ props.item.contactHours }}</td>
-          </tr>
-        </template>
-      </v-data-table>
-    </v-card>
     <div class="text-xs-right pt-2">
-      <v-pagination v-model="pagination.page" :length="pages" :total-visible="7" color="black"></v-pagination>
+      <v-pagination
+        v-model="pagination.page"
+        :length="pages"
+        :total-visible="isMobile ? 5 : 7"
+        color="black"
+      ></v-pagination>
     </div>
 
     <v-dialog v-model="dialog" max-width="400">
@@ -91,6 +110,7 @@ export default {
       selected: [],
       search: "",
       dialog: false,
+      isMobile: false
       list: []
     };
   },
@@ -181,6 +201,10 @@ export default {
           Object.keys(row).some(key => new_filter(row[key], needle))
         )
       ));
+    },
+    onResize() {
+      if (window.innerWidth < 769) this.isMobile = true;
+      else this.isMobile = false;
     }
   },
   components: {
@@ -191,7 +215,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style >
 .description.ellipsis {
   text-overflow: ellipsis;
   overflow: hidden;
@@ -200,8 +224,7 @@ export default {
   height: 4.5em;
 }
 
-.applyToVacancyButton {
+.applyToVacancyButton .v-btn__content {
   color: white;
-  margin-bottom: 10px;
 }
 </style>

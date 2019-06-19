@@ -1,4 +1,56 @@
 <template>
+  <v-container class="profile-container">
+    <v-layout>
+      <v-flex xs12 v-resize="onResize" column>
+        <v-card height="80vh" color="white" class="grey--text">
+          <v-card-title primary-title>
+            <div>
+              <div class="headline">Profiel</div>
+              <h3>Vul hier uw mail in om notificaties te ontvangen:</h3>
+              <v-text-field v-model="inputEmail" label="email"></v-text-field>
+              <v-btn @click="saveEmail">Opslaan</v-btn>
+            </div>
+          </v-card-title>
+          <div class="headline pa-3">Mijn Vacatures</div>
+          <v-data-table
+            :headers="headers"
+            :items="myVacancies"
+            class="elevation-1"
+            :hide-headers="isMobile"
+            :class="{mobile: isMobile}"
+          >
+            <template v-slot:items="props">
+              <tr v-if="!isMobile">
+                <td>{{ props.item.title }}</td>
+                <td class="text-xs-left">{{ props.item.description }}</td>
+                <td class="text-xs-left">{{ props.item.contactPerson }}</td>
+                <td class="text-xs-left">{{ props.item.period }}</td>
+                <td class="text-xs-left">{{ props.item.typeTask }}</td>
+                <td class="text-xs-left">{{ props.item.contactHours }}</td>
+              </tr>
+              <tr v-else>
+                <td>
+                  <ul class="flex-content">
+                    <li class="flex-item" :data-label="headers[0].text">{{ props.item.description }}</li>
+                    <li
+                      class="flex-item"
+                      :data-label="headers[1].text"
+                    >{{ props.item.contactPerson }}</li>
+                    <li class="flex-item" :data-label="headers[2].text">{{ props.item.period }}</li>
+                    <li class="flex-item" :data-label="headers[3].text">{{ props.item.typeTask }}</li>
+                    <li
+                      class="flex-item"
+                      :data-label="headers[4].text"
+                    >{{ props.item.contactHours }}</li>
+                  </ul>
+                </td>
+              </tr>
+            </template>
+          </v-data-table>
+        </v-card>
+      </v-flex>
+    </v-layout>
+  </v-container>
   <v-container>
     <v-layout>
       <v-flex xs12>
@@ -79,7 +131,8 @@ export default {
           value: "contactHours"
         }
       ],
-      myVacancies: []
+      myVacancies: [],
+      isMobile: false
     };
   },
   mounted() {
@@ -99,7 +152,6 @@ export default {
           console.log(error);
         });
     },
-
     fetchMyVacancies: function() {
       axios
         .get(`http://localhost:3000/api/uservacancies/user/${this.token.id}`, {
@@ -126,12 +178,21 @@ export default {
           "clear"
         );
       }
+        });
+    },
+    onResize() {
+      if (window.innerWidth < 769) this.isMobile = true;
+      else this.isMobile = false;
     }
   }
 };
 </script>
 
 <style>
+.profile-container {
+  padding: unset;
+}
+
 .contentCard {
   height: 500px;
   width: 500px;

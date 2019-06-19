@@ -1,30 +1,45 @@
 <template>
-  <div>
+  <div v-resize="onResize" column>
     <v-data-table
       :headers="headers"
       :items="this.courses"
       :rows-per-page-items="rowsPerPageItems"
       class="elevation-1"
+      :hide-headers="isMobile"
+      :class="{mobile: isMobile}"
     >
       <template v-slot:items="props">
-        <td>{{ props.item.title }}</td>
-        <td class="text-xs-left">{{ props.item.ects }}</td>
-        <td class="text-xs-left">{{ props.item.period }}</td>
-        <td class="text-xs-left">{{ props.item.type }}</td>
+        <tr v-if="!isMobile">
+          <td>{{ props.item.title }}</td>
+          <td class="text-xs-left">{{ props.item.ects }}</td>
+          <td class="text-xs-left">{{ props.item.period }}</td>
+          <td class="text-xs-left">{{ props.item.type }}</td>
+        </tr>
+        <tr v-else>
+          <td>
+            <ul class="flex-content">
+              <li class="flex-item" :data-label="headers[0].text">{{ props.item.title }}</li>
+              <li class="flex-item" :data-label="headers[1].text">{{ props.item.ects }}</li>
+              <li class="flex-item" :data-label="headers[2].text">{{ props.item.period }}</li>
+              <li class="flex-item" :data-label="headers[3].text">{{ props.item.type }}</li>
+            </ul>
+          </td>
+        </tr>
       </template>
     </v-data-table>
     <!-- SelectFile -->
-    <div style="border: 1px solid black">
-        <div class="btn">
-          <span>Kies een bestand met vakken om in te lezen...</span><br>
-          <input id="fileSelector" name="myFile" type="file" multiple="multiple">
-        </div>
-        <div>
-          <input type="text">
-        </div>
-        <div>
-            <p id="fileContents"></p>
-        </div>
+    <div class="file-container">
+      <div class="btn">
+        <span>Kies een bestand met vakken om in te lezen...</span>
+        <br>
+        <input id="fileSelector" name="myFile" type="file" multiple="multiple">
+      </div>
+      <div>
+        <input type="text">
+      </div>
+      <div>
+        <p id="fileContents"></p>
+      </div>
     </div>
     <!-- /SelectFile -->
   </div>
@@ -34,8 +49,7 @@
 import axios from "axios";
 import Tabs from "@/components/Tabs.vue";
 import SelectFile from "@/components/SelectFile.vue";
-const Papa = require('papaparse');
-
+const Papa = require("papaparse");
 
 export default {
   data() {
@@ -52,8 +66,15 @@ export default {
         { text: "Period", value: "period" },
         { text: "Type", value: "type" }
       ],
-      courses: []
+      courses: [],
+      isMobile: false
     };
+  },
+  methods: {
+    onResize() {
+      if (window.innerWidth < 769) this.isMobile = true;
+      else this.isMobile = false;
+    }
   },
   mounted() {
     this.educationalProgram = this.$route.params.educationalProgram;
@@ -61,7 +82,8 @@ export default {
       .get(
         `http://localhost:3000/api/educationalProgramCourse/${
           this.educationalProgram.id
-        }`, {
+        }`,
+        {
           withCredentials: true
         }
       )
@@ -106,12 +128,21 @@ export default {
                         }
                     });
                 }
+              } catch (err) {
+                console.log(err);
+              }
             });
-        }
-    }
+          }
+        });
+      }
+    };
   }
 };
 </script>
 
-<style lang="scss" scoped>
+<style>
+.file-container {
+  border: 1px solid black;
+  padding: 1em;
+}
 </style>
