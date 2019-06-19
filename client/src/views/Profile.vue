@@ -2,11 +2,13 @@
   <v-container class="profile-container">
     <v-layout>
       <v-flex xs12 v-resize="onResize" column>
-        <v-card height="80vh" color="white" class="grey--text">
+        <v-card min-height="80vh" color="white" class="grey--text">
           <v-card-title primary-title>
             <div>
               <div class="headline">Profiel</div>
-              <h3>Vul hier uw mail in om notificaties te ontvangen:</h3>
+              <p class=".body-1">Gebruikersnaam: {{ userName }}</p>
+
+              <p class=".body-1">Vul hier uw mail in om notificaties te ontvangen:</p>
               <v-text-field v-model="inputEmail" label="email"></v-text-field>
               <v-btn @click="saveEmail">Opslaan</v-btn>
             </div>
@@ -20,15 +22,22 @@
             :class="{mobile: isMobile}"
           >
             <template v-slot:items="props">
-              <tr v-if="!isMobile">
+              <tr
+                v-if="!isMobile"
+                :class="[props.item.userVacancies.status == 1 ? 'vacancyAccepted' : 
+                ( props.item.userVacancies.status == 2 ? 'vacancyRejected' : 'vacancyPending')]"
+              >
                 <td>{{ props.item.title }}</td>
-                <td class="text-xs-left">{{ props.item.description }}</td>
-                <td class="text-xs-left">{{ props.item.contactPerson }}</td>
-                <td class="text-xs-left">{{ props.item.period }}</td>
-                <td class="text-xs-left">{{ props.item.typeTask }}</td>
-                <td class="text-xs-left">{{ props.item.contactHours }}</td>
+                <td>{{ props.item.contactPerson }}</td>
+                <td>{{ props.item.period }}</td>
+                <td>{{ props.item.typeTask }}</td>
+                <td>{{ props.item.contactHours }}</td>
               </tr>
-              <tr v-else>
+              <tr
+                v-else
+                :class="[props.item.userVacancies.status == 1 ? 'vacancyAccepted' : 
+                ( props.item.userVacancies.status == 2 ? 'vacancyRejected' : 'vacancyPending')]"
+              >
                 <td>
                   <ul class="flex-content">
                     <li class="flex-item" :data-label="headers[0].text">{{ props.item.description }}</li>
@@ -44,39 +53,6 @@
                     >{{ props.item.contactHours }}</li>
                   </ul>
                 </td>
-              </tr>
-            </template>
-          </v-data-table>
-        </v-card>
-      </v-flex>
-    </v-layout>
-  </v-container>
-  <v-container>
-    <v-layout>
-      <v-flex xs12>
-        <v-card min-height="80vh" color="white" class="grey--text">
-          <v-card-title primary-title>
-            <div>
-              <div class="headline">Profiel</div>
-              <p class=".body-1">Gebruikersnaam: {{ userName }}</p>
-
-              <p class=".body-1">Vul hier uw mail in om notificaties te ontvangen:</p>
-              <v-text-field v-model="inputEmail" label="email"></v-text-field>
-              <v-btn @click="saveEmail">Opslaan</v-btn>
-            </div>
-          </v-card-title>
-          <div class="headline pa-3">Mijn Vacatures</div>
-          <v-data-table :headers="headers" :items="myVacancies" class="elevation-1">
-            <template v-slot:items="props">
-              <tr
-                :class="[props.item.userVacancies.status == 1 ? 'vacancyAccepted' : 
-                ( props.item.userVacancies.status == 2 ? 'vacancyRejected' : 'vacancyPending')]"
-              >
-                <td>{{ props.item.title }}</td>
-                <td>{{ props.item.contactPerson }}</td>
-                <td>{{ props.item.period }}</td>
-                <td>{{ props.item.typeTask }}</td>
-                <td>{{ props.item.contactHours }}</td>
               </tr>
             </template>
           </v-data-table>
@@ -178,7 +154,6 @@ export default {
           "clear"
         );
       }
-        });
     },
     onResize() {
       if (window.innerWidth < 769) this.isMobile = true;

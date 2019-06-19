@@ -14,11 +14,9 @@
       <v-spacer></v-spacer>
       <v-btn
         v-if="[
-          'home', 'availability', 'vacancies', 'createvacancy', 'profile',
-          'educationTasks', 'nonEducationTasks', 'editEducation', 'editNonEducationTasks', 
-          'users', 'editUser', 
           'home', 'taskList', 'availability', 'vacancies', 'createvacancy', 
-          'educationTasks', 'nonEducationTasks', 'users', 'editUser'
+          'profile', 'educationTasks', 'nonEducationTasks', 'editEducation', 'editNonEducationTasks', 
+          'users', 'editUser'
           ].includes($route.name)"
         flat
         color="grey"

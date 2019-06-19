@@ -1,47 +1,49 @@
 <template>
-  <div v-resize="onResize" column>
-    <v-data-table
-      :headers="this.headers"
-      :items="this.content"
-      :item-key="this.content.id"
-      :search="search"
-      :pagination.sync="pagination"
-      :disable-initial-sort="true"
-      hide-actions
-      class="elevation-3"
-      :hide-headers="isMobile"
-      :class="{mobile: isMobile}"
-    >
-      <template v-slot:items="props">
-        <tr @click="showModal(props.item)" v-if="!isMobile">
-          <td class="px-3">{{ props.item.title }}</td>
-          <td class="px-3">{{ props.item.contactPerson }}</td>
-          <td class="px-3">{{ props.item.period }} | {{props.item.schoolYear}}</td>
-          <td class="px-3">{{ props.item.typeCourse }}</td>
-          <td class="px-3">{{ props.item.typeTask }}</td>
-          <td class="px-3">{{ props.item.contactHours }}</td>
-        </tr>
-        <tr v-else>
-          <td>
-            <ul class="flex-content" @click="showModal(props.item)">
-              <li class="flex-item" :data-label="headers[0].text">{{ props.item.title }}</li>
-              <li class="flex-item" :data-label="headers[1].text">{{ props.item.contactPerson }}</li>
-              <li class="flex-item" :data-label="headers[2].text">{{ props.item.period }}</li>
-              <li class="flex-item" :data-label="headers[3].text">{{ props.item.typeCourse }}</li>
-              <li class="flex-item" :data-label="headers[4].text">{{ props.item.typeTask }}</li>
-              <li class="flex-item" :data-label="headers[5].text">{{ props.item.contactHours }}</li>
-            </ul>
-          </td>
-        </tr>
-      </template>
-    </v-data-table>
+  <div v-resize="onResize" column class="vacancy-container">
+    <v-card>
       <v-card-title>
         <v-text-field v-model="search" append-icon="search" label="Search" single-line hide-details></v-text-field>
       </v-card-title>
+
       <v-data-table
+        :headers="this.headers"
+        :items="this.content"
+        :item-key="this.content.id"
+        :search="search"
+        :pagination.sync="pagination"
+        :disable-initial-sort="true"
+        hide-actions
+        :hide-headers="isMobile"
+        :class="{mobile: isMobile}"
         :custom-filter="customFilter"
+      >
+        <template v-slot:items="props">
+          <tr @click="showModal(props.item)" v-if="!isMobile">
+            <td class="px-3">{{ props.item.title }}</td>
+            <td class="px-3">{{ props.item.contactPerson }}</td>
+            <td class="px-3">{{ props.item.period }} | {{props.item.schoolYear}}</td>
+            <td class="px-3">{{ props.item.typeCourse }}</td>
+            <td class="px-3">{{ props.item.typeTask }}</td>
+            <td class="px-3">{{ props.item.contactHours }}</td>
+          </tr>
+          <tr v-else>
+            <td>
+              <ul class="flex-content" @click="showModal(props.item)">
+                <li class="flex-item" :data-label="headers[0].text">{{ props.item.title }}</li>
+                <li class="flex-item" :data-label="headers[1].text">{{ props.item.contactPerson }}</li>
+                <li class="flex-item" :data-label="headers[2].text">{{ props.item.period }}</li>
+                <li class="flex-item" :data-label="headers[3].text">{{ props.item.typeCourse }}</li>
+                <li class="flex-item" :data-label="headers[4].text">{{ props.item.typeTask }}</li>
+                <li class="flex-item" :data-label="headers[5].text">{{ props.item.contactHours }}</li>
+              </ul>
+            </td>
+          </tr>
+        </template>
+      </v-data-table>
+    </v-card>
     <div class="text-xs-right pt-2">
       <v-pagination
+        class="vacancy-pagination"
         v-model="pagination.page"
         :length="pages"
         :total-visible="isMobile ? 5 : 7"
@@ -110,17 +112,18 @@ export default {
       selected: [],
       search: "",
       dialog: false,
-      isMobile: false
+      isMobile: false,
       list: []
     };
   },
   props: ["headers", "content", "authToken"],
   computed: {
     pages() {
-      // eslint-disable-next-line
       if (this.list.length == 0) {
+        // eslint-disable-next-line
         this.pagination.totalItems = this.content.length;
       } else {
+        // eslint-disable-next-line
         this.pagination.totalItems = this.list.length;
       }
 
@@ -216,6 +219,16 @@ export default {
 </script>
 
 <style >
+.vacancy-container {
+  /* display: flex; */
+  /* flex-direction: column; */
+  /* align-items: flex-end; */
+}
+
+.vacancy-pagination {
+  margin: 1em 0;
+}
+
 .description.ellipsis {
   text-overflow: ellipsis;
   overflow: hidden;

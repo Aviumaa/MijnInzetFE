@@ -96,36 +96,38 @@ export default {
 
     let eduProgramId = this.educationalProgram.id;
     document.getElementById("fileSelector").onchange = function() {
-        let file = document.getElementById("fileSelector").files[0];
-        if (file) {
-            var data = Papa.parse(file, {
-                complete: function(results){
-                  axios.delete("http://localhost:3000/api/course/deleteAll/" + eduProgramId, {
-                      withCredentials: true
-                    });
+      let file = document.getElementById("fileSelector").files[0];
+      if (file) {
+        var data = Papa.parse(file, {
+          complete: function(results) {
+            axios.delete(
+              "http://localhost:3000/api/course/deleteAll/" + eduProgramId,
+              {
+                withCredentials: true
+              }
+            );
 
-                    results.data.forEach((row) => {
-                        try{
-                        if (row[1] != "ECTS" && row != ""){
-                            axios.post("http://localhost:3000/api/course",{
-                                educationalProgramId: eduProgramId,
-                                title: row[0],
-                                ects: row[1],
-                                period: row[2],
-                                type: row[3]
-                            }, {
-                              withCredentials: true
-                            })
-                            .then(response => {
-                                if (response.status === 201) {
-                                    console.log(response);
-                                }
-                            });
-                        }
-                        }
-                        catch (err){
-                          console.log(err);
-                        }
+            results.data.forEach(row => {
+              try {
+                if (row[1] != "ECTS" && row != "") {
+                  axios
+                    .post(
+                      "http://localhost:3000/api/course",
+                      {
+                        educationalProgramId: eduProgramId,
+                        title: row[0],
+                        ects: row[1],
+                        period: row[2],
+                        type: row[3]
+                      },
+                      {
+                        withCredentials: true
+                      }
+                    )
+                    .then(response => {
+                      if (response.status === 201) {
+                        console.log(response);
+                      }
                     });
                 }
               } catch (err) {

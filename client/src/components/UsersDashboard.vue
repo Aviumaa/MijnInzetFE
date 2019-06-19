@@ -1,44 +1,45 @@
 <template>
   <div v-resize="onResize" column>
-    <v-data-table
-      :headers="this.headers"
-      :items="this.content"
-      :item-key="this.content.id"
-      :search="search"
-      :pagination.sync="pagination"
-      :disable-initial-sort="true"
-      hide-actions
-      class="elevation-3"
-      :hide-headers="isMobile"
-      :class="{mobile: isMobile}"
-    >
-      <template v-slot:items="props">
-        <tr @click="navigateTo('editUser', props.item)" v-if="!isMobile">
-          <td class="px-3">{{ props.item.id }}</td>
-          <td class="px-3">{{ props.item.username }}</td>
-          <td class="px-3" v-for="role in props.item.roles" :key="role.id">{{ role.name }}</td>
-        </tr>
-        <tr v-else>
-          <td>
-            <ul class="flex-content" @click="navigateTo('editUser', props.item)">
-              <li class="flex-item" :data-label="headers[0].text">{{ props.item.id }}</li>
-              <li class="flex-item" :data-label="headers[1].text">{{ props.item.username }}</li>
-              <li
-                class="flex-item"
-                :data-label="headers[2].text"
-                v-for="role in props.item.roles"
-                :key="role.id"
-              >{{ role.name }}</li>
-            </ul>
-          </td>
-        </tr>
-      </template>
-    </v-data-table>
     <v-card>
       <v-card-title>
         <v-text-field v-model="search" append-icon="search" label="Search" single-line hide-details></v-text-field>
       </v-card-title>
+      <v-data-table
+        :headers="this.headers"
+        :items="this.content"
+        :item-key="this.content.id"
+        :search="search"
+        :pagination.sync="pagination"
+        :disable-initial-sort="true"
+        :hide-headers="isMobile"
         :custom-filter="customFilter"
+        :class="{mobile: isMobile}"
+        hide-actions
+      >
+        <template v-slot:items="props">
+          <tr @click="navigateTo('editUser', props.item)" v-if="!isMobile">
+            <td class="px-3">{{ props.item.id }}</td>
+            <td class="px-3">{{ props.item.username }}</td>
+            <td class="px-3">{{ props.item.email }}</td>
+            <td class="px-3" v-for="role in props.item.roles" :key="role.id">{{ role.name }}</td>
+          </tr>
+          <tr v-else>
+            <td>
+              <ul class="flex-content" @click="navigateTo('editUser', props.item)">
+                <li class="flex-item" :data-label="headers[0].text">{{ props.item.id }}</li>
+                <li class="flex-item" :data-label="headers[1].text">{{ props.item.username }}</li>
+                <li
+                  class="flex-item"
+                  :data-label="headers[2].text"
+                  v-for="role in props.item.roles"
+                  :key="role.id"
+                >{{ role.name }}</li>
+              </ul>
+            </td>
+          </tr>
+        </template>
+      </v-data-table>
+    </v-card>
     <div class="text-xs-right pt-2">
       <v-pagination
         v-model="pagination.page"
