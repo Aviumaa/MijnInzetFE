@@ -108,12 +108,11 @@ exports.updateEmail = (req, res) => {
       email: email
     },
     {
-      where: {
-        id: userId
-      },
-      attributes: ["userId", "email"]
-    }
-  ).then(response => {
-    res.status(200);
-  });
-};
+        where: {
+            id: userId
+        },
+        attributes: ["userId", "email"]
+    }).then(response => {
+        res.status(200).send(console.log("email updated"));
+    })
+}
