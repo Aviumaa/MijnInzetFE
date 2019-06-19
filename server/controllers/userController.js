@@ -112,6 +112,6 @@ exports.updateEmail = (req, res) => {
         },
         attributes: ["userId", "email"]
     }).then(response => {
-        res.status(200);
+        res.status(200).send(console.log("email updated"));
     })
 }
