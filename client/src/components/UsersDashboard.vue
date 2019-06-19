@@ -1,33 +1,33 @@
 <template>
-  <v-card>
-    <v-card-title>
-      <v-text-field v-model="search" append-icon="search" label="Search" single-line hide-details></v-text-field>
-    </v-card-title>
-    <v-data-table
-      :headers="this.headers"
-      :items="this.content"
-      :item-key="this.content.id"
-      :search="search"
-      :pagination.sync="pagination"
-      :disable-initial-sort="true"
-      hide-actions
-      class="elevation-3"
-      :custom-filter="customFilter"
-    >
-      <template v-slot:items="props">
-        <tr @click="navigateTo('editUser', props.item)">
-          <td class="px-3">{{ props.item.id }}</td>
-          <td class="px-3">{{ props.item.username }}</td>
-          <td class="px-3" v-for="role in props.item.roles" :key="role.id">{{ role.name }}</td>
-        </tr>
-      </template>
-    </v-data-table>
+  <div>
+    <v-card>
+      <v-card-title>
+        <v-text-field v-model="search" append-icon="search" label="Search" single-line hide-details></v-text-field>
+      </v-card-title>
+      <v-data-table
+        :headers="this.headers"
+        :items="this.content"
+        :item-key="this.content.id"
+        :search="search"
+        :pagination.sync="pagination"
+        :disable-initial-sort="true"
+        :custom-filter="customFilter"
+        hide-actions
+      >
+        <template v-slot:items="props">
+          <tr @click="navigateTo('editUser', props.item)">
+            <td class="px-3">{{ props.item.id }}</td>
+            <td class="px-3">{{ props.item.username }}</td>
+            <td class="px-3" v-for="role in props.item.roles" :key="role.id">{{ role.name }}</td>
+          </tr>
+        </template>
+      </v-data-table>
+    </v-card>
     <div class="text-xs-right pt-2">
       <v-pagination v-model="pagination.page" :length="pages" color="black"></v-pagination>
     </div>
-
     <v-dialog v-model="dialog" max-width="400"></v-dialog>
-  </v-card>
+  </div>
 </template>
 
 
