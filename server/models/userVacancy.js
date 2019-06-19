@@ -1,49 +1,32 @@
-'use strict';
+"use strict";
 
-module.exports = (sequelize, type) => {
+module.exports = (sequelize, types) => {
+  const UserVacancy = sequelize.define("userVacancies", {
+    id: {
+      type: types.INTEGER,
+      primaryKey: true,
+      autoIncrement: true
+    },
+    vacancyId: {
+      type: types.INTEGER,
+      references: {
+        model: "vacancies",
+        key: "id"
+      },
+      allowNull: false
+    },
+    userId: {
+      type: types.INTEGER,
+      references: {
+        model: "users",
+        key: "id"
+      },
+      allowNull: false
+    },
+    status: {
+      type: types.ENUM(0, 1, 2)
+    }
+  });
 
-    const UserVacancy = sequelize.define('userVacancies', {
-        id: {
-            type: type.INTEGER,
-            primaryKey: true,
-            autoIncrement: true
-        },
-        vacancy: {
-            type: type.INTEGER,
-            references: {
-                model: "vacancies", // name of Target model
-                key: "id" // key in Target model that we're referencing
-            },
-            allowNull: false
-        },
-        user: {
-            type: type.INTEGER,
-            references: {
-                model: "users", // name of Target model
-                key: "id" // key in Target model that we're referencing
-            },
-            allowNull: false
-        },
-        escalated: {
-            type: type.BOOLEAN,
-            defaultValue: false
-        },
-        rejected: {
-            type: type.BOOLEAN,
-            defaultValue: false
-        },
-        message: {
-            type: type.TEXT
-        },
-    })
-
-    UserVacancy.associate = models => {
-        UserVacancy.belongsTo(models.User);
-    };
-
-    UserVacancy.associate = models => {
-        UserVacancy.belongsTo(models.Vacancy);
-    };
-
-    return UserVacancy
-}
+  return UserVacancy;
+};

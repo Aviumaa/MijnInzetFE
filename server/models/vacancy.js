@@ -43,7 +43,7 @@ module.exports = (sequelize, Sequelize) => {
 
   Vacancy.associate = models => {
     Vacancy.hasMany(models.UserVacancy, {
-      foreignKey: "vacancy"
+      foreignKey: "vacancyId"
     });
   };
 

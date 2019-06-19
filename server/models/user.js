@@ -18,7 +18,7 @@ module.exports = (sequelize, Sequelize) => {
 
   User.associate = models => {
     User.hasMany(models.UserVacancy, {
-      foreignKey: "user"
+      foreignKey: "userId"
     });
 
     User.hasMany(models.Timeslot, {
