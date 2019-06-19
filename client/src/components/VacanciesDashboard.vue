@@ -69,7 +69,6 @@
   </div>
 </template>
 
-
 <script>
 import HeaderTitle from "@/components/HeaderTitle.vue";
 import axios from "axios";
@@ -119,7 +118,8 @@ export default {
           "http://localhost:3000/api/UserVacancies",
           {
             vacancyId: this.selected.id,
-            userId: this.authToken.id
+            userId: this.authToken.id,
+            status: 0
           },
           {
             withCredentials: true
