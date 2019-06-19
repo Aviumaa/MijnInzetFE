@@ -1,44 +1,4 @@
 <template>
-    <v-container>
-        <v-layout>
-            <v-flex xs12>
-              <v-card height="80vh" color="white" class="grey--text">
-                <v-card-title primary-title>
-                  <div>
-                    <div class="headline">Profiel</div>
-                    <p class=.body-1>Gebruikersnaam: {{ userName }} </p>
-                    
-                    <p class=.body-1>Vul hier uw mail in om notificaties te ontvangen:</p>
-                    <v-text-field
-                    v-model="inputEmail"
-                    label=email                 
-                    ></v-text-field>
-                    <v-btn
-                    @click="saveEmail"
-                    >Opslaan</v-btn>
-                  </div>
-                </v-card-title>
-                <div class="headline pa-3">Mijn Vacatures</div>
-                <v-data-table
-                    :headers="headers"
-                    :items="myVacancies"
-                    class="elevation-1"
-                >
-                  <template v-slot:items="props">
-                    <td>{{ props.item.title }}</td>
-                    <td class="text-xs-left">{{ props.item.description }}</td>
-                    <td class="text-xs-left">{{ props.item.contactPerson }}</td>
-                    <td class="text-xs-left">{{ props.item.period }}</td>
-                    <td class="text-xs-left">{{ props.item.typeTask }}</td>
-                    <td class="text-xs-left">{{ props.item.contactHours }}</td>
-                  </template>
-                </v-data-table>
-              </v-card>
-            </v-flex>
-        </v-layout>
-    <loading-dialog ref="loadingDialog"/>
-    <response-dialog ref="responseDialog"/>
-    </v-container>    
   <v-container>
     <v-layout>
       <v-flex xs12>
@@ -46,7 +6,9 @@
           <v-card-title primary-title>
             <div>
               <div class="headline">Profiel</div>
-              <h3>Vul hier uw mail in om notificaties te ontvangen:</h3>
+              <p class=".body-1">Gebruikersnaam: {{ userName }}</p>
+
+              <p class=".body-1">Vul hier uw mail in om notificaties te ontvangen:</p>
               <v-text-field v-model="inputEmail" label="email"></v-text-field>
               <v-btn @click="saveEmail">Opslaan</v-btn>
             </div>
@@ -69,6 +31,8 @@
         </v-card>
       </v-flex>
     </v-layout>
+    <loading-dialog ref="loadingDialog"/>
+    <response-dialog ref="responseDialog"/>
   </v-container>
 </template>
 
@@ -78,18 +42,18 @@ import LoadingDialog from "@/components/LoadingDialog.vue";
 import ResponseDialog from "@/components/ResponseDialog.vue";
 
 export default {
-    props: ["token"],
-    components: {
-      LoadingDialog,
-      ResponseDialog
-    },
-    data: () => {
-        return {
-            inputEmail: 'mijn@email.nl',
-            userName: 'gebruikersnaam',
-            headers: [
- {
-      status: null,
+  props: ["token"],
+  components: {
+    LoadingDialog,
+    ResponseDialog
+  },
+  data: () => {
+    return {
+      inputEmail: "mijn@email.nl",
+      userName: "gebruikersnaam",
+      headers: [
+        {
+          status: null,
           text: "Titel",
           sortable: true,
           value: "task"
@@ -123,35 +87,34 @@ export default {
   },
   methods: {
     saveEmail() {
-        this.$refs.loadingDialog.open("Email updaten");
-        axios.put(`http://localhost:3000/api/users/${this.token.id}/email`, {
-            email: this.inputEmail
-          }
-        )
-        .then(function(response) {
-          console.log(response);
+      this.$refs.loadingDialog.open("Email updaten");
+      axios
+        .put(`http://localhost:3000/api/users/${this.token.id}/email`, {
+          email: this.inputEmail
         })
-        .then((response) => {
-            this.openResponseDialog(response.status);
+        .then(response => {
+          this.openResponseDialog(response.status);
         })
-        .catch((error) => {
-            console.log(error);
+        .catch(error => {
+          console.log(error);
         });
     },
 
     fetchMyVacancies: function() {
-        axios.get(`http://localhost:3000/api/uservacancies/user/${this.token.id}`)
-        .then((response) => {
+      axios
+        .get(`http://localhost:3000/api/uservacancies/user/${this.token.id}`, {
+          withCredentials: true
+        })
+        .then(response => {
           this.userName = response.data.username;
           this.inputEmail = response.data.email;
-          for(let i = 0; i < response.data.vacancies.length; i++) {
-          withCredentials: true
+          for (let i = 0; i < response.data.vacancies.length; i++) {
             this.myVacancies.push(response.data.vacancies[i]);
           }
         })
         .catch(error => {
           console.log(error);
-        })
+        });
     },
     openResponseDialog: function(responseStatus) {
       this.$refs.loadingDialog.close();
