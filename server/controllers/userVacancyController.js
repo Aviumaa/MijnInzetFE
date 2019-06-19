@@ -61,13 +61,12 @@ exports.getUserVacancyByUserIdAndStatus = (req, res) => {
   const userId = req.params.userId;
   const status = req.params.status;
 
-  console.log(req.params);
-
   UserVacancy.findAll({
     where: {
       userId: userId,
       status: status
-    }
+    },
+    include: [{ model: Vacancy }]
   }).then(userResponse => {
     res.status(200).json(userResponse);
   });

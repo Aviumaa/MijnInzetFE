@@ -64,6 +64,10 @@ Vacancy.belongsToMany(User, {
   through: "userVacancies",
   foreignKey: "vacancyId"
 });
+
+UserVacancy.belongsTo(User);
+UserVacancy.belongsTo(Vacancy);
+
 module.exports = {
   User,
   Vacancy,
