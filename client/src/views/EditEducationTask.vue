@@ -17,7 +17,7 @@
     <div style="border: 1px solid black">
         <div class="btn">
           <span>Kies een bestand met vakken om in te lezen...</span><br>
-          <input id="fileSelector" name="myFile" type="file" multiple="multiple"> 
+          <input id="fileSelector" name="myFile" type="file" multiple="multiple">
         </div>
         <div>
           <input type="text">
@@ -78,9 +78,7 @@ export default {
         if (file) {
             var data = Papa.parse(file, {
                 complete: function(results){
-                  axios.post("http://localhost:3000/api/course/deleteAll", {
-                      educationalProgramId: xxid
-                    }, {
+                  axios.delete("http://localhost:3000/api/course/deleteAll/" + xxid, {
                       withCredentials: true
                     });
 
