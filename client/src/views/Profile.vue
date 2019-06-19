@@ -19,10 +19,10 @@
                 ( props.item.userVacancies.status == 2 ? 'vacancyRejected' : 'vacancyPending')]"
               >
                 <td>{{ props.item.title }}</td>
-                <td class="text-xs-left">{{ props.item.contactPerson }}</td>
-                <td class="text-xs-left">{{ props.item.period }}</td>
-                <td class="text-xs-left">{{ props.item.typeTask }}</td>
-                <td class="text-xs-left">{{ props.item.contactHours }}</td>
+                <td>{{ props.item.contactPerson }}</td>
+                <td>{{ props.item.period }}</td>
+                <td>{{ props.item.typeTask }}</td>
+                <td>{{ props.item.contactHours }}</td>
               </tr>
             </template>
           </v-data-table>

@@ -8,10 +8,10 @@
             <template v-slot:items="props">
               <tr class="vacancyAccepted">
                 <td>{{ props.item.vacancy.title }}</td>
-                <td class="text-xs-left">{{ props.item.vacancy.contactPerson }}</td>
-                <td class="text-xs-left">{{ props.item.vacancy.period }}</td>
-                <td class="text-xs-left">{{ props.item.vacancy.typeTask }}</td>
-                <td class="text-xs-left">{{ props.item.vacancy.contactHours }}</td>
+                <td>{{ props.item.vacancy.contactPerson }}</td>
+                <td>{{ props.item.vacancy.period }}</td>
+                <td>{{ props.item.vacancy.typeTask }}</td>
+                <td>{{ props.item.vacancy.contactHours }}</td>
               </tr>
             </template>
           </v-data-table>

@@ -38,7 +38,6 @@ export default {
           class: "px-3"
         }
       ],
-      content: [],
       users: []
     };
   },
