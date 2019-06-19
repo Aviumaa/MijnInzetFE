@@ -1,26 +1,31 @@
 <template>
   <div>
-    <v-data-table
-      :headers="this.headers"
-      :items="this.content"
-      :item-key="this.content.id"
-      :search="search"
-      :pagination.sync="pagination"
-      :disable-initial-sort="true"
-      hide-actions
-      class="elevation-3"
-    >
-      <template v-slot:items="props">
-        <tr @click="showModal(props.item)">
-          <td class="px-3">{{ props.item.title }}</td>
-          <td class="px-3">{{ props.item.contactPerson }}</td>
-          <td class="px-3">{{ props.item.period }} | {{props.item.schoolYear}}</td>
-          <td class="px-3">{{ props.item.typeCourse }}</td>
-          <td class="px-3">{{ props.item.typeTask }}</td>
-          <td class="px-3">{{ props.item.contactHours }}</td>
-        </tr>
-      </template>
-    </v-data-table>
+    <v-card>
+      <v-card-title>
+        <v-text-field v-model="search" append-icon="search" label="Search" single-line hide-details></v-text-field>
+      </v-card-title>
+      <v-data-table
+        :headers="this.headers"
+        :items="this.content"
+        :item-key="this.content.id"
+        :search="search"
+        :pagination.sync="pagination"
+        :disable-initial-sort="true"
+        :custom-filter="customFilter"
+        hide-actions
+      >
+        <template v-slot:items="props">
+          <tr @click="showModal(props.item)">
+            <td class="px-3">{{ props.item.title }}</td>
+            <td class="px-3">{{ props.item.contactPerson }}</td>
+            <td class="px-3">{{ props.item.period }} | {{props.item.schoolYear}}</td>
+            <td class="px-3">{{ props.item.typeCourse }}</td>
+            <td class="px-3">{{ props.item.typeTask }}</td>
+            <td class="px-3">{{ props.item.contactHours }}</td>
+          </tr>
+        </template>
+      </v-data-table>
+    </v-card>
     <div class="text-xs-right pt-2">
       <v-pagination v-model="pagination.page" :length="pages" :total-visible="7" color="black"></v-pagination>
     </div>
@@ -85,14 +90,19 @@ export default {
       },
       selected: [],
       search: "",
-      dialog: false
+      dialog: false,
+      list: []
     };
   },
   props: ["headers", "content", "authToken"],
   computed: {
     pages() {
       // eslint-disable-next-line
-      this.pagination.totalItems = this.content.length;
+      if (this.list.length == 0) {
+        this.pagination.totalItems = this.content.length;
+      } else {
+        this.pagination.totalItems = this.list.length;
+      }
 
       if (
         this.pagination.rowsPerPage == null ||
@@ -141,6 +151,36 @@ export default {
           "clear"
         );
       }
+    },
+    customFilter(items, search, filter) {
+      if (!search) {
+        this.list = [];
+        return items;
+      }
+
+      function new_filter(val, search) {
+        return (
+          val !== null &&
+          ["undefined", "boolean"].indexOf(typeof val) === -1 &&
+          val
+            .toString()
+            .toLowerCase()
+            .replace(/[^0-9a-zA-Z]+/g, "")
+            .indexOf(search) !== -1
+        );
+      }
+
+      let needleAry = search
+        .toString()
+        .toLowerCase()
+        .split(" ")
+        .filter(x => x);
+
+      return (this.list = items.filter(row =>
+        needleAry.every(needle =>
+          Object.keys(row).some(key => new_filter(row[key], needle))
+        )
+      ));
     }
   },
   components: {
