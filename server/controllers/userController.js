@@ -68,8 +68,11 @@ exports.doEdit = (req, res) => {
 
   User.update(
     {
+      salutation: req.body.salutation,
       username: req.body.username,
-      email: req.body.email
+      fullName: req.body.fullName,
+      email: req.body.email,
+      telephone: req.body.telephone
     },
     {
       where: {

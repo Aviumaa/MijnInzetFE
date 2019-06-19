@@ -8,8 +8,11 @@
       <v-form ref="form">
         <v-card>
           <v-card-text>
+            <v-text-field ref="salutation" v-model="user.salutation" label="Aanhef" required></v-text-field>
             <v-text-field ref="username" v-model="user.username" label="Gebruikersnaam" required></v-text-field>
+            <v-text-field ref="fullName" v-model="user.fullName" label="Volledige naam" required></v-text-field>
             <v-text-field ref="email" v-model="user.email" label="Email" required></v-text-field>
+            <v-text-field ref="telephone" v-model="user.telephone" label="Telefoon" required></v-text-field>
             <v-combobox
               v-model="selectedRole"
               :items="roles"
@@ -38,8 +41,12 @@ import ResponseDialog from "@/components/ResponseDialog";
 export default {
   data: () => ({
     user: [],
+    salutation: "",
     username: "",
+    fullName: "",
     email: "",
+    telephone: "",
+
     selectedRole: [],
     roles: []
   }),
@@ -53,8 +60,11 @@ export default {
         .put(
           `http://localhost:3000/api/users/${this.user.id}/edit`,
           {
+            salutation: this.user.salutation,
             username: this.user.username,
+            fullName: this.user.fullName,
             email: this.user.email,
+            telephone: this.user.telephone,
             roleId: this.selectedRole.id
           },
           { withCredentials: true }

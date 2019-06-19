@@ -21,7 +21,7 @@ module.exports = {
         id: 1000002,
         username: "onderwijsprogrammacoordinator",
         password: bcrypt.hashSync("onderwijsprogrammacoordinator", salt),
-        email: "coordinator@hva.nl",
+        email: "onderwijsprogrammacoordinator@hva.nl",
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -69,7 +69,7 @@ module.exports = {
         id: 1000008,
         username: "coordinator",
         password: bcrypt.hashSync("coordinator", salt),
-        email: "roosteraar@hva.nl",
+        email: "coordinator@hva.nl",
         createdAt: new Date(),
         updatedAt: new Date()
       }
