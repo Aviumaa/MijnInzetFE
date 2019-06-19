@@ -219,22 +219,8 @@ export default {
 </script>
 
 <style >
-.vacancy-container {
-  /* display: flex; */
-  /* flex-direction: column; */
-  /* align-items: flex-end; */
-}
-
 .vacancy-pagination {
   margin: 1em 0;
-}
-
-.description.ellipsis {
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
-  max-width: 10vw;
-  height: 4.5em;
 }
 
 .applyToVacancyButton .v-btn__content {

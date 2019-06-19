@@ -40,7 +40,6 @@
               >
                 <td>
                   <ul class="flex-content">
-                    <li class="flex-item" :data-label="headers[0].text">{{ props.item.description }}</li>
                     <li
                       class="flex-item"
                       :data-label="headers[1].text"
@@ -184,5 +183,19 @@ export default {
 
 .vacancyPending {
   border-left: 1em solid #ffd600;
+}
+
+@media (max-width: 600px) {
+  .vacancyAccepted {
+    border-left: 0.5em solid #66bb6a;
+  }
+
+  .vacancyRejected {
+    border-left: 0.5em solid #e53935;
+  }
+
+  .vacancyPending {
+    border-left: 0.5em solid #ffd600;
+  }
 }
 </style>
