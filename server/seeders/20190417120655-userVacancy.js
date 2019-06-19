@@ -6,16 +6,16 @@ module.exports = {
   up: (queryInterface, Sequelize) => {
     const newData = [];
 
-    for (let i = 0; i < 200; i++) {
-      const seedData = {
-        userId: Math.floor(Math.random() * 200) + 1,
-        vacancyId: Math.floor(Math.random() * 200) + 1,
-        status: Math.floor(Math.random() * 3) + 1,
-        createdAt: new Date(),
-        updatedAt: new Date()
-      };
-      newData.push(seedData);
-    }
+    // for (let i = 0; i < 200; i++) {
+    //   const seedData = {
+    //     userId: Math.floor(Math.random() * 200) + 1,
+    //     vacancyId: Math.floor(Math.random() * 200) + 1,
+    //     status: Math.floor(Math.random() * 3) + 1,
+    //     createdAt: new Date(),
+    //     updatedAt: new Date()
+    //   };
+    //   newData.push(seedData);
+    // }
 
     const userVacancies = [
       {

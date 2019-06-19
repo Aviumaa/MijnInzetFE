@@ -32,6 +32,12 @@ export default {
           class: "px-3"
         },
         {
+          text: "Email",
+          sortable: true,
+          value: "email",
+          class: "px-3"
+        },
+        {
           text: "Gebruikersrol",
           sortable: true,
           value: "gebruikersrol",
