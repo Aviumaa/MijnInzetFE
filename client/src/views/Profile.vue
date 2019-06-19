@@ -14,12 +14,17 @@
           <div class="headline pa-3">Mijn Vacatures</div>
           <v-data-table :headers="headers" :items="myVacancies" class="elevation-1">
             <template v-slot:items="props">
-              <td>{{ props.item.title }}</td>
-              <td class="text-xs-left">{{ props.item.description }}</td>
-              <td class="text-xs-left">{{ props.item.contactPerson }}</td>
-              <td class="text-xs-left">{{ props.item.period }}</td>
-              <td class="text-xs-left">{{ props.item.typeTask }}</td>
-              <td class="text-xs-left">{{ props.item.contactHours }}</td>
+              <tr
+                :class="[props.item.userVacancies.status == 1 ? 'vacancyAccepted' : 
+                ( props.item.userVacancies.status == 2 ? 'vacancyRejected' : 'vacancyPending')]"
+              >
+                <td>{{ props.item.title }}</td>
+                <td class="text-xs-left">{{ props.item.description }}</td>
+                <td class="text-xs-left">{{ props.item.contactPerson }}</td>
+                <td class="text-xs-left">{{ props.item.period }}</td>
+                <td class="text-xs-left">{{ props.item.typeTask }}</td>
+                <td class="text-xs-left">{{ props.item.contactHours }}</td>
+              </tr>
             </template>
           </v-data-table>
         </v-card>
@@ -36,6 +41,7 @@ export default {
   data() {
     return {
       inputEmail: "",
+      status: null,
       headers: [
         {
           text: "Titel",
@@ -121,5 +127,17 @@ export default {
   height: 500px;
   width: 500px;
   align-items: center;
+}
+
+.vacancyAccepted {
+  border-left: 1em solid #66bb6a;
+}
+
+.vacancyRejected {
+  border-left: 1em solid #e53935;
+}
+
+.vacancyPending {
+  border-left: 1em solid #ffd600;
 }
 </style>
