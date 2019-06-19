@@ -7,7 +7,7 @@ exports.getUserVacancies = (req, res) => {
 
 // GET userVacancy by id
 exports.getUserVacancyById = (req, res) => {
-  var vacancyId = req.params.vacancyId;
+  const vacancyId = req.params.vacancyId;
   UserVacancy.findOne({
     where: {
       id: vacancyId
@@ -30,7 +30,7 @@ exports.postUserVacancy = (req, res) => {
 
 //get a users vacancies by userId
 exports.getUserVacancyByUserId = (req, res) => {
-  var userId = req.params.userId;
+  const userId = req.params.userId;
   User.findOne({
     where: {
       id: userId
@@ -52,7 +52,23 @@ exports.getUserVacancyByUserId = (req, res) => {
       }
     ]
   }).then(userResponse => {
-    console.log(req.param);
+    res.status(200).json(userResponse);
+  });
+};
+
+// GET all accepted vacancies of an user
+exports.getUserVacancyByUserIdAndStatus = (req, res) => {
+  const userId = req.params.userId;
+  const status = req.params.status;
+
+  console.log(req.params);
+
+  UserVacancy.findAll({
+    where: {
+      userId: userId,
+      status: status
+    }
+  }).then(userResponse => {
     res.status(200).json(userResponse);
   });
 };
