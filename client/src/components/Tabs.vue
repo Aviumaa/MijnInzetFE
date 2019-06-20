@@ -2,7 +2,7 @@
   <div v-resize="onResize" column>
     <v-tabs class="tabs" fixed-tabs dark>
       <v-tab to="/educationTasks">Onderwijstaken</v-tab>
-      <v-tab to="/nonEducationTasks">Niet onderwijstaken</v-tab>
+      <v-tab to="/nonEducationTasks">Neventaken</v-tab>
     </v-tabs>
     <v-container class="tabs-container">
       <v-data-table
