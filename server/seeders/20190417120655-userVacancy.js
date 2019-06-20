@@ -5,103 +5,94 @@ const faker = require("faker");
 module.exports = {
   up: (queryInterface, Sequelize) => {
     const newData = [];
+    const seederDataPerUser = 10;
 
-    // for (let i = 0; i < 200; i++) {
-    //   const seedData = {
-    //     userId: Math.floor(Math.random() * 200) + 1,
-    //     vacancyId: Math.floor(Math.random() * 200) + 1,
-    //     status: Math.floor(Math.random() * 3) + 1,
-    //     createdAt: new Date(),
-    //     updatedAt: new Date()
-    //   };
-    //   newData.push(seedData);
-    // }
-
-    const userVacancies = [
-      {
-        id: 100000,
+    for (let i = 0; i < seederDataPerUser; i++) {
+      const seedData = {
         userId: 1000001,
-        vacancyId: faker.random.number(120),
-        status: faker.random.arrayElement([0, 1, 2, 3]),
+        vacancyId: Math.floor(Math.random() * 200) + 1,
+        status: Math.floor(Math.random() * 3),
         createdAt: new Date(),
         updatedAt: new Date()
-      },
-      {
-        id: 100001,
-        userId: 1000005,
-        vacancyId: faker.random.number(120),
-        status: faker.random.arrayElement([0, 1, 2, 3]),
-        createdAt: new Date(),
-        updatedAt: new Date()
-      },
-      {
-        id: 100002,
-        userId: 1000006,
-        vacancyId: faker.random.number(120),
-        status: 0,
-        createdAt: new Date(),
-        updatedAt: new Date()
-      },
-      {
-        id: 100003,
-        userId: 1000006,
-        vacancyId: faker.random.number(120),
-        status: 1,
-        createdAt: new Date(),
-        updatedAt: new Date()
-      },
-      {
-        id: 100004,
-        userId: 1000006,
-        vacancyId: faker.random.number(120),
-        status: 0,
-        createdAt: new Date(),
-        updatedAt: new Date()
-      },
-      {
-        id: 100005,
-        userId: 1000006,
-        vacancyId: faker.random.number(120),
-        status: 2,
-        createdAt: new Date(),
-        updatedAt: new Date()
-      },
-      {
-        id: 100006,
-        userId: 1000006,
-        vacancyId: faker.random.number(120),
-        status: 0,
-        createdAt: new Date(),
-        updatedAt: new Date()
-      },
-      {
-        id: 100007,
-        userId: 1000006,
-        vacancyId: faker.random.number(120),
-        status: 1,
-        createdAt: new Date(),
-        updatedAt: new Date()
-      },
-      {
-        id: 100008,
-        userId: 1000006,
-        vacancyId: faker.random.number(120),
-        status: 1,
-        createdAt: new Date(),
-        updatedAt: new Date()
-      },
-      {
-        id: 100009,
-        userId: 1000006,
-        vacancyId: faker.random.number(120),
-        status: 1,
-        createdAt: new Date(),
-        updatedAt: new Date()
-      }
-    ];
+      };
+      newData.push(seedData);
+    }
 
-    for (let i = 0; i < userVacancies.length; i++) {
-      newData.push(userVacancies[i]);
+    for (let i = 0; i < seederDataPerUser; i++) {
+      const seedData = {
+        userId: 1000002,
+        vacancyId: Math.floor(Math.random() * 200) + 1,
+        status: Math.floor(Math.random() * 3),
+        createdAt: new Date(),
+        updatedAt: new Date()
+      };
+      newData.push(seedData);
+    }
+
+    for (let i = 0; i < seederDataPerUser; i++) {
+      const seedData = {
+        userId: 1000003,
+        vacancyId: Math.floor(Math.random() * 200) + 1,
+        status: Math.floor(Math.random() * 3),
+        createdAt: new Date(),
+        updatedAt: new Date()
+      };
+      newData.push(seedData);
+    }
+
+    for (let i = 0; i < seederDataPerUser; i++) {
+      const seedData = {
+        userId: 1000004,
+        vacancyId: Math.floor(Math.random() * 200) + 1,
+        status: Math.floor(Math.random() * 3),
+        createdAt: new Date(),
+        updatedAt: new Date()
+      };
+      newData.push(seedData);
+    }
+
+    for (let i = 0; i < seederDataPerUser; i++) {
+      const seedData = {
+        userId: 1000005,
+        vacancyId: Math.floor(Math.random() * 200) + 1,
+        status: Math.floor(Math.random() * 3),
+        createdAt: new Date(),
+        updatedAt: new Date()
+      };
+      newData.push(seedData);
+    }
+
+    for (let i = 0; i < seederDataPerUser; i++) {
+      const seedData = {
+        userId: 1000006,
+        vacancyId: Math.floor(Math.random() * 200) + 1,
+        status: Math.floor(Math.random() * 3),
+        createdAt: new Date(),
+        updatedAt: new Date()
+      };
+      newData.push(seedData);
+    }
+
+    for (let i = 0; i < seederDataPerUser; i++) {
+      const seedData = {
+        userId: 1000007,
+        vacancyId: Math.floor(Math.random() * 200) + 1,
+        status: Math.floor(Math.random() * 3),
+        createdAt: new Date(),
+        updatedAt: new Date()
+      };
+      newData.push(seedData);
+    }
+
+    for (let i = 0; i < seederDataPerUser; i++) {
+      const seedData = {
+        userId: 1000008,
+        vacancyId: Math.floor(Math.random() * 200) + 1,
+        status: Math.floor(Math.random() * 3),
+        createdAt: new Date(),
+        updatedAt: new Date()
+      };
+      newData.push(seedData);
     }
 
     return queryInterface.bulkInsert("userVacancies", newData);

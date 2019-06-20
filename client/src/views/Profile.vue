@@ -5,8 +5,11 @@
         <v-card min-height="80vh" color="white" class="grey--text">
           <v-card-title primary-title>
             <div>
-              <div class="headline">Profiel</div>
+              <h1 class="headline pb-3">Profiel</h1>
+              <p class=".body-1">Aanhef: {{ salutation }}</p>
               <p class=".body-1">Gebruikersnaam: {{ userName }}</p>
+              <p class=".body-1">Volledige naam: {{ fullName }}</p>
+              <p class=".body-1">Telefoon: {{ telephone }}</p>
 
               <p class=".body-1">Vul hier uw mail in om notificaties te ontvangen:</p>
               <v-text-field v-model="inputEmail" label="email"></v-text-field>
@@ -76,8 +79,11 @@ export default {
   },
   data: () => {
     return {
-      inputEmail: "mijn@email.nl",
+      salutation: "",
       userName: "gebruikersnaam",
+      fullName: "",
+      inputEmail: "mijn@email.nl",
+      telephone: "",
       headers: [
         {
           status: null,
@@ -133,8 +139,11 @@ export default {
           withCredentials: true
         })
         .then(response => {
+          this.salutation = response.data.salutation;
           this.userName = response.data.username;
+          this.fullName = response.data.fullName;
           this.inputEmail = response.data.email;
+          this.telephone = response.data.telephone;
           for (let i = 0; i < response.data.vacancies.length; i++) {
             this.myVacancies.push(response.data.vacancies[i]);
           }
