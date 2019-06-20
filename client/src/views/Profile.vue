@@ -147,6 +147,7 @@ export default {
           for (let i = 0; i < response.data.vacancies.length; i++) {
             this.myVacancies.push(response.data.vacancies[i]);
           }
+          this.myVacancies.reverse();
         })
         .catch(error => {
           console.log(error);
