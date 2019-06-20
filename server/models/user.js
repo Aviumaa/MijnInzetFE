@@ -5,6 +5,12 @@ module.exports = (sequelize, Sequelize) => {
       primaryKey: true,
       autoIncrement: true
     },
+    salutation: {
+      type: Sequelize.STRING
+    },
+    fullName: {
+      type: Sequelize.STRING
+    },
     username: {
       type: Sequelize.STRING
     },
@@ -13,12 +19,15 @@ module.exports = (sequelize, Sequelize) => {
     },
     email: {
       type: Sequelize.STRING
+    },
+    telephone: {
+      type: Sequelize.STRING
     }
   });
 
   User.associate = models => {
     User.hasMany(models.UserVacancy, {
-      foreignKey: "user"
+      foreignKey: "userId"
     });
 
     User.hasMany(models.Timeslot, {

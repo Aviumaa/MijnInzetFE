@@ -1,21 +1,22 @@
 <template>
   <nav>
-    <v-toolbar flat app class="black">
+    <v-toolbar flat app class="black" height="56px">
       <v-toolbar-title class="text-uppercase grey--text">
         <router-link :to="{name: 'home'}" class="font-weight-light home">
           Mijn-
           <span class="font-weight-bold">Inzet</span>
         </router-link>
       </v-toolbar-title>
-      <v-btn v-if="backButton" @click="back()" flat color="grey">
+      <v-btn v-if="backButton" @click="back()" flat color="grey" class="back-button">
         <v-icon right>arrow_back</v-icon>
         <span>Terug</span>
       </v-btn>
       <v-spacer></v-spacer>
       <v-btn
         v-if="[
-          'home', 'availability', 'vacancies', 'createvacancy', 
-          'educationTasks', 'nonEducationTasks', 'users', 'editUser'
+          'home', 'taskList', 'availability', 'vacancies', 'createvacancy', 
+          'profile', 'educationTasks', 'nonEducationTasks', 'editEducation', 'editNonEducationTasks', 
+          'users', 'editUser'
           ].includes($route.name)"
         flat
         color="grey"
@@ -69,6 +70,16 @@ export default {
 </script>
 
 <style>
+@media (max-width: 960px) {
+  .navbar {
+    height: 64px;
+  }
+
+  .back-button {
+    display: none;
+  }
+}
+
 .home {
   cursor: pointer;
   text-decoration: none;

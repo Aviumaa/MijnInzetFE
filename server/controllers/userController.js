@@ -30,6 +30,14 @@ exports.getDecodedUserData = (req, res) => {
 // GET all users
 exports.findAllUsers = (req, res) => {
   User.findAll({
+    attributes: [
+      "id",
+      "salutation",
+      "username",
+      "fullName",
+      "email",
+      "telephone"
+    ],
     include: [
       {
         model: Role
@@ -60,7 +68,11 @@ exports.doEdit = (req, res) => {
 
   User.update(
     {
-      username: req.body.username
+      salutation: req.body.salutation,
+      username: req.body.username,
+      fullName: req.body.fullName,
+      email: req.body.email,
+      telephone: req.body.telephone
     },
     {
       where: {
@@ -99,19 +111,20 @@ exports.doEdit = (req, res) => {
 };
 
 exports.updateEmail = (req, res) => {
-    console.log(req.body);
-    let userId = req.params.userId;
-    let email = req.body.email;
+  let userId = req.params.userId;
+  let email = req.body.email;
 
-    User.update({
-        email: email
+  User.update(
+    {
+      email: email
     },
     {
-        where: {
-            id: userId
-        },
-        attributes: ["userId", "email"]
-    }).then(response => {
-        res.status(200).send(console.log("email updated"));
-    })
-}
+      where: {
+        id: userId
+      },
+      attributes: ["userId", "email"]
+    }
+  ).then(response => {
+    res.status(200).send(console.log("email updated"));
+  });
+};
