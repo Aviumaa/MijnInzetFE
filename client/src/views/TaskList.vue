@@ -1,17 +1,49 @@
 <template>
-  <v-container>
+  <v-container v-resize="onResize" column class="tasklist-container">
     <v-layout row>
       <v-flex>
         <div class="upperRow">
           <HeaderTitle title="Taakoverzicht"></HeaderTitle>
-          <v-data-table :headers="headers" :items="acceptedVacancies" class="elevation-1">
+          <v-data-table
+            :headers="headers"
+            :items="acceptedVacancies"
+            :hide-headers="isMobile"
+            :class="{mobile: isMobile}"
+            class="elevation-1"
+          >
             <template v-slot:items="props">
-              <tr class="vacancyAccepted">
+              <tr class="vacancyAccepted" v-if="!isMobile">
                 <td>{{ props.item.vacancy.title }}</td>
                 <td>{{ props.item.vacancy.contactPerson }}</td>
                 <td>{{ props.item.vacancy.period }}</td>
                 <td>{{ props.item.vacancy.typeTask }}</td>
                 <td>{{ props.item.vacancy.contactHours }}</td>
+              </tr>
+              <tr v-else>
+                <td>
+                  <ul class="flex-content">
+                    <li
+                      class="flex-item"
+                      :data-label="headers[0].text"
+                    >{{ props.item.vacancy.title }}</li>
+                    <li
+                      class="flex-item"
+                      :data-label="headers[1].text"
+                    >{{ props.item.vacancy.contactPerson }}</li>
+                    <li
+                      class="flex-item"
+                      :data-label="headers[1].text"
+                    >{{ props.item.vacancy.period }}</li>
+                    <li
+                      class="flex-item"
+                      :data-label="headers[1].text"
+                    >{{ props.item.vacancy.typeTask }}</li>
+                    <li
+                      class="flex-item"
+                      :data-label="headers[1].text"
+                    >{{ props.item.vacancy.contactHours }}</li>
+                  </ul>
+                </td>
               </tr>
             </template>
           </v-data-table>
@@ -28,6 +60,7 @@ import HeaderTitle from "@/components/HeaderTitle.vue";
 export default {
   data() {
     return {
+      isMobile: false,
       acceptedVacancies: [],
       headers: [
         {
@@ -70,6 +103,21 @@ export default {
           this.acceptedVacancies.push(response.data[i]);
         }
       });
+  },
+  methods: {
+    onResize() {
+      if (window.innerWidth < 769) this.isMobile = true;
+      else this.isMobile = false;
+    }
   }
 };
 </script>
+
+<style>
+@media (max-width: 600px) {
+  .tasklist-container {
+    padding: 0;
+    margin-top: 1em;
+  }
+}
+</style>
