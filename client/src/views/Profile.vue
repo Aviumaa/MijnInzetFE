@@ -35,6 +35,7 @@
                 <td>{{ props.item.period }}</td>
                 <td>{{ props.item.typeTask }}</td>
                 <td>{{ props.item.contactHours }}</td>
+                <td>{{ props.item.createdAt }}</td>
               </tr>
               <tr
                 v-else
@@ -48,11 +49,11 @@
                       :data-label="headers[1].text"
                     >{{ props.item.contactPerson }}</li>
                     <li class="flex-item" :data-label="headers[2].text">{{ props.item.period }}</li>
-                    <li class="flex-item" :data-label="headers[3].text">{{ props.item.typeTask }}</li>
                     <li
                       class="flex-item"
                       :data-label="headers[4].text"
                     >{{ props.item.contactHours }}</li>
+                    <li class="flex-item" :data-label="headers[3].text">{{ props.item.createdAt }}</li>
                   </ul>
                 </td>
               </tr>
@@ -110,6 +111,11 @@ export default {
           text: "Inzet (uren)",
           sortable: true,
           value: "contactHours"
+        },
+        {
+          text: "Aangemeld op",
+          sortable: true,
+          value: "createdAt"
         }
       ],
       myVacancies: [],

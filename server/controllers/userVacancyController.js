@@ -47,7 +47,8 @@ exports.getUserVacancyByUserId = (req, res) => {
           "period",
           "typeCourse",
           "typeTask",
-          "contactHours"
+          "contactHours",
+          "createdAt"
         ]
       }
     ]
