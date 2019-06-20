@@ -99,17 +99,6 @@ module.exports = {
       }
     ];
 
-    // for (let i = 0; i < 200; i++) {
-    //   const seedData = {
-    //     username: faker.internet.userName(),
-    //     password: bcrypt.hashSync(faker.internet.password(), salt),
-    //     email: faker.internet.email(),
-    //     createdAt: new Date(),
-    //     updatedAt: new Date()
-    //   };
-    //   newData.push(seedData);
-    // }
-
     for (let i = 0; i < hashedAccounts.length; i++) {
       newData.push(hashedAccounts[i]);
     }
