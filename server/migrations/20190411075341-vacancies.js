@@ -17,12 +17,6 @@ module.exports = {
       contactPerson: {
         type: type.STRING
       },
-      schoolYear: {
-        type: type.STRING
-      },
-      period: {
-        type: type.STRING
-      },
       typeCourse: {
         type: type.STRING
       },
