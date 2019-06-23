@@ -14,7 +14,6 @@ exports.getAllCourses = async (req, res) => {
 
 // GET course by id
 exports.getCourseById = async (req, res) => {
-
     if (validationCheck(req, res)) {
         return;
     }
@@ -29,7 +28,6 @@ exports.getCourseById = async (req, res) => {
 
 //POST new course
 exports.postCourse = async (req, res) => {
-
     if (validationCheck(req, res)) {
         return;
     }
@@ -41,6 +39,19 @@ exports.postCourse = async (req, res) => {
         return res.status(400).json({status: 400, message: e.message});
     }
 };
+
+exports.addCourseToProgram = async (req, res) => {
+    if (validationCheck(req, res)) {
+        return;
+    }
+
+    try {
+        await CourseService.addCourseToProgram(req.body.courseId, req.body.educationalProgramId);
+        return res.status(200).json({status: 200, message: "Successfully added course to program"});
+    } catch (e) {
+        return res.status(400).json({status: 400, message: e.message});
+    }
+}
 
 exports.postCourseWithProgram = async (req, res) => {
     if (validationCheck(req, res)) {
@@ -55,7 +66,10 @@ exports.postCourseWithProgram = async (req, res) => {
             req.body.type,
             req.body.educationalProgramId
         )
-        return res.status(200).json({status: 200, message: "Successfully created and added course with id: " + course.id});
+        return res.status(200).json({
+            status: 200,
+            message: "Successfully created and added course with id: " + course.id
+        });
     } catch (e) {
         return res.status(400).json({status: 400, message: e.message});
     }

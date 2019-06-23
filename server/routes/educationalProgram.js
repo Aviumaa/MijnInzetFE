@@ -11,9 +11,21 @@ router.get(
 );
 
 router.get(
+    "/schoolRelated/withCourses",
+    withAuth,
+    educationalProgramController.getAllEducationalProgramsWithCourses
+)
+
+router.get(
     "/nonSchoolRelated",
     withAuth,
     educationalProgramController.getAllNonEducationalPrograms
+);
+
+router.get(
+    "/nonSchoolRelated/withCourses",
+    withAuth,
+    educationalProgramController.getAllNonEducationalProgramsWithCourses
 );
 
 router.get(
@@ -21,6 +33,13 @@ router.get(
     EducationalProgramValidator.validate('getEducationalProgramById'),
     withAuth,
     educationalProgramController.getEducationalProgramById
+);
+
+router.get(
+    "/withCourses/:educationalProgramId",
+    EducationalProgramValidator.validate('getEducationalProgramByIdWithCourses'),
+    withAuth,
+    educationalProgramController.getEducationalProgramByIdWithCourses
 );
 
 router.post("/",

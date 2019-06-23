@@ -1,4 +1,4 @@
-const { param, body } = require('express-validator')
+const {param, body} = require('express-validator')
 
 exports.validate = (method) => {
     switch (method) {
@@ -9,19 +9,25 @@ exports.validate = (method) => {
         }
         case 'postCourse': {
             return [
-                body('title','Title must atleast be 2 characters long').exists().isLength({min: 2}),
-                body('ects','Ects must have a numeric value').isNumeric(),
-                body('period','').isIn(['Blok 1', 'Blok 2', 'Blok 3', 'Blok 4', 'Sem 1', 'Sem 2']),
-                body('type','Type is required').exists()
+                body('title', 'Title must atleast be 2 characters long').exists().isLength({min: 2}),
+                body('ects', 'Ects must have a numeric value').isNumeric(),
+                body('period', '').isIn(['Blok 1', 'Blok 2', 'Blok 3', 'Blok 4', 'Sem 1', 'Sem 2']),
+                body('type', 'Type is required').exists()
             ]
         }
         case 'postCourseWithProgram': {
             return [
-                body('title','Title must atleast be 2 characters long').exists().isLength({min: 2}),
-                body('ects','Ects must have a numeric value').isNumeric(),
-                body('period','').isIn(['Blok 1', 'Blok 2', 'Blok 3', 'Blok 4', 'Sem 1', 'Sem 2']),
-                body('type','Type is required').exists(),
+                body('title', 'Title must atleast be 2 characters long').exists().isLength({min: 2}),
+                body('ects', 'Ects must have a numeric value').isNumeric(),
+                body('period', '').isIn(['Blok 1', 'Blok 2', 'Blok 3', 'Blok 4', 'Sem 1', 'Sem 2']),
+                body('type', 'Type is required').exists(),
                 body('educationalProgramId', 'ProgramId is required').exists().isNumeric().withMessage('Id must be a numeric value')
+            ]
+        }
+        case 'addCourseToProgram': {
+            return [
+                body('courseId', 'CourseId must be filled').exists().isNumeric().withMessage('Id must be a numeric value'),
+                body('educationalProgramId', 'ProgramId must be filled').exists().isNumeric().withMessage('Id must be a numeric value')
             ]
         }
         case 'destroyCoursesByProgramId': {

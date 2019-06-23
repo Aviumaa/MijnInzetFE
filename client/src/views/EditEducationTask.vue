@@ -82,7 +82,7 @@ export default {
     this.educationalProgram = this.$route.params.educationalProgram;
     axios
       .get(
-        `http://localhost:3000/api/educationalProgramCourse/${
+        `http://localhost:3000/api/educationalProgramByIdWithCourses/${
           this.educationalProgram.id
         }`,
         {

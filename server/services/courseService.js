@@ -35,7 +35,7 @@ exports.postCourse = async (title, ects, period, type) => {
 
 exports.postCourseWithProgram = async (title, ects, period, type, programId) => {
     try {
-        return await Course.created({
+        return await Course.create({
             title: title,
             ects: ects,
             period: period,
@@ -48,6 +48,17 @@ exports.postCourseWithProgram = async (title, ects, period, type, programId) => 
         })
     } catch (e) {
         throw Error("Error while creating new course")
+    }
+}
+
+exports.addCourseToProgram =async (courseId, programId) => {
+    try {
+        return await EducationalProgramCourse.create({
+            educationalProgramId: programId,
+            courseId: courseId
+        })
+    } catch (e) {
+        throw Error('Error while adding course to program')
     }
 }
 

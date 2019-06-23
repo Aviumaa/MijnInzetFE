@@ -7,6 +7,11 @@ exports.validate = (method) => {
                 param('educationalProgramId', 'Id must be a numeric value').exists().isNumeric(),
             ]
         }
+        case 'getEducationalProgramByIdWithCourses': {
+            return [
+                param('educationalProgramId', 'Id must be a numeric value').exists().isNumeric(),
+            ]
+        }
         case 'postEducationalProgram': {
             return [
                 body('title', 'Title is required').exists(),
