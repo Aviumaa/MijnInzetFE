@@ -57,7 +57,7 @@ export default {
         withCredentials: true
       })
       .then(response => {
-        this.users = response.data;
+        this.users = response.data.data;
       });
   }
 };

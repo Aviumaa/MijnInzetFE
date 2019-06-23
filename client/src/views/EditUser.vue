@@ -58,7 +58,7 @@ export default {
     send() {
       axios
         .put(
-          `http://localhost:3000/api/users/${this.user.id}/edit`,
+          `http://localhost:3000/api/users/${this.user.id}/update`,
           {
             salutation: this.user.salutation,
             username: this.user.username,

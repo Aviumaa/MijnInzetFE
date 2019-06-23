@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const withAuth = require("../middelware/middleware");
+const UserValidator = require("../validators/userValidator");
 
 const loginController = require("../controllers/loginController");
 const userController = require("../controllers/userController");
@@ -11,9 +12,9 @@ router.get("/", withAuth, userController.getDecodedUserData);
 
 router.get("/all", withAuth, userController.findAllUsers);
 
-router.get("/:userId/edit", withAuth, userController.editUser);
+router.get("/:userId", withAuth, userController.getUserById);
 
-router.put("/:userId/edit", withAuth, userController.doEdit);
+router.put("/:userId/update", UserValidator.validate('updateUser'), withAuth, userController.updateUser);
 
-router.put("/:userId/email", userController.updateEmail);
+router.put("/:userId/email", UserValidator.validate('updateEmail'), userController.updateEmail);
 module.exports = router;
