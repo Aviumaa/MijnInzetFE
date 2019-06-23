@@ -1,8 +1,15 @@
 const {User, Role, UserRole, Vacancy, UserVacancy} = require("../sequelize");
+const jwt = require("jsonwebtoken");
 
-exports.getDecodedUserData = async () => {
+exports.getDecodedUserData = async (token) => {
     try {
-
+        if (token) {
+            // verifies secret and checks if the token is expired
+            return await jwt.verify(token, "secretkey")
+        } else {
+            // if there is no token
+            throw Error('No token found');
+        }
     } catch (e) {
         throw Error('Error while decoding user data')
     }
@@ -141,7 +148,7 @@ exports.getUserVacancyByUserIdAndStatus = async (userId, status) => {
                 userId: userId,
                 status: status
             },
-            include: [{ model: Vacancy }]
+            include: [{model: Vacancy}]
         })
     } catch (e) {
         throw Error('Error while getting userVacancy with userId and status');

@@ -4,28 +4,14 @@ const {validationResult} = require('express-validator');
 
 
 // GET decoded token from logged in user
-exports.getDecodedUserData = (req, res) => {
-    // check header for the token
-    const token = req.cookies.token;
+exports.getDecodedUserData = async (req, res) => {
 
     // decode token
-    if (token) {
-        // verifies secret and checks if the token is expired
-        jwt.verify(token, "secretkey", (err, decoded) => {
-            if (err) {
-                return res.json({message: err});
-            } else {
-                // if everything is good, save to request for use in other routes
-                req.decoded = decoded;
-                return res.status(200).json(decoded);
-            }
-        });
-    } else {
-        // if there is no token
-
-        res.send({
-            message: "No token provided."
-        });
+    try {
+        const decoded = await UserService.getDecodedUserData(req.cookies.token);
+        return res.status(200).json(decoded);
+    } catch (e) {
+        return res.status(400).json({status: 400, message: e.message});
     }
 };
 
