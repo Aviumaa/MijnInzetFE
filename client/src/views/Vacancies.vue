@@ -83,7 +83,7 @@ export default {
         withCredentials: true
       })
       .then(response => {
-        this.vacancies = response.data;
+        this.vacancies = response.data.data;
       });
   },
   methods: {

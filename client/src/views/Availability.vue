@@ -137,7 +137,7 @@ export default {
         withCredentials: true
       })
       .then(response => {
-        this.userTimeslotData = response.data;
+        this.userTimeslotData = response.data.data;
         this.parseJsonToString();
       });
   }

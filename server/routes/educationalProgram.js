@@ -2,26 +2,49 @@ const express = require("express");
 const router = express.Router();
 const withAuth = require("../middelware/middleware");
 const educationalProgramController = require("../controllers/educationalProgramController");
-const { EducationalProgram } = require("../sequelize");
+const EducationalProgramValidator = require("../validators/educationalProgramValidator");
 
 router.get(
-  "/schoolRelated",
-  withAuth,
-  educationalProgramController.getEducationalPrograms
+    "/schoolRelated",
+    withAuth,
+    educationalProgramController.getAllEducationalPrograms
 );
 
 router.get(
-  "/nonSchoolRelated",
-  withAuth,
-  educationalProgramController.getNonEducationalPrograms
+    "/schoolRelated/withCourses",
+    withAuth,
+    educationalProgramController.getAllEducationalProgramsWithCourses
+)
+
+router.get(
+    "/nonSchoolRelated",
+    withAuth,
+    educationalProgramController.getAllNonEducationalPrograms
 );
 
 router.get(
-  "/:educationalProgramId",
-  withAuth,
-  educationalProgramController.getEducationalProgramById
+    "/nonSchoolRelated/withCourses",
+    withAuth,
+    educationalProgramController.getAllNonEducationalProgramsWithCourses
 );
 
-router.post("/", withAuth, educationalProgramController.postEducationalProgram);
+router.get(
+    "/:educationalProgramId",
+    EducationalProgramValidator.validate('getEducationalProgramById'),
+    withAuth,
+    educationalProgramController.getEducationalProgramById
+);
+
+router.get(
+    "/withCourses/:educationalProgramId",
+    EducationalProgramValidator.validate('getEducationalProgramByIdWithCourses'),
+    withAuth,
+    educationalProgramController.getEducationalProgramByIdWithCourses
+);
+
+router.post("/",
+    EducationalProgramValidator.validate('postEducationalProgram'),
+    withAuth,
+    educationalProgramController.postEducationalProgram);
 
 module.exports = router;

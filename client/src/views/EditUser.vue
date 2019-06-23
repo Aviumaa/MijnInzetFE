@@ -58,7 +58,7 @@ export default {
     send() {
       axios
         .put(
-          `http://localhost:3000/api/users/${this.user.id}/edit`,
+          `http://localhost:3000/api/users/${this.user.id}/update`,
           {
             salutation: this.user.salutation,
             username: this.user.username,
@@ -95,8 +95,8 @@ export default {
     axios
       .get("http://localhost:3000/api/roles/", { withCredentials: true })
       .then(response => {
-        for (let i = 0; i < response.data.length; i++) {
-          let role = response.data[i];
+        for (let i = 0; i < response.data.data.length; i++) {
+          let role = response.data.data[i];
           this.roles.push(role);
         }
       });

@@ -1,130 +1,113 @@
-const { User, Role, UserRole } = require("../sequelize");
 const jwt = require("jsonwebtoken");
+const UserService = require("../services/userService");
+const {validationResult} = require('express-validator');
+
 
 // GET decoded token from logged in user
-exports.getDecodedUserData = (req, res) => {
-  // check header for the token
-  const token = req.cookies.token;
+exports.getDecodedUserData = async (req, res) => {
 
-  // decode token
-  if (token) {
-    // verifies secret and checks if the token is expired
-    jwt.verify(token, "secretkey", (err, decoded) => {
-      if (err) {
-        return res.json({ message: err });
-      } else {
-        // if everything is good, save to request for use in other routes
-        req.decoded = decoded;
+    // decode token
+    try {
+        const decoded = await UserService.getDecodedUserData(req.cookies.token);
         return res.status(200).json(decoded);
-      }
-    });
-  } else {
-    // if there is no token
-
-    res.send({
-      message: "No token provided."
-    });
-  }
+    } catch (e) {
+        return res.status(400).json({status: 400, message: e.message});
+    }
 };
 
 // GET all users
-exports.findAllUsers = (req, res) => {
-  User.findAll({
-    attributes: [
-      "id",
-      "salutation",
-      "username",
-      "fullName",
-      "email",
-      "telephone"
-    ],
-    include: [
-      {
-        model: Role
-      }
-    ]
-  }).then(users => {
-    res.json(users);
-  });
+exports.findAllUsers = async (req, res) => {
+    try {
+        const users = await UserService.findAllUsers();
+        return res.status(200).json({status: 200, data: users});
+    } catch (e) {
+        return res.status(400).json({status: 400, message: e.message});
+    }
+
 };
 
 // GET the requested user data to edit
-exports.editUser = (req, res) => {
-  let userId = req.params.userId;
-
-  User.findOne({
-    where: {
-      id: userId
+exports.getUserById = async (req, res) => {
+    if (validationCheck(req, res)) {
+        return;
     }
-  }).then(userResponse => {
-    res.status(200).json(userResponse);
-  });
+
+    try {
+        const user = await UserService.getUserById(req.params.userId);
+        return res.status(200).json({status: 200, data: user});
+    } catch (e) {
+        return res.status(400).json({status: 400, message: e.message});
+    }
 };
 
 // UPDATE the requested user data
-exports.doEdit = (req, res) => {
-  let userId = req.params.userId;
-  let roleId = req.body.roleId;
-
-  User.update(
-    {
-      salutation: req.body.salutation,
-      username: req.body.username,
-      fullName: req.body.fullName,
-      email: req.body.email,
-      telephone: req.body.telephone
-    },
-    {
-      where: {
-        id: userId
-      }
+exports.updateUser = async (req, res) => {
+    if (validationCheck(req, res)) {
+        return;
     }
-  );
 
-  UserRole.findOne({ where: { userId: userId } })
-    .then(function(obj) {
-      if (obj) {
-        // update
-        UserRole.update(
-          {
-            roleId: roleId
-          },
-          {
-            where: {
-              userId: userId
-            },
-            attributes: ["userId", "roleId"]
-          }
-        );
-      } else {
-        // insert
-        UserRole.create({
-          userId: userId,
-          roleId: roleId
-        });
-      }
-      res.status(200).send(console.log("updated"));
-    })
-    .catch(err => {
-      res.status(400).send(console.error(err));
-    });
+    try {
+        await UserService.updateUser(
+            req.body.salutation,
+            req.body.username,
+            req.body.fullName,
+            req.body.email,
+            req.body.telephone,
+            req.params.userId,
+            req.body.roleId
+        )
+        return res.status(200).json({status: 200, message: "Successfully updated user"});
+    } catch (e) {
+        return res.status(400).json({status: 400, message: e.message});
+    }
+
 };
 
-exports.updateEmail = (req, res) => {
-  let userId = req.params.userId;
-  let email = req.body.email;
-
-  User.update(
-    {
-      email: email
-    },
-    {
-      where: {
-        id: userId
-      },
-      attributes: ["userId", "email"]
+exports.updateEmail = async (req, res) => {
+    if (validationCheck(req, res)) {
+        return;
     }
-  ).then(response => {
-    res.status(200).send(console.log("email updated"));
-  });
+
+    try {
+        await UserService.updateEmail(req.body.email, req.params.userId);
+        return res.status(200).json({status: 200, message: "Successfully updated email"});
+    } catch (e) {
+        return res.status(400).json({status: 400, message: e.message});
+    }
 };
+
+exports.getUserVacancyByUserId = async (req, res) => {
+    if (validationCheck(req, res)) {
+        return;
+    }
+
+    try {
+        const userVacancy = await UserService.getUserVacancyByUserId(req.params.userId);
+        return res.status(200).json({status: 200, data: userVacancy});
+    } catch (e) {
+        return res.status(400).json({status: 400, message: e.message});
+    }
+
+}
+
+exports.getUserVacancyByUserIdAndStatus = async (req, res) => {
+    if (validationCheck(req, res)) {
+        return;
+    }
+
+    try {
+        const userVacancy = await UserService.getUserVacancyByUserIdAndStatus(req.params.userId, req.params.status);
+        return res.status(200).json({status: 200, data: userVacancy});
+    } catch (e) {
+        return res.status(400).json({status: 400, message: e.message});
+    }
+
+}
+
+validationCheck = (req, res) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+        return res.status(422).json({errors: errors.array()});
+    }
+}

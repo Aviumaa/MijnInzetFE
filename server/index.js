@@ -4,11 +4,9 @@ const logger = require("./middelware/logger");
 const users = require("./routes/users");
 const vacancies = require("./routes/vacancies");
 const timeslots = require("./routes/timeslots");
-const userVacancy = require("./routes/userVacancies");
 const roles = require("./routes/roles");
 const course = require("./routes/course");
 const educationalProgram = require("./routes/educationalProgram");
-const educationalProgramCourse = require("./routes/educationalProgramCourse");
 const express = require("express");
 const cookieParser = require("cookie-parser");
 const app = express();
@@ -46,14 +44,12 @@ app.use(
 );
 app.use(express.static("public"));
 app.use(logger);
-app.use("/api/userVacancies", userVacancy);
 app.use("/api/users", users);
 app.use("/api/vacancies", vacancies);
 app.use("/api/timeslots", timeslots);
 app.use("/api/roles", roles);
 app.use("/api/course", course);
 app.use("/api/educationalProgram", educationalProgram);
-app.use("/api/educationalProgramCourse", educationalProgramCourse);
 
 if (app.get("env") === "development") {
   app.use(morgan("tiny"));

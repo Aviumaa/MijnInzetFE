@@ -200,14 +200,10 @@ export default {
             { withCredentials: true }
           )
           .then(response => {
-            if (response.status == 200) {
-              this.openResponseDialog(response.status);
-            }
+              this.openResponseDialog(response.data.status);
           })
           .catch(error => {
-            if (error.response.status == 400) {
-              this.openResponseDialog(error.response.status);
-            }
+              this.openResponseDialog(error.response.data.status);
           });
       }
     },

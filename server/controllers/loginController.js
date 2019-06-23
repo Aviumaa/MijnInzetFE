@@ -42,8 +42,14 @@ exports.doLogin = async (req, res) => {
   });
 };
 
-exports.getUsers = (req, res) => {
-  User.findAll().then(userResponse => {
-    res.status(200).json(userResponse);
-  });
-};
+// exports.doLogin = async (req, res) => {
+//     try {
+//         const token = await LoginService.doLogin(req.body.password, req.body.username);
+//         return res
+//             .cookie("token", token, {httpOnly: false, secure: false})
+//             .status(200)
+//             .json(token);
+//     } catch (e) {
+//         return res.status(400).json({status: 400, message: e.message});
+//     }
+// };

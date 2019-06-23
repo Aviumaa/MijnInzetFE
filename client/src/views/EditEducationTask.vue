@@ -82,7 +82,7 @@ export default {
     this.educationalProgram = this.$route.params.educationalProgram;
     axios
       .get(
-        `http://localhost:3000/api/educationalProgramCourse/${
+        `http://localhost:3000/api/educationalProgram/withCourses/${
           this.educationalProgram.id
         }`,
         {
@@ -90,7 +90,7 @@ export default {
         }
       )
       .then(response => {
-        this.courses = response.data[0].courses;
+        this.courses = response.data.data.courses;
       })
       .catch(error => {
         console.log(error);
@@ -114,13 +114,13 @@ export default {
                 if (row[1] != "ECTS" && row != "") {
                   axios
                     .post(
-                      "http://localhost:3000/api/course",
+                      "http://localhost:3000/api/course/withProgram",
                       {
-                        educationalProgramId: eduProgramId,
                         title: row[0],
                         ects: row[1],
                         period: row[2],
-                        type: row[3]
+                        type: row[3],
+                        educationalProgramId: eduProgramId
                       },
                       {
                         withCredentials: true
