@@ -4,7 +4,6 @@ const logger = require("./middelware/logger");
 const users = require("./routes/users");
 const vacancies = require("./routes/vacancies");
 const timeslots = require("./routes/timeslots");
-const userVacancy = require("./routes/userVacancies");
 const roles = require("./routes/roles");
 const course = require("./routes/course");
 const educationalProgram = require("./routes/educationalProgram");
@@ -45,7 +44,6 @@ app.use(
 );
 app.use(express.static("public"));
 app.use(logger);
-app.use("/api/userVacancies", userVacancy);
 app.use("/api/users", users);
 app.use("/api/vacancies", vacancies);
 app.use("/api/timeslots", timeslots);

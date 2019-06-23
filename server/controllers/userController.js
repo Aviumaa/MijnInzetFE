@@ -83,12 +83,40 @@ exports.updateEmail = async (req, res) => {
     }
 
     try {
-        UserService.updateEmail(req.body.email, req.params.userId);
+        await UserService.updateEmail(req.body.email, req.params.userId);
         return res.status(200).json({status: 200, message: "Successfully updated email"});
     } catch (e) {
         return res.status(400).json({status: 400, message: e.message});
     }
 };
+
+exports.getUserVacancyByUserId = async (req, res) => {
+    if (validationCheck(req, res)) {
+        return;
+    }
+
+    try {
+        const userVacancy = await UserService.getUserVacancyByUserId(req.params.userId);
+        return res.status(200).json({status: 200, data: userVacancy});
+    } catch (e) {
+        return res.status(400).json({status: 400, message: e.message});
+    }
+
+}
+
+exports.getUserVacancyByUserIdAndStatus = async (req, res) => {
+    if (validationCheck(req, res)) {
+        return;
+    }
+
+    try {
+        const userVacancy = await UserService.getUserVacancyByUserIdAndStatus(req.params.userId, req.params.status);
+        return res.status(200).json({status: 200, data: userVacancy});
+    } catch (e) {
+        return res.status(400).json({status: 400, message: e.message});
+    }
+
+}
 
 validationCheck = (req, res) => {
     const errors = validationResult(req);

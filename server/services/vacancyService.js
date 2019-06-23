@@ -1,4 +1,4 @@
-const {Vacancy, Periods, VacancyPeriods} = require("../sequelize");
+const {Vacancy, Periods, VacancyPeriods, UserVacancy} = require("../sequelize");
 
 const Sequelize = require("sequelize");
 const Op = Sequelize.Op;
@@ -120,5 +120,17 @@ exports.postVacancy = async (title, description, contactPerson, typeCourse, type
         // }
     } catch (e) {
         throw Error('Error while creating new vacancy');
+    }
+}
+
+exports.addUserToVacancy = async (vacancyId, userId, status) => {
+    try{
+        return await UserVacancy.create({
+            userId: userId,
+            vacancyId: vacancyId,
+            status: status
+        })
+    } catch (e) {
+        throw Error('Error while adding user to vacancy');
     }
 }

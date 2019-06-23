@@ -150,10 +150,8 @@
                 this.$refs.loadingDialog.open("Verzoek indienen");
                 axios
                     .post(
-                        "http://localhost:3000/api/UserVacancies",
+                        "http://localhost:3000/api/vacancies/" + this.selected.id + "/" + this.authToken.id,
                         {
-                            vacancyId: this.selected.id,
-                            userId: this.authToken.id,
                             status: 0
                         },
                         {
@@ -162,7 +160,7 @@
                     )
                     .then(response => {
                         if (response.status === 201) {
-                            this.openResponseDialog(response.status);
+                            this.openResponseDialog(response.data.status);
                         }
                     });
             },

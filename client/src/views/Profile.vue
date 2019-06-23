@@ -1,217 +1,222 @@
 <template>
-  <v-container class="profile-container">
-    <v-layout>
-      <v-flex xs12 v-resize="onResize" column>
-        <v-card min-height="80vh" color="white" class="grey--text">
-          <v-card-title primary-title>
-            <div>
-              <h1 class="headline pb-3">Profiel</h1>
-              <p class=".body-1">Aanhef: {{ salutation }}</p>
-              <p class=".body-1">Gebruikersnaam: {{ userName }}</p>
-              <p class=".body-1">Volledige naam: {{ fullName }}</p>
-              <p class=".body-1">Telefoon: {{ telephone }}</p>
+    <v-container class="profile-container">
+        <v-layout>
+            <v-flex xs12 v-resize="onResize" column>
+                <v-card min-height="80vh" color="white" class="grey--text">
+                    <v-card-title primary-title>
+                        <div>
+                            <h1 class="headline pb-3">Profiel</h1>
+                            <p class=".body-1">Aanhef: {{ salutation }}</p>
+                            <p class=".body-1">Gebruikersnaam: {{ userName }}</p>
+                            <p class=".body-1">Volledige naam: {{ fullName }}</p>
+                            <p class=".body-1">Telefoon: {{ telephone }}</p>
 
-              <p class=".body-1">Vul hier uw mail in om notificaties te ontvangen:</p>
-              <v-text-field v-model="inputEmail" label="email"></v-text-field>
-              <v-btn @click="saveEmail">Opslaan</v-btn>
-            </div>
-          </v-card-title>
-          <div class="headline pa-3">Mijn Vacatures</div>
-          <v-data-table
-            :headers="headers"
-            :items="myVacancies"
-            class="elevation-1"
-            :hide-headers="isMobile"
-            :class="{mobile: isMobile}"
-          >
-            <template v-slot:items="props">
-              <tr
-                v-if="!isMobile"
-                :class="[props.item.userVacancies.status == 1 ? 'vacancyAccepted' : 
+                            <p class=".body-1">Vul hier uw mail in om notificaties te ontvangen:</p>
+                            <v-text-field v-model="inputEmail" label="email"></v-text-field>
+                            <v-btn @click="saveEmail">Opslaan</v-btn>
+                        </div>
+                    </v-card-title>
+                    <div class="headline pa-3">Mijn Vacatures</div>
+                    <v-data-table
+                            :headers="headers"
+                            :items="myVacancies"
+                            class="elevation-1"
+                            :hide-headers="isMobile"
+                            :class="{mobile: isMobile}"
+                    >
+                        <template v-slot:items="props">
+                            <tr
+                                    v-if="!isMobile"
+                                    :class="[props.item.userVacancies.status == 1 ? 'vacancyAccepted' :
                 ( props.item.userVacancies.status == 2 ? 'vacancyRejected' : 'vacancyPending')]"
-              >
-                <td>{{ props.item.title }}</td>
-                <td>{{ props.item.contactPerson }}</td>
-                <td>{{ props.item.period }}</td>
-                <td>{{ props.item.typeTask }}</td>
-                <td>{{ props.item.contactHours }}</td>
-                <td>{{ props.item.createdAt }}</td>
-              </tr>
-              <tr
-                v-else
-                :class="[props.item.userVacancies.status == 1 ? 'vacancyAccepted' : 
+                            >
+                                <td>{{ props.item.title }}</td>
+                                <td>{{ props.item.contactPerson }}</td>
+                                <td>{{ props.item.period }}</td>
+                                <td>{{ props.item.typeTask }}</td>
+                                <td>{{ props.item.contactHours }}</td>
+                                <td>{{ props.item.createdAt }}</td>
+                            </tr>
+                            <tr
+                                    v-else
+                                    :class="[props.item.userVacancies.status == 1 ? 'vacancyAccepted' :
                 ( props.item.userVacancies.status == 2 ? 'vacancyRejected' : 'vacancyPending')]"
-              >
-                <td>
-                  <ul class="flex-content">
-                    <li
-                      class="flex-item"
-                      :data-label="headers[1].text"
-                    >{{ props.item.contactPerson }}</li>
-                    <li class="flex-item" :data-label="headers[2].text">{{ props.item.period }}</li>
-                    <li
-                      class="flex-item"
-                      :data-label="headers[4].text"
-                    >{{ props.item.contactHours }}</li>
-                    <li class="flex-item" :data-label="headers[3].text">{{ props.item.createdAt }}</li>
-                  </ul>
-                </td>
-              </tr>
-            </template>
-          </v-data-table>
-        </v-card>
-      </v-flex>
-    </v-layout>
-    <loading-dialog ref="loadingDialog"/>
-    <response-dialog ref="responseDialog"/>
-  </v-container>
+                            >
+                                <td>
+                                    <ul class="flex-content">
+                                        <li
+                                                class="flex-item"
+                                                :data-label="headers[1].text"
+                                        >{{ props.item.contactPerson }}
+                                        </li>
+                                        <li class="flex-item" :data-label="headers[2].text">{{ props.item.period }}</li>
+                                        <li
+                                                class="flex-item"
+                                                :data-label="headers[4].text"
+                                        >{{ props.item.contactHours }}
+                                        </li>
+                                        <li class="flex-item" :data-label="headers[3].text">{{ props.item.createdAt }}
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </template>
+                    </v-data-table>
+                </v-card>
+            </v-flex>
+        </v-layout>
+        <loading-dialog ref="loadingDialog"/>
+        <response-dialog ref="responseDialog"/>
+    </v-container>
 </template>
 
 <script>
-import axios from "axios";
-import LoadingDialog from "@/components/LoadingDialog.vue";
-import ResponseDialog from "@/components/ResponseDialog.vue";
+    import axios from "axios";
+    import LoadingDialog from "@/components/LoadingDialog.vue";
+    import ResponseDialog from "@/components/ResponseDialog.vue";
 
-export default {
-  props: ["token"],
-  components: {
-    LoadingDialog,
-    ResponseDialog
-  },
-  data: () => {
-    return {
-      salutation: "",
-      userName: "gebruikersnaam",
-      fullName: "",
-      inputEmail: "mijn@email.nl",
-      telephone: "",
-      headers: [
-        {
-          status: null,
-          text: "Titel",
-          sortable: true,
-          value: "task"
+    export default {
+        props: ["token"],
+        components: {
+            LoadingDialog,
+            ResponseDialog
         },
-        {
-          text: "Contactpersoon",
-          sortable: true,
-          value: "contactPerson"
+        data: () => {
+            return {
+                salutation: "",
+                userName: "gebruikersnaam",
+                fullName: "",
+                inputEmail: "mijn@email.nl",
+                telephone: "",
+                headers: [
+                    {
+                        status: null,
+                        text: "Titel",
+                        sortable: true,
+                        value: "task"
+                    },
+                    {
+                        text: "Contactpersoon",
+                        sortable: true,
+                        value: "contactPerson"
+                    },
+                    {
+                        text: "Periode",
+                        sortable: true,
+                        value: "Period"
+                    },
+                    {
+                        text: "Type",
+                        sortable: true,
+                        value: "typeCourse"
+                    },
+                    {
+                        text: "Inzet (uren)",
+                        sortable: true,
+                        value: "contactHours"
+                    },
+                    {
+                        text: "Aangemeld op",
+                        sortable: true,
+                        value: "createdAt"
+                    }
+                ],
+                myVacancies: [],
+                isMobile: false
+            };
         },
-        {
-          text: "Periode",
-          sortable: true,
-          value: "Period"
+        mounted() {
+            this.fetchMyVacancies();
         },
-        {
-          text: "Type",
-          sortable: true,
-          value: "typeCourse"
-        },
-        {
-          text: "Inzet (uren)",
-          sortable: true,
-          value: "contactHours"
-        },
-        {
-          text: "Aangemeld op",
-          sortable: true,
-          value: "createdAt"
+        methods: {
+            saveEmail() {
+                this.$refs.loadingDialog.open("Email updaten");
+                axios
+                    .put(`http://localhost:3000/api/users/${this.token.id}/email`, {
+                        email: this.inputEmail
+                    }, {
+                        withCredentials: true
+                    })
+                    .then(response => {
+                        this.openResponseDialog(response.status);
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    });
+            },
+            fetchMyVacancies: function () {
+                axios
+                    .get(`http://localhost:3000/api/users/userVacancy/${this.token.id}`, {
+                        withCredentials: true
+                    })
+                    .then(response => {
+                        this.salutation = response.data.data.salutation;
+                        this.userName = response.data.data.username;
+                        this.fullName = response.data.data.fullName;
+                        this.inputEmail = response.data.data.email;
+                        this.telephone = response.data.data.telephone;
+                        for (let i = 0; i < response.data.data.vacancies.length; i++) {
+                            this.myVacancies.push(response.data.data.vacancies[i]);
+                        }
+                        this.myVacancies.reverse();
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    });
+            },
+            openResponseDialog: function (responseStatus) {
+                this.$refs.loadingDialog.close();
+                if (responseStatus === 200) {
+                    this.$refs.responseDialog.open("Email is geüpdatet", "done");
+                } else {
+                    this.$refs.responseDialog.open(
+                        "email kon niet worden geüpdatet",
+                        "clear"
+                    );
+                }
+            },
+            onResize() {
+                if (window.innerWidth < 769) this.isMobile = true;
+                else this.isMobile = false;
+            }
         }
-      ],
-      myVacancies: [],
-      isMobile: false
     };
-  },
-  mounted() {
-    this.fetchMyVacancies();
-  },
-  methods: {
-    saveEmail() {
-      this.$refs.loadingDialog.open("Email updaten");
-      axios
-        .put(`http://localhost:3000/api/users/${this.token.id}/email`, {
-          email: this.inputEmail
-        })
-        .then(response => {
-          this.openResponseDialog(response.status);
-        })
-        .catch(error => {
-          console.log(error);
-        });
-    },
-    fetchMyVacancies: function() {
-      axios
-        .get(`http://localhost:3000/api/uservacancies/user/${this.token.id}`, {
-          withCredentials: true
-        })
-        .then(response => {
-          this.salutation = response.data.salutation;
-          this.userName = response.data.username;
-          this.fullName = response.data.fullName;
-          this.inputEmail = response.data.email;
-          this.telephone = response.data.telephone;
-          for (let i = 0; i < response.data.vacancies.length; i++) {
-            this.myVacancies.push(response.data.vacancies[i]);
-          }
-          this.myVacancies.reverse();
-        })
-        .catch(error => {
-          console.log(error);
-        });
-    },
-    openResponseDialog: function(responseStatus) {
-      this.$refs.loadingDialog.close();
-      if (responseStatus === 200) {
-        this.$refs.responseDialog.open("Email is geüpdatet", "done");
-      } else {
-        this.$refs.responseDialog.open(
-          "email kon niet worden geüpdatet",
-          "clear"
-        );
-      }
-    },
-    onResize() {
-      if (window.innerWidth < 769) this.isMobile = true;
-      else this.isMobile = false;
-    }
-  }
-};
 </script>
 
 <style>
-.profile-container {
-  padding: unset;
-}
+    .profile-container {
+        padding: unset;
+    }
 
-.contentCard {
-  height: 500px;
-  width: 500px;
-  align-items: center;
-}
+    .contentCard {
+        height: 500px;
+        width: 500px;
+        align-items: center;
+    }
 
-.vacancyAccepted {
-  border-left: 1em solid #66bb6a;
-}
+    .vacancyAccepted {
+        border-left: 1em solid #66bb6a;
+    }
 
-.vacancyRejected {
-  border-left: 1em solid #e53935;
-}
+    .vacancyRejected {
+        border-left: 1em solid #e53935;
+    }
 
-.vacancyPending {
-  border-left: 1em solid #ffd600;
-}
+    .vacancyPending {
+        border-left: 1em solid #ffd600;
+    }
 
-@media (max-width: 600px) {
-  .vacancyAccepted {
-    border-left: 0.5em solid #66bb6a;
-  }
+    @media (max-width: 600px) {
+        .vacancyAccepted {
+            border-left: 0.5em solid #66bb6a;
+        }
 
-  .vacancyRejected {
-    border-left: 0.5em solid #e53935;
-  }
+        .vacancyRejected {
+            border-left: 0.5em solid #e53935;
+        }
 
-  .vacancyPending {
-    border-left: 0.5em solid #ffd600;
-  }
-}
+        .vacancyPending {
+            border-left: 0.5em solid #ffd600;
+        }
+    }
 </style>

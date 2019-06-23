@@ -1,4 +1,4 @@
-const {User, Role, UserRole} = require("../sequelize");
+const {User, Role, UserRole, Vacancy, UserVacancy} = require("../sequelize");
 
 exports.getDecodedUserData = async () => {
     try {
@@ -104,5 +104,46 @@ exports.updateEmail = async (email, userId) => {
         )
     } catch (e) {
         throw Error('Error while updating email');
+    }
+}
+
+exports.getUserVacancyByUserId = async (userId) => {
+    try {
+        return await User.findOne({
+            where: {
+                id: userId
+            },
+            include: [
+                {
+                    model: Vacancy,
+                    attributes: [
+                        "id",
+                        "title",
+                        "description",
+                        "contactPerson",
+                        "typeCourse",
+                        "typeTask",
+                        "contactHours",
+                        "createdAt"
+                    ]
+                }
+            ]
+        })
+    } catch (e) {
+        throw Error('Error while getting userVacancy with userId');
+    }
+}
+
+exports.getUserVacancyByUserIdAndStatus = async (userId, status) => {
+    try {
+        return await UserVacancy.findAll({
+            where: {
+                userId: userId,
+                status: status
+            },
+            include: [{ model: Vacancy }]
+        })
+    } catch (e) {
+        throw Error('Error while getting userVacancy with userId and status');
     }
 }

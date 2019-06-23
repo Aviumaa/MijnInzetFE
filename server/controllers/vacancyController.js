@@ -70,7 +70,24 @@ exports.postVacancy = async (req, res) => {
         return res.status(400).json({status: 400, message: e.message});
     }
 
-};
+    if (validationCheck(req, res)) {
+        return;
+    }
+}
+
+exports.addUserToVacancy = async (req, res) => {
+    if (validationCheck(req, res)) {
+        return;
+    }
+
+    try {
+        const uservacancy = VacancyService.addUserToVacancy(req.params.vacancyId, req.params.userId, req.body.status);
+        return res.status(201).json({status: 201, message: "Successfully added user to vacancy:" + uservacancy.vacancyId});
+    } catch (e) {
+        return res.status(400).json({status: 400, message: e.message});
+    }
+}
+
 
 validationCheck = (req, res) => {
     const errors = validationResult(req);

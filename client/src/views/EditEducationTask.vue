@@ -79,7 +79,6 @@ export default {
     }
   },
   mounted() {
-    console.log(this.$route.params);
     this.educationalProgram = this.$route.params.educationalProgram;
     axios
       .get(

@@ -20,5 +20,12 @@ exports.validate = (method) => {
                 body('openSlots', 'Openslots needs to be filled').exists().isNumeric('Value must be numeric')
             ]
         }
+        case 'addUserToVacancy': {
+            return [
+                param('vacancyId', 'vacancyId must be filled').exists().isNumeric().withMessage('vacancyId must be numeric'),
+                param('userId', 'userId must be filled').exists().isNumeric().withMessage('userId must be numeric'),
+                body('status', 'status must be numeric').isNumeric()
+            ]
+        }
     }
 }

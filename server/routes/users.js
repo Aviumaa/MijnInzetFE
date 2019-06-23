@@ -14,7 +14,11 @@ router.get("/all", withAuth, userController.findAllUsers);
 
 router.get("/:userId", withAuth, userController.getUserById);
 
-router.put("/:userId/update", UserValidator.validate('updateUser'), withAuth, userController.updateUser);
+router.put("/:userId/update", withAuth, UserValidator.validate('updateUser'), withAuth, userController.updateUser);
 
-router.put("/:userId/email", UserValidator.validate('updateEmail'), userController.updateEmail);
+router.put("/:userId/email", withAuth, UserValidator.validate('updateEmail'), userController.updateEmail);
+
+router.get("/userVacancy/:userId", withAuth, UserValidator.validate('getUserVacancyByUserId'), userController.getUserVacancyByUserId);
+
+router.get("/userVacancy/:userId/:status", withAuth, UserValidator.validate('getUserVacancyByUserIdAndStatus'), userController.getUserVacancyByUserIdAndStatus);
 module.exports = router;

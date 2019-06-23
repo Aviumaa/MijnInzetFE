@@ -24,5 +24,17 @@ exports.validate = (method) => {
                 body('email', 'Value is not a valid email address').isEmail()
             ]
         }
+        case 'getUserVacancyByUserId': {
+            return [
+                param('userId', 'Id needs to be filled').exists().isNumeric().withMessage('Id needs to be a numeric value')
+            ]
+        }
+        case 'getUserVacancyByUserIdAndStatus': {
+            return [
+                param('userId', 'Id needs to be filled').exists().isNumeric().withMessage('Id needs to be a numeric value'),
+                param('status', 'Status needs to be filled').exists().isNumeric().withMessage('Status needs to be a numeric value')
+
+            ]
+        }
     }
 }

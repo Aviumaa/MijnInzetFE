@@ -95,8 +95,8 @@ export default {
     axios
       .get("http://localhost:3000/api/roles/", { withCredentials: true })
       .then(response => {
-        for (let i = 0; i < response.data.length; i++) {
-          let role = response.data[i];
+        for (let i = 0; i < response.data.data.length; i++) {
+          let role = response.data.data[i];
           this.roles.push(role);
         }
       });

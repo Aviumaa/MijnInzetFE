@@ -95,12 +95,12 @@ export default {
   components: { HeaderTitle },
   mounted() {
     axios
-      .get(`http://localhost:3000/api/userVacancies/user/${this.token.id}/1`, {
+      .get(`http://localhost:3000/api/users/userVacancy/${this.token.id}/1`, {
         withCredentials: true
       })
       .then(response => {
-        for (let i = 0; i < response.data.length; i++) {
-          this.acceptedVacancies.push(response.data[i]);
+        for (let i = 0; i < response.data.data.length; i++) {
+          this.acceptedVacancies.push(response.data.data[i]);
         }
       });
   },
