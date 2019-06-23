@@ -2,15 +2,16 @@ const express = require("express");
 const router = express.Router();
 const withAuth = require("../middelware/middleware");
 const vacancyController = require("../controllers/vacancyController");
+const VacancyValidator = require("../validators/vacanciesValidator");
 
-router.get("/", withAuth, vacancyController.getVacancies);
+router.get("/",  vacancyController.getVacancies);
 
-router.get("/open", withAuth, vacancyController.getVacanciesOpen);
+router.get("/open",  vacancyController.getVacanciesOpen);
 
-router.get("/closed", withAuth, vacancyController.getVacanciesClosed);
+router.get("/closed",  vacancyController.getVacanciesClosed);
 
-router.get("/:vacancyId", withAuth, vacancyController.getVacancyById);
+router.get("/:vacancyId",  VacancyValidator.validate('getVacancyById'), vacancyController.getVacancyById);
 
-router.post("/", withAuth, vacancyController.postVacancy);
+router.post("/", withAuth, VacancyValidator.validate('postVacancy'), vacancyController.postVacancy);
 
 module.exports = router;

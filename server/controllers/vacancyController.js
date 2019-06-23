@@ -1,82 +1,86 @@
-const Model = require("../sequelize");
-const Vacancy = Model.Vacancy;
-const VacancyPeriods = Model.VacancyPeriods;
-const Periods = Model.Periods;
+const {Vacancy, Periods} = require("../sequelize");
+const VacancyService = require("../services/vacancyService");
 
 const Sequelize = require("sequelize");
 const Op = Sequelize.Op;
 
 // GET all vacancies
-exports.getVacancies = (req, res) => {
-    Vacancy.findAll({
-            include: [
-                {
-                    model: Periods,
-                    attributes:
-                        [
-                            "schoolYear",
-                            "quarter"
-                        ]
-                }
-            ]
-        }
-    ).then(vacancies => res.json(vacancies));
-};
-
-// GET vacancy by id
-exports.getVacancyById = (req, res) => {
-    var vacancyId = req.params.vacancyId;
-    Vacancy.findOne({
-        where: {
-            id: vacancyId
-        }
-    }).then(userResponse => {
-        console.log(req.param);
-        res.status(200).json(userResponse);
-    });
+exports.getVacancies = async (req, res) => {
+    try {
+        const vacancies = await VacancyService.getVacancies();
+        return res.status(200).json({status: 200, data: vacancies});
+    } catch (e) {
+        return res.status(400).json({status: 400, message: e.message});
+    }
 };
 
 // GET all vacancies with slots open
-exports.getVacanciesOpen = (req, res) => {
-    Vacancy.findAll({
-        where: {
-            openSlots: {
-                [Op.not]: 0
-            }
-        }
-    }).then(userResponse => {
-        res.status(200).json(userResponse);
-    });
+exports.getVacanciesOpen = async (req, res) => {
+    try {
+        const vacancies = await VacancyService.getVacanciesOpen();
+        return res.status(200).json({status: 200, data: vacancies});
+    } catch (e) {
+        return res.status(400).json({status: 400, message: e.message});
+    }
 };
 
 // GET all vacancies with no open slots
-exports.getVacanciesClosed = (req, res) => {
-    Vacancy.findAll({
-        where: {
-            openSlots: 0
-        }
-    }).then(userResponse => {
-        res.status(200).json(userResponse);
-    });
+exports.getVacanciesClosed = async (req, res) => {
+    try {
+        const vacancies = await VacancyService.getVacanciesClosed();
+        return res.status(200).json({status: 200, data: vacancies});
+    } catch (e) {
+        return res.status(400).json({status: 400, message: e.message});
+    }
+
 };
 
-//POST a new Vacancy
-exports.postVacancy = (req, res) => {
-    Vacancy.create({
-        title: req.body.title,
-        description: req.body.description,
-        contactPerson: req.body.contactPerson,
-        schoolYear: req.body.schoolYear,
-        period: req.body.period,
-        typeCourse: req.body.typeCourse,
-        typeTask: req.body.typeTask,
-        contactHours: req.body.contactHours,
-        startDate: req.body.startDate,
-        endDate: req.body.endDate,
-        openSlots: req.body.openSlots,
-        createdAt: new Date(),
-        updatedAt: new Date()
-    })
-        .then(userVacancies => res.status(200).json(userVacancies))
-        .catch(err => res.status(400).send(console.error(err)));
+// GET vacancy by id
+exports.getVacancyById = async (req, res) => {
+    if (validationCheck(req, res)) {
+        return;
+    }
+
+    try {
+        const vacancy = await VacancyService.getVacancyById(req.params.vacancyId);
+        return res.status(200).json({status: 200, data: vacancy});
+    }catch (e) {
+        return res.status(400).json({status: 400, message: e.message});
+    }
 };
+
+
+//POST a new Vacancy
+exports.postVacancy = async (req, res) => {
+    if (validationCheck(req, res)) {
+        return;
+    }
+
+    try {
+        const vacancy = await VacancyService.postVacancy(
+            req.body.title,
+            req.body.description,
+            req.body.contactPerson,
+            req.body.schoolYear,
+            req.body.typeCourse,
+            req.body.typeTask,
+            req.body.contactHours,
+            req.body.startDate,
+            req.body.endDate,
+            req.body.openSlots,
+            req.body.period)
+
+
+    } catch (e) {
+        return res.status(400).json({status: 400, message: e.message});
+    }
+
+};
+
+validationCheck = (req, res) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+        return res.status(422).json({errors: errors.array()});
+    }
+}

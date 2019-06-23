@@ -69,7 +69,7 @@ exports.postCourseWithProgram = async (req, res) => {
         const program = await CourseService.addCourseToProgram(
             course.id,
             req.body.educationalProgramId);
-    
+
         return res.status(201).json({
             status: 201,
             message: "Successfully created and added course with id: " + course.id + " and programId: " + program.id
