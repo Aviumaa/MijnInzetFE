@@ -1,5 +1,9 @@
 const {Vacancy, Periods, VacancyPeriods} = require("../sequelize");
 
+const Sequelize = require("sequelize");
+const Op = Sequelize.Op;
+
+
 exports.getVacancies = async () => {
     try {
         return await Vacancy.findAll({
@@ -88,14 +92,13 @@ exports.getVacancyById = async (vacancyId) => {
     }
 }
 
-exports.postVacancy = async (title, description, contactPerson, schoolYear, typeCourse, typeTask,
+exports.postVacancy = async (title, description, contactPerson, typeCourse, typeTask,
                              contactHours, startDate, endDate, openSlots, period) => {
     try {
-        const vacancy =Vacancy.create({
+        return await Vacancy.create({
             title: title,
             description: description,
             contactPerson: contactPerson,
-            schoolYear: schoolYear,
             typeCourse: typeCourse,
             typeTask: typeTask,
             contactHours: contactHours,
@@ -108,14 +111,13 @@ exports.postVacancy = async (title, description, contactPerson, schoolYear, type
 
         //Split the multiple periods
         //TODO make this so the actual periods get used
-        const periods = period.split(',');
-        for(var i = 0; i < periods.length; i++) {
-            VacancyPeriods.create({
-                periodId: i,
-                vacancyId: vacancy.id
-            })
-        }
-        return;
+        // const periods = period.split(',');
+        // for(var i = 0; i < periods.length; i++) {
+        //     VacancyPeriods.create({
+        //         periodId: i,
+        //         vacancyId: vacancy.id
+        //     })
+        // }
     } catch (e) {
         throw Error('Error while creating new vacancy');
     }

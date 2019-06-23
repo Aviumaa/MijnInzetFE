@@ -1,8 +1,5 @@
-const {Vacancy, Periods} = require("../sequelize");
 const VacancyService = require("../services/vacancyService");
-
-const Sequelize = require("sequelize");
-const Op = Sequelize.Op;
+const {validationResult} = require('express-validator');
 
 // GET all vacancies
 exports.getVacancies = async (req, res) => {
@@ -61,7 +58,6 @@ exports.postVacancy = async (req, res) => {
             req.body.title,
             req.body.description,
             req.body.contactPerson,
-            req.body.schoolYear,
             req.body.typeCourse,
             req.body.typeTask,
             req.body.contactHours,
@@ -69,8 +65,7 @@ exports.postVacancy = async (req, res) => {
             req.body.endDate,
             req.body.openSlots,
             req.body.period)
-
-
+        return res.status(200).json({status: 200, message: "Created vacancy with id: " + vacancy.id});
     } catch (e) {
         return res.status(400).json({status: 400, message: e.message});
     }

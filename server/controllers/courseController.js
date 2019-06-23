@@ -1,6 +1,7 @@
 const CourseService = require("../services/courseService");
 const {validationResult} = require('express-validator');
 
+
 // GET all courses
 exports.getAllCourses = async (req, res) => {
 
