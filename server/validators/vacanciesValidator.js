@@ -12,7 +12,6 @@ exports.validate = (method) => {
                 body('title').exists(),
                 body('description'),
                 body('contactPerson'),
-                body('schoolYear'),
                 body('typeCourse'),
                 body('typeTask'),
                 body('contactHours', 'Value must be a numeric value').isNumeric(),

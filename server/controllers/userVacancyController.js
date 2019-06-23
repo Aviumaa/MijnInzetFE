@@ -43,8 +43,6 @@ exports.getUserVacancyByUserId = (req, res) => {
           "title",
           "description",
           "contactPerson",
-          "schoolYear",
-          "period",
           "typeCourse",
           "typeTask",
           "contactHours",
