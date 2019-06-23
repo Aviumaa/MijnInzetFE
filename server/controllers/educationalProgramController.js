@@ -1,12 +1,8 @@
-const {EducationProgramService} = require('../services/educationalProgramService');
+const EducationProgramService = require('../services/educationalProgramService');
 const {validationResult} = require('express-validator');
 
 // GET all educationalPrograms
 exports.getAllEducationalPrograms = async (req, res) => {
-    if (validationCheck(req, res)) {
-        return;
-    }
-
     try {
         const program = await EducationProgramService.getAllEducationalPrograms();
         return res.status(200).json({status: 200, data: program});
@@ -17,10 +13,6 @@ exports.getAllEducationalPrograms = async (req, res) => {
 
 // GET all educationalPrograms with their courses
 exports.getAllEducationalProgramsWithCourses = async (req, res) => {
-    if (validationCheck(req, res)) {
-        return;
-    }
-
     try {
         const program = await EducationProgramService.getAllEducationalProgramsWithCourses();
         return res.status(200).json({status: 200, data: program});
@@ -31,10 +23,6 @@ exports.getAllEducationalProgramsWithCourses = async (req, res) => {
 
 // GET all non school related educationalPrograms
 exports.getAllNonEducationalPrograms = async (req, res) => {
-    if (validationCheck(req, res)) {
-        return;
-    }
-
     try {
         const program = await EducationProgramService.getAllNonEducationalPrograms();
         return res.status(200).json({status: 200, data: program});
@@ -45,10 +33,6 @@ exports.getAllNonEducationalPrograms = async (req, res) => {
 
 // GET all non school related educationalPrograms with courses
 exports.getAllNonEducationalProgramsWithCourses = async (req, res) => {
-    if (validationCheck(req, res)) {
-        return;
-    }
-
     try {
         const program = await EducationProgramService.getAllNonEducationalProgramsWithCourses();
         return res.status(200).json({status: 200, data: program});

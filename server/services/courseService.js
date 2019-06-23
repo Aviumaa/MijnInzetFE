@@ -33,25 +33,20 @@ exports.postCourse = async (title, ects, period, type) => {
     }
 }
 
-exports.postCourseWithProgram = async (title, ects, period, type, programId) => {
+exports.postCourseWithProgram = async (title, ects, period, type) => {
     try {
         return await Course.create({
             title: title,
             ects: ects,
             period: period,
             type: type
-        }).then(result => {
-            EducationalProgramCourse.create({
-                educationalProgramId: programId,
-                courseId: result.id
-            })
-        })
+        });
     } catch (e) {
         throw Error("Error while creating new course")
     }
 }
 
-exports.addCourseToProgram =async (courseId, programId) => {
+exports.addCourseToProgram = async (courseId, programId) => {
     try {
         return await EducationalProgramCourse.create({
             educationalProgramId: programId,

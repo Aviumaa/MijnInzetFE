@@ -64,11 +64,15 @@ exports.postCourseWithProgram = async (req, res) => {
             req.body.ects,
             req.body.period,
             req.body.type,
-            req.body.educationalProgramId
-        )
-        return res.status(200).json({
-            status: 200,
-            message: "Successfully created and added course with id: " + course.id
+        );
+        //Adds previously created course to program
+        const program = await CourseService.addCourseToProgram(
+            course.id,
+            req.body.educationalProgramId);
+    
+        return res.status(201).json({
+            status: 201,
+            message: "Successfully created and added course with id: " + course.id + " and programId: " + program.id
         });
     } catch (e) {
         return res.status(400).json({status: 400, message: e.message});

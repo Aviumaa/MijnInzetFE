@@ -1,4 +1,4 @@
-<template>
+<template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
   <div v-resize="onResize" column>
     <v-tabs class="tabs" fixed-tabs dark>
       <v-tab to="/educationTasks">Onderwijstaken</v-tab>
@@ -136,7 +136,7 @@ export default {
         withCredentials: true
       })
       .then(response => {
-        this.educationalPrograms = response.data;
+        this.educationalPrograms = response.data.data;
       })
       .catch(error => {
         console.log(error);
@@ -146,7 +146,7 @@ export default {
         withCredentials: true
       })
       .then(response => {
-        this.nonEducationalPrograms = response.data;
+        this.nonEducationalPrograms = response.data.data;
       })
       .catch(error => {
         console.log(error);
