@@ -1,42 +1,71 @@
-const Model = require("../sequelize");
-
-const { EducationalProgram } = require("../sequelize");
+const {EducationProgramService} = require('../services/educationalProgramService');
+const {validationResult} = require('express-validator');
 
 // GET all educationalPrograms
-exports.getEducationalPrograms = (req, res) => {
-  EducationalProgram.findAll({
-    where: {
-      schoolRelated: 1
+exports.getAllEducationalPrograms = async (req, res) => {
+    if (validationCheck(req, res)) {
+        return;
     }
-  }).then(vacancies => res.json(vacancies));
+
+    try {
+        const program = await EducationProgramService.getAllEducationalPrograms();
+        return res.status(200).json({status: 200, data: program});
+    } catch (e) {
+        return res.status(400).json({status: 400, message: e.message});
+    }
+
+
 };
 
-exports.getNonEducationalPrograms = (req, res) => {
-  EducationalProgram.findAll({
-    where: {
-      schoolRelated: 0
+// GET all non school related educationalPrograms
+exports.getAllNonEducationalPrograms = async (req, res) => {
+    if (validationCheck(req, res)) {
+        return;
     }
-  }).then(vacancies => res.json(vacancies));
+
+    try {
+        const program = await EducationProgramService.getAllNonEducationalPrograms();
+        return res.status(200).json({status: 200, data: program});
+    } catch (e) {
+        return res.status(400).json({status: 400, message: e.message});
+    }
 };
 // GET educationalProgram by id
-exports.getEducationalProgramById = (req, res) => {
-  var educationalProgramId = req.params.educationalProgramId;
-  EducationalProgram.findOne({
-    where: {
-      id: educationalProgramId
+exports.getEducationalProgramById = async (req, res) => {
+    if (validationCheck(req, res)) {
+        return;
     }
-  }).then(educationalProgram => {
-    res.status(200).json(educationalProgram);
-  });
+
+    try {
+        const program = await EducationProgramService.getEducationalProgramById(req.params.educationalProgramId);
+        return res.status(200).json({status: 200, data: program});
+    } catch (e) {
+        return res.status(400).json({status: 400, message: e.message});
+    }
 };
 
 //POST new educationalProgram
-exports.postEducationalProgram = (req, res) => {
-  EducationalProgram.create({
-    title: req.body.title,
-    year: req.body.year,
-    study: req.body.study
-  })
-    .then(educationalProgram => res.status(201).json(educationalProgram))
-    .catch(err => console.error(err));
+exports.postEducationalProgram = async (req, res) => {
+    if (validationCheck(req, res)) {
+        return;
+    }
+
+    try {
+        const program = await EducationProgramService.postEducationalProgram(
+            req.body.title,
+            req.body.year,
+            req.body.study,
+            req.body.schoolRelated);
+        return res.status(201).json({status: 201, message: "Successfully created program with id: " + program.id});
+    } catch (e) {
+        return res.status(400).json({status: 400, message: e.message});
+    }
 };
+
+validationCheck = (req, res) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+        return res.status(422).json({errors: errors.array()});
+    }
+}

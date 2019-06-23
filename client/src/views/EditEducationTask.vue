@@ -114,7 +114,7 @@ export default {
                 if (row[1] != "ECTS" && row != "") {
                   axios
                     .post(
-                      "http://localhost:3000/api/course",
+                      "http://localhost:3000/api/course/withProgram",
                       {
                         educationalProgramId: eduProgramId,
                         title: row[0],
