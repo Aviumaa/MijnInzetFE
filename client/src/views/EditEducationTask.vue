@@ -1,35 +1,35 @@
 <template>
   <div>
-     <v-dialog v-model="dialog" max-width="500px">
-    <v-btn slot="activator" color="primary" dark class="mb-2">New Item</v-btn>
-    <v-card>
+    <v-dialog v-model="dialog" max-width="500px">
+      <v-btn slot="activator" color="primary" dark class="mb-2">New Item</v-btn>
+      <v-card>
         <v-card-title>
-        <span class="headline">{{formTitle}} </span>
+          <span class="headline">{{formTitle}}</span>
         </v-card-title>
         <v-card-text>
-        <v-container grid-list-md>
+          <v-container grid-list-md>
             <v-layout wrap>
-            <v-flex xs12 sm6 md4>
+              <v-flex xs12 sm6 md4>
                 <v-text-field v-model="editedItem.title" label="Naam"></v-text-field>
-            </v-flex>
-            <v-flex xs12 sm6 md4>
+              </v-flex>
+              <v-flex xs12 sm6 md4>
                 <v-text-field type="number" v-model="editedItem.ects" label="ECTS"></v-text-field>
-            </v-flex>
-            <v-flex xs12 sm6 md4>
+              </v-flex>
+              <v-flex xs12 sm6 md4>
                 <v-text-field v-model="editedItem.period" label="Periode"></v-text-field>
-            </v-flex>
-            <v-flex xs12 sm6 md4>
+              </v-flex>
+              <v-flex xs12 sm6 md4>
                 <v-text-field v-model="editedItem.type" label="Type"></v-text-field>
-            </v-flex>
+              </v-flex>
             </v-layout>
-        </v-container>
+          </v-container>
         </v-card-text>
         <v-card-actions>
-        <v-spacer></v-spacer>
-        <v-btn color="blue darken-1" flat @click.native="close">Sluiten</v-btn>
-        <v-btn color="blue darken-1" flat @click.native="save">Opslaan</v-btn>
+          <v-spacer></v-spacer>
+          <v-btn color="blue darken-1" flat @click.native="close">Sluiten</v-btn>
+          <v-btn color="blue darken-1" flat @click.native="save">Opslaan</v-btn>
         </v-card-actions>
-    </v-card>
+      </v-card>
     </v-dialog>
 
     <v-data-table
@@ -43,28 +43,29 @@
         <td class="text-xs-left">{{ props.item.ects }}</td>
         <td class="text-xs-left">{{ props.item.period }}</td>
         <td class="text-xs-left">{{ props.item.type }}</td>
-        <td class="text-xs-center"> 
-           <v-btn icon class="mx-0" @click="editItem(props.item)">
+        <td class="text-xs-center">
+          <v-btn icon class="mx-0" @click="editItem(props.item)">
             <v-icon color="teal">edit</v-icon>
-        </v-btn>
-        <v-btn icon class="mx-0" @click="deleteItem(props.item)">
+          </v-btn>
+          <v-btn icon class="mx-0" @click="deleteItem(props.item)">
             <v-icon color="pink">delete</v-icon>
-        </v-btn>
+          </v-btn>
         </td>
       </template>
     </v-data-table>
     <!-- SelectFile -->
     <div style="border: 1px solid black">
-        <div class="btn">
-          <span>Kies een bestand met vakken om in te lezen...</span><br>
-          <input id="fileSelector" name="myFile" type="file" multiple="multiple"> 
-        </div>
-        <div>
-          <input type="text">
-        </div>
-        <div>
-            <p id="fileContents"></p>
-        </div>
+      <div class="btn">
+        <span>Kies een bestand met vakken om in te lezen...</span>
+        <br>
+        <input id="fileSelector" name="myFile" type="file" multiple="multiple">
+      </div>
+      <div>
+        <input type="text">
+      </div>
+      <div>
+        <p id="fileContents"></p>
+      </div>
     </div>
     <!-- /SelectFile -->
   </div>
@@ -74,15 +75,14 @@
 import axios from "axios";
 import Tabs from "@/components/Tabs.vue";
 import SelectFile from "@/components/SelectFile.vue";
-const Papa = require('papaparse');
-
+const Papa = require("papaparse");
 
 export default {
   data() {
     return {
+      educationalProgram: 1,
       dialog: false,
-      educationalProgram: "",
-      rowsPerPageItems: [15, 20, 30, 40],
+      rowsPerPageItems: [20, 30, 40, 50],
       headers: [
         {
           text: "Naam",
@@ -92,146 +92,159 @@ export default {
         { text: "ECTS", value: "ects" },
         { text: "Periode", value: "period" },
         { text: "Type", value: "type" },
-        { text: "Acties", value: "type", align: "center" },
-        
+        { text: "Acties", value: "type", align: "center" }
       ],
       courses: [],
       editedIndex: -1,
       editedItem: {
-        title: '',
-        ects: '',
-        period: '',
-        type: '',
+        title: "",
+        ects: "",
+        period: "",
+        type: ""
       },
-    defaultItem: {
-        title: '',
-        ects: '',
-        peroid: '',
-        type: '',
+      defaultItem: {
+        title: "",
+        ects: "",
+        peroid: "",
+        type: ""
       },
       listPrimitive: null
-    }
+    };
   },
-  mounted() {
-    this.educationalProgram = this.$route.params.educationalProgram;
-    axios
-      .get(
-        `http://localhost:3000/api/educationalProgramCourse/${
-          this.educationalProgram.id
-        }`, {
-          withCredentials: true
-        }
-      )
-      .then(response => {
-        this.courses = response.data[0].courses;
-      })
-      .catch(error => {
-        console.log(error);
-      });
 
+  mounted() {
+    this.geteducationalProgram();
     let xxid = this.educationalProgram.id;
     document.getElementById("fileSelector").onchange = function() {
-        let file = document.getElementById("fileSelector").files[0];
-        if (file) {
-            var data = Papa.parse(file, {
-                complete: function(results){
-                  axios.post("http://localhost:3000/api/course/deleteAll", {
-                      educationalProgramId: xxid
-                    }, {
-                      withCredentials: true
-                    });
+      let file = document.getElementById("fileSelector").files[0];
+      if (file) {
+        var data = Papa.parse(file, {
+          complete: function(results) {
+            axios.post(
+              "http://localhost:3000/api/course/deleteAll",
+              {
+                educationalProgramId: xxid
+              },
+              {
+                withCredentials: true
+              }
+            );
 
-                    results.data.forEach((row) => {
-                        try{
-                        if (row[1] != "ECTS" && row != ""){
-                            axios.post("http://localhost:3000/api/course",{
-                                educationalProgramId: xxid,
-                                title: row[0],
-                                ects: row[1],
-                                period: row[2],
-                                type: row[3]
-                            }, {
-                              withCredentials: true
-                            })
-                            .then(response => {
-                                if (response.status === 201) {
-                                    console.log(response);
-                                }
-                            });
-                        }
-                        }
-                        catch (err){
-                          console.log(err);
-                        }
+            results.data.forEach(row => {
+              try {
+                if (row[1] != "ECTS" && row != "") {
+                  axios
+                    .post(
+                      "http://localhost:3000/api/course",
+                      {
+                        educationalProgramId: xxid,
+                        title: row[0],
+                        ects: row[1],
+                        period: row[2],
+                        type: row[3]
+                      },
+                      {
+                        withCredentials: true
+                      }
+                    )
+                    .then(response => {
+                      if (response.status === 201) {
+                        console.log(response);
+                      }
                     });
                 }
+              } catch (err) {
+                console.log(err);
+              }
             });
-        }
-    }
+          }
+        });
+      }
+    };
   },
   computed: {
     formTitle() {
-        return this.editedIndex === -1 ? 'Nieuw' : 'bewerken'
+      return this.editedIndex === -1 ? "Nieuw" : "Bewerken";
     }
-},
+  },
 
-watch: {
+  watch: {
     dialog(val) {
-        val || this.close()
+      val || this.close();
     }
-},
-methods: {
-   editItem(item) {
-    this.editedIndex = this.courses.indexOf(item)
-    console.log(this.editedIndex)
-    this.editedItem = Object.assign({}, item)
-    this.dialog = true
   },
+  methods: {
+    editItem(item) {
+      this.editedIndex = this.courses.indexOf(item);
+      console.log(this.editedIndex);
+      this.editedItem = Object.assign({}, item);
+      this.dialog = true;
+    },
 
-  deleteItem(item) {
-    const index = this.courses.indexOf(item)
-    confirm('Weet je zeker dat je dit wilt verwijderen?') && this.listPrimitive.remove(index)
-  },
-
-  close() {
-    this.dialog = false
-    setTimeout(() => {
-      this.editedItem = Object.assign({}, this.defaultItem)
-      this.editedIndex = -1
-    }, 300)
-  },
-
-  save() {
-    console.log(this.editedItem.id)
-    if (this.editedIndex > -1) {
+    geteducationalProgram() {
+      this.educationalProgram.id = 1;
+      console.log(this.educationalProgram.id);
       axios
-      .put(
-          `http://localhost:3000/api/course/${this.editedItem.id}`,
+        .get(
+          `http://localhost:3000/api/educationalProgramCourse/${
+            this.educationalProgram.id
+          }`,
           {
-            title: this.editedItem.title,
-            ects: this.editedItem.ects,
-            period: this.editedItem.period,
-            type: this.editedItem.type,
-          },
-          { withCredentials: true }
+            withCredentials: true
+          }
         )
         .then(response => {
-          if (response.status == 200) {
-           console.log("WOW")
-          }
+          this.courses = response.data[0].courses;
         })
         .catch(error => {
-          if (error.response.status == 400) {
-            console.log(":(")
-          }
+          console.log(error);
         });
-    } else {
-      this.listPrimitive.add(this.editedItem)
-    }
+    },
 
-    this.close()
+    deleteItem(item) {
+      const index = this.courses.indexOf(item);
+      confirm("Weet je zeker dat je dit wilt verwijderen?") &&
+        this.listPrimitive.remove(index);
+    },
+
+    close() {
+      this.dialog = false;
+      setTimeout(() => {
+        this.editedItem = Object.assign({}, this.defaultItem);
+        this.editedIndex = -1;
+      }, 300);
+    },
+
+    save() {
+      if (this.editedIndex > -1) {
+        axios
+          .put(
+            `http://localhost:3000/api/course/${this.editedItem.id}`,
+            {
+              title: this.editedItem.title,
+              ects: this.editedItem.ects,
+              period: this.editedItem.period,
+              type: this.editedItem.type
+            },
+            { withCredentials: true }
+          )
+          .then(response => {
+            if (response.status == 200) {
+              console.log("WOW");
+            }
+          })
+          .catch(error => {
+            if (error.response.status == 400) {
+              console.log("bad request");
+            }
+          });
+      } else {
+        this.listPrimitive.add(this.editedItem);
+      }
+
+      this.close();
+    }
   }
-}
 };
 </script>
 
