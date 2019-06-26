@@ -67,7 +67,7 @@
         <p id="fileContents"></p>
       </div>
     </div>
-  </v-container>
+  </div>
 </template>
 
 <script>
@@ -115,20 +115,20 @@ export default {
 
   mounted() {
     axios
-        .get(
-          `http://localhost:3000/api/educationalProgramCourse/${
-            this.educationalProgram
-          }`,
-          {
-            withCredentials: true
-          }
-        )
-        .then(response => {
-          this.courses = response.data[0].courses;
-        })
-        .catch(error => {
-          console.log(error);
-        });
+      .get(
+        `http://localhost:3000/api/educationalProgramCourse/${
+          this.educationalProgram
+        }`,
+        {
+          withCredentials: true
+        }
+      )
+      .then(response => {
+        this.courses = response.data[0].courses;
+      })
+      .catch(error => {
+        console.log(error);
+      });
     let xxid = this.educationalProgramCourse;
     document.getElementById("fileSelector").onchange = function() {
       let file = document.getElementById("fileSelector").files[0];
@@ -243,7 +243,7 @@ export default {
             }
           });
       } else {
-               let xxid = this.educationalProgramCourse;
+        let xxid = this.educationalProgramCourse;
         axios
           .post(
             `http://localhost:3000/api/course/`,
