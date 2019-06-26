@@ -15,7 +15,7 @@
               <tr class="vacancyAccepted" v-if="!isMobile">
                 <td>{{ props.item.vacancy.title }}</td>
                 <td>{{ props.item.vacancy.contactPerson }}</td>
-                <td>{{ props.item.vacancy.period }}</td>
+                <td>{{ createPeriodField(props.item.vacancy.periods) }}</td>
                 <td>{{ props.item.vacancy.typeTask }}</td>
                 <td>{{ props.item.vacancy.contactHours }}</td>
               </tr>
@@ -108,6 +108,22 @@ export default {
     onResize() {
       if (window.innerWidth < 769) this.isMobile = true;
       else this.isMobile = false;
+    },
+    createPeriodField(periods) {
+      if (periods === null) {
+        return "";
+      } else {
+        var periodField = "";
+        for (var i = 0; i < periods.length; i++) {
+          periodField =
+            periodField +
+            periods[i].schoolYear +
+            " | " +
+            periods[i].quarter +
+            ", ";
+        }
+        return periodField.trim().substring(0, periodField.length - 2);
+      }
     }
   }
 };

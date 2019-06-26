@@ -43,8 +43,6 @@ exports.getUserVacancyByUserId = (req, res) => {
           "title",
           "description",
           "contactPerson",
-          // "schoolYear",
-          // "period",
           "typeCourse",
           "typeTask",
           "contactHours",
@@ -73,7 +71,17 @@ exports.getUserVacancyByUserIdAndStatus = (req, res) => {
       userId: userId,
       status: status
     },
-    include: [{ model: Vacancy }]
+    include: [
+      {
+        model: Vacancy,
+        include: [
+          {
+            model: Periods,
+            attributes: ["schoolYear", "quarter"]
+          }
+        ]
+      }
+    ]
   }).then(userResponse => {
     res.status(200).json(userResponse);
   });
