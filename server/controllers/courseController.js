@@ -62,9 +62,6 @@ exports.postCourse = (req, res) => {
 
 //DELETE new course
   exports.deleteCourse = (req, res) => {
-    console.log("delete");
-    console.log("courseId = " + req.params.courseId);
-  
     EducationalProgramCourse.destroy({
       where: {
         courseId: req.params.courseId
