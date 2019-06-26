@@ -10,6 +10,7 @@
             fab
             dark
             color="indigo darken-4"
+            class="fab-button"
           >
             <v-icon dark>add</v-icon>
           </v-btn>
@@ -98,5 +99,10 @@ export default {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
+}
+
+.fab-button {
+  height: 46px;
+  width: 46px;
 }
 </style>

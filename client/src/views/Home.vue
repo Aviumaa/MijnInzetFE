@@ -3,7 +3,7 @@
     <v-layout row>
       <v-flex class="center">
         <tile-button
-          @click.native="navigateTo({name: 'reports'})"
+          @click.native="navigateTo({name: 'taskList'})"
           title="Taakoverzicht"
           icon="view_list"
         ></tile-button>

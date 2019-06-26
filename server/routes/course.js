@@ -13,7 +13,6 @@ router.put("/:courseId", withAuth, courseController.updateCourse);
 
 router.delete("/:courseId", withAuth, courseController.deleteCourse);
 
-// post in plaats van delete want axios.delete werkte bij mij niet
-router.post("/deleteAll", withAuth, courseController.destroyCoursesByProgramId);
+router.delete("/deleteAll/:id", courseController.destroyCoursesByProgramId);
 
 module.exports = router;

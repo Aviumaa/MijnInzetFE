@@ -12,12 +12,6 @@ module.exports = (sequelize, Sequelize) => {
     description: {
       type: Sequelize.TEXT
     },
-    schoolYear: {
-      type: Sequelize.STRING
-    },
-    period: {
-      type: Sequelize.STRING
-    },
     typeCourse: {
       type: Sequelize.STRING
     },
@@ -43,7 +37,16 @@ module.exports = (sequelize, Sequelize) => {
 
   Vacancy.associate = models => {
     Vacancy.hasMany(models.UserVacancy, {
-      foreignKey: "vacancy"
+      foreignKey: "vacancyId"
+    });
+  };
+
+  Vacancy.associate = (models) => {
+    Vacancy.belongsToMany(models.VacancyPeriods, {
+      through: "vacancyPeriods",
+      foreignKey: "vacancyId",
+      onDelete: "CASCADE",
+      hooks: true
     });
   };
 

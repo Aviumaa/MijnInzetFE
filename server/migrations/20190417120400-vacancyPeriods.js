@@ -2,11 +2,19 @@
 
 module.exports = {
   up: (queryInterface, type) => {
-    return queryInterface.createTable("userVacancies", {
+    return queryInterface.createTable("vacancyPeriods", {
       id: {
         type: type.INTEGER,
         primaryKey: true,
         autoIncrement: true
+      },
+      periodId: {
+        type: type.INTEGER,
+        references: {
+          model: "periods",
+          key: "id"
+        },
+        allowNull: false
       },
       vacancyId: {
         type: type.INTEGER,
@@ -15,17 +23,6 @@ module.exports = {
           key: "id"
         },
         allowNull: false
-      },
-      userId: {
-        type: type.INTEGER,
-        references: {
-          model: "users",
-          key: "id"
-        },
-        allowNull: false
-      },
-      status: {
-        type: type.INTEGER
       },
       createdAt: {
         allowNull: false,
@@ -39,6 +36,6 @@ module.exports = {
   },
 
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable("userVacancies");
+    return queryInterface.dropTable("vacancyPeriods");
   }
 };

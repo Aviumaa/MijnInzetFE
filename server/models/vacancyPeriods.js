@@ -1,7 +1,7 @@
 "use strict";
 
 module.exports = (sequelize, types) => {
-  const UserVacancy = sequelize.define("userVacancies", {
+  const VacancyPeriods = sequelize.define("vacancyPeriods", {
     id: {
       type: types.INTEGER,
       primaryKey: true,
@@ -10,23 +10,20 @@ module.exports = (sequelize, types) => {
     vacancyId: {
       type: types.INTEGER,
       references: {
-        model: "vacancies",
+        model: "vacancy",
         key: "id"
       },
       allowNull: false
     },
-    userId: {
+    periodId: {
       type: types.INTEGER,
       references: {
-        model: "users",
+        model: "periods",
         key: "id"
       },
       allowNull: false
-    },
-    status: {
-      type: types.ENUM(0, 1, 2)
     }
   });
 
-  return UserVacancy;
+  return VacancyPeriods;
 };

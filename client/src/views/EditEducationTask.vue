@@ -67,8 +67,7 @@
         <p id="fileContents"></p>
       </div>
     </div>
-    <!-- /SelectFile -->
-  </div>
+  </v-container>
 </template>
 
 <script>
@@ -276,5 +275,9 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style>
+.file-container {
+  border: 1px solid black;
+  padding: 1em;
+}
 </style>

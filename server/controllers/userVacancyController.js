@@ -1,8 +1,4 @@
-const {
-    UserVacancy,
-    Vacancy,
-    User
-} = require('../sequelize');
+const { UserVacancy, Vacancy, User } = require("../sequelize");
 
 // GET all userVacancies
 exports.getUserVacancies = (req, res) => {
@@ -11,7 +7,7 @@ exports.getUserVacancies = (req, res) => {
 
 // GET userVacancy by id
 exports.getUserVacancyById = (req, res) => {
-  var vacancyId = req.params.vacancyId;
+  const vacancyId = req.params.vacancyId;
   UserVacancy.findOne({
     where: {
       id: vacancyId
@@ -24,8 +20,9 @@ exports.getUserVacancyById = (req, res) => {
 //POST new userVacancy
 exports.postUserVacancy = (req, res) => {
   UserVacancy.create({
-    user: req.body.userId,
-    vacancy: req.body.vacancyId
+    userId: req.body.userId,
+    vacancyId: req.body.vacancyId,
+    status: req.body.status
   })
     .then(userVacancies => res.status(201).json(userVacancies))
     .catch(err => console.error(err));
@@ -33,19 +30,45 @@ exports.postUserVacancy = (req, res) => {
 
 //get a users vacancies by userId
 exports.getUserVacancyByUserId = (req, res) => {
-    var userId = req.params.userId;
-    User.findOne({
-        where:{
-            id: userId
-        },
-        include: [
-            {
-                model: Vacancy,
-                attributes: ["id", "title", "description", "contactPerson", "schoolYear", "period", "typeCourse", "typeTask", "contactHours"]
-            }
+  const userId = req.params.userId;
+  User.findOne({
+    where: {
+      id: userId
+    },
+    include: [
+      {
+        model: Vacancy,
+        attributes: [
+          "id",
+          "title",
+          "description",
+          "contactPerson",
+          "schoolYear",
+          "period",
+          "typeCourse",
+          "typeTask",
+          "contactHours",
+          "createdAt"
         ]
-    }).then(userResponse => {
-        console.log(req.param)
-        res.status(200).json(userResponse)
-    });
-}
+      }
+    ]
+  }).then(userResponse => {
+    res.status(200).json(userResponse);
+  });
+};
+
+// GET all accepted vacancies of an user
+exports.getUserVacancyByUserIdAndStatus = (req, res) => {
+  const userId = req.params.userId;
+  const status = req.params.status;
+
+  UserVacancy.findAll({
+    where: {
+      userId: userId,
+      status: status
+    },
+    include: [{ model: Vacancy }]
+  }).then(userResponse => {
+    res.status(200).json(userResponse);
+  });
+};
