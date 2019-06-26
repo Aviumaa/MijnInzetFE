@@ -32,7 +32,7 @@
               >
                 <td>{{ props.item.title }}</td>
                 <td>{{ props.item.contactPerson }}</td>
-                <td>{{ props.item.period }}</td>
+                <td>{{ createPeriodField(props.item.periods) }}</td>
                 <td>{{ props.item.typeTask }}</td>
                 <td>{{ props.item.contactHours }}</td>
                 <td>{{ props.item.createdAt }}</td>
@@ -173,6 +173,22 @@ export default {
     onResize() {
       if (window.innerWidth < 769) this.isMobile = true;
       else this.isMobile = false;
+    },
+    createPeriodField(periods) {
+      if (periods === null) {
+        return "";
+      } else {
+        var periodField = "";
+        for (var i = 0; i < periods.length; i++) {
+          periodField =
+            periodField +
+            periods[i].schoolYear +
+            " | " +
+            periods[i].quarter +
+            ", ";
+        }
+        return periodField.trim().substring(0, periodField.length - 2);
+      }
     }
   }
 };

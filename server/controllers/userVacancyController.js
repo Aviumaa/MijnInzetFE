@@ -1,4 +1,4 @@
-const { UserVacancy, Vacancy, User } = require("../sequelize");
+const { UserVacancy, Vacancy, User, Periods } = require("../sequelize");
 
 // GET all userVacancies
 exports.getUserVacancies = (req, res) => {
@@ -43,12 +43,18 @@ exports.getUserVacancyByUserId = (req, res) => {
           "title",
           "description",
           "contactPerson",
-          "schoolYear",
-          "period",
+          // "schoolYear",
+          // "period",
           "typeCourse",
           "typeTask",
           "contactHours",
           "createdAt"
+        ],
+        include: [
+          {
+            model: Periods,
+            attributes: ["schoolYear", "quarter"]
+          }
         ]
       }
     ]
