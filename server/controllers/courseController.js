@@ -7,6 +7,7 @@ exports.getCourses = (req, res) => {
   Course.findAll().then(courses => res.json(courses));
 };
 
+//Update course
 exports.updateCourse = (req, res) => {
   Course.update(
     {
@@ -53,6 +54,27 @@ exports.postCourse = (req, res) => {
       courseId: result.id
     }).then(course => res.status(201).json(course));
   });
+};
+
+//DELETE new course
+exports.deleteCourse = (req, res) => {
+  console.log("delete")
+  console.log(req.params.courseId)
+
+  EducationalProgramCourse.destroy({
+      where: {
+        courseId: req.params.courseId
+      }
+    }
+  )
+    .then(course => {
+      res.status(200).json(course);
+      console.log(course + 1)
+    })
+    .catch(course => {
+      res.status(course);
+      console.log("Error:"  + course)
+    });
 };
 
 //DELETE all existing courses by program course id

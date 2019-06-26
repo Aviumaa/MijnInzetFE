@@ -40,7 +40,7 @@
     >
       <template v-slot:items="props">
         <td>{{ props.item.title }}</td>
-        <td class="text-xs-left">{{ props.item.ects }}</td>
+        <td class="text-xs-left" >{{ props.item.ects }}</td>
         <td class="text-xs-left">{{ props.item.period }}</td>
         <td class="text-xs-left">{{ props.item.type }}</td>
         <td class="text-xs-center">
@@ -80,6 +80,7 @@ const Papa = require("papaparse");
 export default {
   data() {
     return {
+       counter: 0,
       educationalProgram: 1,
       dialog: false,
       rowsPerPageItems: [20, 30, 40, 50],
@@ -182,12 +183,10 @@ export default {
     },
 
     geteducationalProgram() {
-      this.educationalProgram.id = 1;
-      console.log(this.educationalProgram.id);
       axios
         .get(
           `http://localhost:3000/api/educationalProgramCourse/${
-            this.educationalProgram.id
+            this.educationalProgram
           }`,
           {
             withCredentials: true
@@ -195,6 +194,7 @@ export default {
         )
         .then(response => {
           this.courses = response.data[0].courses;
+          console.log(this.courses)
         })
         .catch(error => {
           console.log(error);
@@ -203,8 +203,19 @@ export default {
 
     deleteItem(item) {
       const index = this.courses.indexOf(item);
+      console.log(index)
       confirm("Weet je zeker dat je dit wilt verwijderen?") &&
-        this.listPrimitive.remove(index);
+        axios
+          .delete(
+            `http://localhost:3000/api/course/${index}`,
+            { withCredentials: true }
+          )
+          .then(response => {
+            this.courses.splice(index, 1)
+          })
+          .catch(error => {
+              console.log(error);
+          });
     },
 
     close() {
@@ -230,6 +241,11 @@ export default {
           )
           .then(response => {
             if (response.status == 200) {
+              console.log(this.editedItem);
+              console.log(this.courses[response.data - 1]);
+              this.courses[response.data - 1] = this.editedItem;
+              console.log(this.courses[response.data - 1]);
+              this.$router.go('editEducation');
               console.log("WOW");
             }
           })
@@ -239,7 +255,7 @@ export default {
             }
           });
       } else {
-        this.listPrimitive.add(this.editedItem);
+        console.log("not -1")
       }
 
       this.close();

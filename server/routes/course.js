@@ -13,6 +13,8 @@ router.put("/:courseId", courseController.updateCourse);
 
 router.post("/:courseId", courseController.getCourseById);
 
+router.delete("/:courseId", courseController.deleteCourse);
+
 // post in plaats van delete want axios.delete werkte bij mij niet
 router.post("/deleteAll", courseController.destroyCoursesByProgramId);
 
