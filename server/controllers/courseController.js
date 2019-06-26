@@ -58,22 +58,21 @@ exports.postCourse = (req, res) => {
 
 //DELETE new course
 exports.deleteCourse = (req, res) => {
-  console.log("delete")
-  console.log(req.params.courseId)
+  console.log("delete");
+  console.log("courseId = " + req.params.courseId);
 
   EducationalProgramCourse.destroy({
-      where: {
-        courseId: req.params.courseId
-      }
+    where: {
+      courseId: req.params.courseId
     }
-  )
+  })
     .then(course => {
       res.status(200).json(course);
-      console.log(course + 1)
+      console.log(course + 1);
     })
     .catch(course => {
       res.status(course);
-      console.log("Error:"  + course)
+      console.log("Error:" + course);
     });
 };
 
