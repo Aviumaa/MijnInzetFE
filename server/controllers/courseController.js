@@ -43,38 +43,42 @@ exports.getCourseById = (req, res) => {
 
 //POST new course
 exports.postCourse = (req, res) => {
-  const newCourse = Course.create({
+   Course.create({
     title: req.body.title,
     ects: req.body.ects,
     period: req.body.period,
     type: req.body.type
-  }).then(function(result) {
+  })
+  .then(function(result) {
     EducationalProgramCourse.create({
       educationalProgramId: req.body.educationalProgramId,
       courseId: result.id
-    }).then(course => res.status(201).json(course));
-  });
-};
+  })
+  })
+  .then(course => {
+    res.status(200).json(course);
+  })
+}
 
 //DELETE new course
-exports.deleteCourse = (req, res) => {
-  console.log("delete");
-  console.log("courseId = " + req.params.courseId);
-
-  EducationalProgramCourse.destroy({
-    where: {
-      courseId: req.params.courseId
-    }
-  })
-    .then(course => {
-      res.status(200).json(course);
-      console.log(course + 1);
+  exports.deleteCourse = (req, res) => {
+    console.log("delete");
+    console.log("courseId = " + req.params.courseId);
+  
+    EducationalProgramCourse.destroy({
+      where: {
+        courseId: req.params.courseId
+      }
     })
-    .catch(course => {
-      res.status(course);
-      console.log("Error:" + course);
-    });
-};
+      .then(course => {
+        res.status(200).json(course);
+        console.log(course + 1);
+      })
+      .catch(course => {
+        res.status(course);
+        console.log("Error:" + course);
+      });
+  };
 
 //DELETE all existing courses by program course id
 exports.destroyCoursesByProgramId = (req, res) => {

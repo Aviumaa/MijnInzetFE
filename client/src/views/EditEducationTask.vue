@@ -83,6 +83,7 @@ export default {
       counter: 0,
       educationalProgram: 1,
       dialog: false,
+      educationalProgramCourse: 1,
       rowsPerPageItems: [20, 30, 40, 50],
       headers: [
         {
@@ -114,8 +115,22 @@ export default {
   },
 
   mounted() {
-    this.geteducationalProgram();
-    let xxid = this.educationalProgram.id;
+    axios
+        .get(
+          `http://localhost:3000/api/educationalProgramCourse/${
+            this.educationalProgram
+          }`,
+          {
+            withCredentials: true
+          }
+        )
+        .then(response => {
+          this.courses = response.data[0].courses;
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    let xxid = this.educationalProgramCourse;
     document.getElementById("fileSelector").onchange = function() {
       let file = document.getElementById("fileSelector").files[0];
       if (file) {
@@ -177,40 +192,18 @@ export default {
   methods: {
     editItem(item) {
       this.editedIndex = this.courses.indexOf(item);
-      console.log(this.editedIndex);
       this.editedItem = Object.assign({}, item);
       this.dialog = true;
     },
 
-    geteducationalProgram() {
-      axios
-        .get(
-          `http://localhost:3000/api/educationalProgramCourse/${
-            this.educationalProgram
-          }`,
-          {
-            withCredentials: true
-          }
-        )
-        .then(response => {
-          this.courses = response.data[0].courses;
-          console.log(this.courses);
-        })
-        .catch(error => {
-          console.log(error);
-        });
-    },
-
     deleteItem(item) {
-      // const index = this.props.CourseId;
-      // console.log(index);
-      confirm("Weet je zeker dat je dit wilt verwijderen?") &&
+      confirm("Weet je zeker dat je dit vak wilt verwijderen?") &&
         axios
           .delete(`http://localhost:3000/api/course/${item}`, {
             withCredentials: true
           })
           .then(response => {
-            this.courses.splice(index, 1);
+            this.$router.go("editEducation");
           })
           .catch(error => {
             console.log(error);
@@ -241,11 +234,8 @@ export default {
           .then(response => {
             if (response.status == 200) {
               console.log(this.editedItem);
-              console.log(this.courses[response.data - 1]);
               this.courses[response.data - 1] = this.editedItem;
-              console.log(this.courses[response.data - 1]);
               this.$router.go("editEducation");
-              console.log("WOW");
             }
           })
           .catch(error => {
@@ -254,7 +244,30 @@ export default {
             }
           });
       } else {
-        console.log("not -1");
+               let xxid = this.educationalProgramCourse;
+        axios
+          .post(
+            `http://localhost:3000/api/course/`,
+            {
+              educationalProgramId: xxid,
+              title: this.editedItem.title,
+              ects: this.editedItem.ects,
+              period: this.editedItem.period,
+              type: this.editedItem.type
+            },
+            { withCredentials: true }
+          )
+          .then(response => {
+            if (response.status == 200) {
+              this.courses[response.data - 1] = this.editedItem;
+              this.$router.go("editEducation");
+            }
+          })
+          .catch(error => {
+            if (error.response.status == 400) {
+              console.log("bad request");
+            }
+          });
       }
 
       this.close();
