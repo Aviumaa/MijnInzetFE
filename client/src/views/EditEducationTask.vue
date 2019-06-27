@@ -243,7 +243,6 @@ export default {
             }
           });
       } else {
-        let xxid = this.educationalProgramCourse;
         axios
           .post(
             `http://localhost:3000/api/course/`,
