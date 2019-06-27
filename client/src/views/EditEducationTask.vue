@@ -243,11 +243,12 @@ export default {
             }
           });
       } else {
+        let eduCourseID = this.educationalProgramCourse;
         axios
           .post(
             `http://localhost:3000/api/course/`,
             {
-              educationalProgramId: xxid,
+              educationalProgramId: eduCourseID,
               title: this.editedItem.title,
               ects: this.editedItem.ects,
               period: this.editedItem.period,
