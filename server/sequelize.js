@@ -12,7 +12,7 @@ const EducationalProgramCourseModel = require("./models/educationalProgramCourse
 const PeriodsModel = require("./models/periods");
 const VacancyPeriodsModel = require("./models/vacancyPeriods");
 
-const sequelize = new Sequelize("MijnInzet-local", "root", "root", {
+const sequelize = new Sequelize("MijnInzet-local", "root", "hoihoihoi", {
   host: "127.0.0.1",
   dialect: "mysql",
   pool: {
