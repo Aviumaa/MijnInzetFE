@@ -1,6 +1,5 @@
 const Model = require("../sequelize");
 const Vacancy = Model.Vacancy;
-const VacancyPeriods = Model.VacancyPeriods;
 const Periods = Model.Periods;
 
 const Sequelize = require("sequelize");
