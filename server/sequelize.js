@@ -9,7 +9,6 @@ const UserRoleModel = require("./models/userRole");
 const CourseModel = require("./models/course");
 const EducationalProgramModel = require("./models/educationalProgram");
 const PeriodsModel = require("./models/periods");
-const VacancyPeriodsModel = require("./models/vacancyPeriods");
 
 const sequelize = new Sequelize("MijnInzet-local", "root", "hoihoihoi", {
   host: "127.0.0.1",
@@ -32,7 +31,6 @@ const Course = CourseModel(sequelize, Sequelize);
 const EducationalProgram = EducationalProgramModel(sequelize, Sequelize);
 const UserRole = UserRoleModel(sequelize, Sequelize);
 const Periods = PeriodsModel(sequelize, Sequelize);
-const VacancyPeriods = VacancyPeriodsModel(sequelize, Sequelize);
 
 User.belongsToMany(Role, {
   through: "userRole",
@@ -64,9 +62,6 @@ Vacancy.belongsToMany(User, {
   foreignKey: "vacancyId"
 });
 
-UserVacancy.belongsTo(User);
-UserVacancy.belongsTo(Vacancy);
-
 Vacancy.belongsToMany(Periods, {
   through: "vacancyPeriods",
   foreignKey: "vacancyId"
@@ -76,9 +71,6 @@ Periods.belongsToMany(Vacancy, {
   through: "vacancyPeriods",
   foreignKey: "periodId"
 });
-
-VacancyPeriods.belongsTo(Vacancy);
-VacancyPeriods.belongsTo(Periods);
 
 module.exports = {
   User,
@@ -91,6 +83,5 @@ module.exports = {
   Course,
   EducationalProgram,
   Periods,
-  VacancyPeriods,
   sequelize
 };

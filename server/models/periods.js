@@ -26,7 +26,7 @@ module.exports = (sequelize, type) => {
     })
 
     Periods.associate = (models) => {
-        Periods.belongsToMany(models.VacancyPeriods, {
+        Periods.belongsToMany(models.Vacancy, {
             through: "vacancyPeriods",
             foreignKey: "periodId",
             onDelete: "CASCADE",

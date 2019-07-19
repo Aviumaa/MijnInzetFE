@@ -42,7 +42,7 @@ module.exports = (sequelize, Sequelize) => {
   };
 
   Vacancy.associate = (models) => {
-    Vacancy.belongsToMany(models.VacancyPeriods, {
+    Vacancy.belongsToMany(models.Periods, {
       through: "vacancyPeriods",
       foreignKey: "vacancyId",
       onDelete: "CASCADE",
