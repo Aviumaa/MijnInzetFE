@@ -31,12 +31,16 @@ module.exports = (sequelize, type) => {
   });
 
   EducationalProgram.associate = models => {
-    EducationalProgram.belongsToMany(models.Course, {
+    EducationalProgram.belongsToMany(Course, {
       through: "educationalProgramCourse",
-      foreignKey: "educationalProgram",
-      onDelete: "CASCADE",
-      hooks: true
+      foreignKey: "educationalProgramId"
     });
+    // EducationalProgram.belongsToMany(models.Course, {
+    //   through: "educationalprogramcourses",
+    //   foreignKey: "educationalProgramId",
+    //   onDelete: "CASCADE",
+    //   hooks: true
+    // });
   };
 
   return EducationalProgram;
