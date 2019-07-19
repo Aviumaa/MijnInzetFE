@@ -116,7 +116,7 @@ export default {
   mounted() {
     axios
       .get(
-        `http://localhost:3000/api/educationalProgramCourse/${
+        `http://localhost:3000/api/course/program/${
           this.educationalProgram
         }`,
         {

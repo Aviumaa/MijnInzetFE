@@ -13,6 +13,10 @@ router.put("/:courseId", withAuth, courseController.updateCourse);
 
 router.delete("/:courseId", withAuth, courseController.deleteCourse);
 
-router.delete("/deleteAll/:id", courseController.destroyCoursesByProgramId);
+// router.delete("/deleteAll/:id", courseController.destroyCoursesByProgramId);
+
+router.get("/program/:educationalProgramId", withAuth, 
+    courseController.getEducationalProgramCoursesById
+  );
 
 module.exports = router;

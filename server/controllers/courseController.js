@@ -49,27 +49,20 @@ exports.postCourse = (req, res) => {
     period: req.body.period,
     type: req.body.type
   })
-  .then(function(result) {
-    EducationalProgramCourse.create({
-      educationalProgramId: req.body.educationalProgramId,
-      courseId: result.id
-  })
-  })
-  .then(course => {
+    .then(course => {
     res.status(200).json(course);
   })
 }
 
 //DELETE new course
   exports.deleteCourse = (req, res) => {
-    EducationalProgramCourse.destroy({
+    Course.destroy({
       where: {
-        courseId: req.params.courseId
+        id: req.params.courseId
       }
     })
       .then(course => {
         res.status(200).json(course);
-        console.log(course + 1);
       })
       .catch(course => {
         res.status(course);
@@ -77,7 +70,7 @@ exports.postCourse = (req, res) => {
       });
   };
 
-//DELETE all existing courses by program course id
+// DELETE all existing courses by program course id
 exports.destroyCoursesByProgramId = (req, res) => {
   EducationalProgramCourse.destroy({
     where: {
@@ -90,14 +83,17 @@ exports.destroyCoursesByProgramId = (req, res) => {
     });
 };
 
+// -> programid
+// -> where course has programid
+// -> destroy course
 
 
-// GET all educationalPrograms
-exports.getEducationalProgramCourses = (req, res) => {
-  EducationalProgramCourse.findAll().then(educationalProgramCourse =>
-    res.json(educationalProgramCourse)
-  );
-};
+// // GET all educationalPrograms
+// exports.getEducationalProgramCourses = (req, res) => {
+//   EducationalProgramCourse.findAll().then(educationalProgramCourse =>
+//     res.json(educationalProgramCourse)
+//   );
+// };
 
 //GET all courses associated with the given educationalCourseId
 exports.getEducationalProgramCoursesById = (req, res) => {
@@ -121,13 +117,13 @@ exports.getEducationalProgramCoursesById = (req, res) => {
 };
 
 //POST new educationalProgramCourse
-exports.postEducationalProgramCourse = (req, res) => {
-  EducationalProgramCourse.create({
-    educationalProgram: req.body.educationalProgram,
-    course: req.body.course
-  })
-    .then(educationalProgramCourse =>
-      res.status(201).json(educationalProgramCourse)
-    )
-    .catch(err => console.error(err));
-};
+// exports.postEducationalProgramCourse = (req, res) => {
+//   EducationalProgramCourse.create({
+//     educationalProgram: req.body.educationalProgram,
+//     course: req.body.course
+//   })
+//     .then(educationalProgramCourse =>
+//       res.status(201).json(educationalProgramCourse)
+//     )
+//     .catch(err => console.error(err));
+// };
