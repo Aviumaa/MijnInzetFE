@@ -8,7 +8,6 @@ const TimeslotModel = require("./models/timeslot");
 const UserRoleModel = require("./models/userRole");
 const CourseModel = require("./models/course");
 const EducationalProgramModel = require("./models/educationalProgram");
-const EducationalProgramCourseModel = require("./models/educationalProgramCourse");
 const PeriodsModel = require("./models/periods");
 const VacancyPeriodsModel = require("./models/vacancyPeriods");
 
@@ -31,7 +30,6 @@ const WeekSchedule = WeekScheduleModel(sequelize, Sequelize);
 const Timeslot = TimeslotModel(sequelize, Sequelize);
 const Course = CourseModel(sequelize, Sequelize);
 const EducationalProgram = EducationalProgramModel(sequelize, Sequelize);
-const EducationalProgramCourse = EducationalProgramCourseModel(sequelize, Sequelize);
 const UserRole = UserRoleModel(sequelize, Sequelize);
 const Periods = PeriodsModel(sequelize, Sequelize);
 const VacancyPeriods = VacancyPeriodsModel(sequelize, Sequelize);
@@ -46,15 +44,15 @@ Role.belongsToMany(User, {
   foreignKey: "roleId"
 });
 
-// Course.belongsToMany(EducationalProgram, {
-//   through: "educationalProgramCourse",
-//   foreignKey: "courseId"
-// });
+Course.belongsToMany(EducationalProgram, {
+  through: "educationalProgramCourse",
+  foreignKey: "courseId"
+});
 
-// EducationalProgram.belongsToMany(Course, {
-//   through: "educationalProgramCourse",
-//   foreignKey: "educationalProgramId"
-// });
+EducationalProgram.belongsToMany(Course, {
+  through: "educationalProgramCourse",
+  foreignKey: "educationalProgramId"
+});
 
 User.belongsToMany(Vacancy, {
   through: "userVacancies",
@@ -92,7 +90,6 @@ module.exports = {
   UserRole,
   Course,
   EducationalProgram,
-  EducationalProgramCourse,
   Periods,
   VacancyPeriods,
   sequelize
