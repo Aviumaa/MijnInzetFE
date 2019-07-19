@@ -8,7 +8,7 @@ const userVacancy = require("./routes/userVacancies");
 const roles = require("./routes/roles");
 const course = require("./routes/course");
 const educationalProgram = require("./routes/educationalProgram");
-const educationalProgramCourse = require("./routes/educationalProgramCourse");
+// const educationalProgramCourse = require("./routes/educationalProgramCourse");
 const express = require("express");
 const cookieParser = require("cookie-parser");
 const app = express();
@@ -53,7 +53,7 @@ app.use("/api/timeslots", timeslots);
 app.use("/api/roles", roles);
 app.use("/api/course", course);
 app.use("/api/educationalProgram", educationalProgram);
-app.use("/api/educationalProgramCourse", educationalProgramCourse);
+// app.use("/api/educationalProgramCourse", educationalProgramCourse);
 
 if (app.get("env") === "development") {
   app.use(morgan("tiny"));

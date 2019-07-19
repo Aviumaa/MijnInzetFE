@@ -44,15 +44,15 @@ Role.belongsToMany(User, {
   foreignKey: "roleId"
 });
 
-Course.belongsToMany(EducationalProgram, {
-  through: "educationalProgramCourse",
-  foreignKey: "courseId"
-});
+// Course.belongsToMany(EducationalProgram, {
+//   through: "educationalProgramCourse",
+//   foreignKey: "courseId"
+// });
 
-EducationalProgram.belongsToMany(Course, {
-  through: "educationalProgramCourse",
-  foreignKey: "educationalProgramId"
-});
+// EducationalProgram.belongsToMany(Course, {
+//   through: "educationalProgramCourse",
+//   foreignKey: "educationalProgramId"
+// });
 
 User.belongsToMany(Vacancy, {
   through: "userVacancies",

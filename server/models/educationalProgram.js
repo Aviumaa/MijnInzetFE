@@ -42,6 +42,6 @@ module.exports = (sequelize, type) => {
     //   hooks: true
     // });
   };
-
+  
   return EducationalProgram;
 };
