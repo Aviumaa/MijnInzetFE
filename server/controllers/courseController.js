@@ -72,7 +72,7 @@ exports.postCourse = (req, res) => {
 
 // DELETE all existing courses by program course id
 exports.destroyCoursesByProgramId = (req, res) => {
-  EducationalProgramCourse.destroy({
+  Course.destroy({
     where: {
       educationalProgramId: req.body.educationalProgramId
     }
@@ -82,18 +82,6 @@ exports.destroyCoursesByProgramId = (req, res) => {
       console.log(error);
     });
 };
-
-// -> programid
-// -> where course has programid
-// -> destroy course
-
-
-// // GET all educationalPrograms
-// exports.getEducationalProgramCourses = (req, res) => {
-//   EducationalProgramCourse.findAll().then(educationalProgramCourse =>
-//     res.json(educationalProgramCourse)
-//   );
-// };
 
 //GET all courses associated with the given educationalCourseId
 exports.getEducationalProgramCoursesById = (req, res) => {
