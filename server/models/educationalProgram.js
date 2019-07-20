@@ -31,8 +31,7 @@ module.exports = (sequelize, type) => {
   });
 
   EducationalProgram.associate = models => {
-    EducationalProgram.belongsToMany(Course, {
-      through: "educationalProgramCourse",
+    EducationalProgram.hasMany(Course, {
       foreignKey: "educationalProgramId"
     });
     // EducationalProgram.belongsToMany(models.Course, {

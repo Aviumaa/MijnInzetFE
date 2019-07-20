@@ -21,6 +21,13 @@ module.exports = {
             type: {
               type: type.STRING,
             },
+            educationalProgramId: {
+                type: type.INTEGER,
+                references: {
+                  model: "educationalPrograms", // name of Target model
+                  key: "id" // key in Target model that we're referencing
+                }
+            },
             createdAt: {
                 allowNull: false,
                 type: type.DATE,
