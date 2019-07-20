@@ -4,6 +4,8 @@ module.exports = {
     up: (queryInterface, Sequelize) => {
         const newData = [];
 
+        const FKid = [1, 2, 1, 2, 1, ,2 ,1, 2, 1, 2];
+
         const titles = ["Fasten your seatbelts",
             "User interaction",
             "Personal skills",
@@ -94,6 +96,7 @@ module.exports = {
                 ects: ects[i],
                 period: periods[i],
                 type: types[i],
+                educationalProgramId: FKid[i],
                 createdAt: new Date(),
                 updatedAt: new Date()
             };
