@@ -97,8 +97,8 @@ exports.destroyCoursesByProgramId = (req, res) => {
 
 //GET all courses associated with the given educationalCourseId
 exports.getEducationalProgramCoursesById = (req, res) => {
+  console.log(req.params.educationalProgramId.toString());
   const educationalProgramId = req.params.educationalProgramId;
-
   Model.EducationalProgram.findAll({
     where: {
       id: educationalProgramId

@@ -114,10 +114,12 @@ export default {
   },
 
   mounted() {
+    this.educationalProgram = this.$route.params.educationalProgram;
+    console.log(this.educationalProgram.id);
     axios
       .get(
         `http://localhost:3000/api/course/program/${
-          this.educationalProgram
+          this.educationalProgram.id
         }`,
         {
           withCredentials: true
@@ -198,9 +200,12 @@ export default {
     deleteItem(item) {
       confirm("Weet je zeker dat je dit vak wilt verwijderen?") &&
         axios
-          .delete(`http://localhost:3000/api/course/${item}`, {
-            withCredentials: true
-          })
+          .post(`http://localhost:3000/api/course/${item}`, 
+            { 
+            withCredentials: true,
+            method: 'DELETE'
+            }
+          )
           .then(response => {
             this.$router.go("editEducation");
           })
