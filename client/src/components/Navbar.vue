@@ -2,7 +2,7 @@
   <nav>
     <v-toolbar flat app class="black" height="56px">
       <v-toolbar-title class="text-uppercase grey--text">
-        <router-link :to="{name: 'home'}" class="font-weight-light home">
+        <router-link :to="{name: 'profile'}" class="font-weight-light home">
           Mijn-
           <span class="font-weight-bold">Inzet</span>
         </router-link>
@@ -12,19 +12,14 @@
         <span>Terug</span>
       </v-btn>
       <v-spacer></v-spacer>
-      <v-btn
-        v-if="[
-          'home', 'taskList', 'availability', 'vacancies', 'createvacancy', 
-          'profile', 'educationTasks', 'nonEducationTasks', 'editEducation', 'editNonEducationTasks', 
-          'users', 'editUser'
-          ].includes($route.name)"
-        flat
-        color="grey"
-        @click="logout()"
-      >
-        <span>Sign Out</span>
-        <v-icon right>exit_to_app</v-icon>
-      </v-btn>
+      <div>
+        <li v-if="!isAuthenticated">
+          <v-btn href="#" @click.prevent="login">Login</v-btn>
+        </li>
+        <li v-if="isAuthenticated">
+          <v-btn href="#" @click.prevent="logout">Log out</v-btn>
+        </li>
+      </div>
     </v-toolbar>
   </nav>
 </template>
@@ -34,18 +29,27 @@ export default {
   name: "navBar",
   data() {
     return {
-      backButton: true
+      backButton: true,
+      isAuthenticated: false
     };
   },
+  async created() {
+    try {
+      await this.$auth.renewTokens();
+    } catch (e) {
+      console.log(e);
+    }
+  },
   methods: {
-    logout() {
-      this.eraseCookie("token");
-      this.$router.push("login");
-      location.reload();
+    login() {
+      this.$auth.login();
     },
-    eraseCookie(name) {
-      document.cookie =
-        name + "=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;";
+    logout() {
+      this.$auth.logOut();
+    },
+    handleLoginEvent(data) {
+      this.isAuthenticated = data.loggedIn;
+      this.profile = data.profile;
     },
     back() {
       this.$router.go(-1);
