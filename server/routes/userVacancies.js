@@ -1,27 +1,27 @@
 const express = require("express");
 const router = express.Router();
-const withAuth = require("../middelware/middleware");
+const checkJwt = require("../middelware/middleware");
 const userVacancyController = require("../controllers/userVacancyController");
 
-router.get("/", withAuth, userVacancyController.getUserVacancies);
+router.get("/", checkJwt, userVacancyController.getUserVacancies);
 
 router.get(
   "/:userVacancyId",
-  withAuth,
+  checkJwt,
   userVacancyController.getUserVacancyById
 );
 
-router.post("/", withAuth, userVacancyController.postUserVacancy);
+router.post("/", checkJwt, userVacancyController.postUserVacancy);
 
 router.get(
   "/user/:userId/:status",
-  withAuth,
+  checkJwt,
   userVacancyController.getUserVacancyByUserIdAndStatus
 );
 
 router.get(
   "/user/:userId",
-  withAuth,
+  checkJwt,
   userVacancyController.getUserVacancyByUserId
 );
 

@@ -1,22 +1,28 @@
 const express = require("express");
-const withAuth = require("../middelware/middleware");
+const checkJwt = require("../middelware/middleware");
 const router = express.Router();
 const courseController = require("../controllers/courseController");
 
-router.get("/", withAuth, courseController.getCourses);
+router.get("/", checkJwt, courseController.getCourses);
 
-router.get("/:courseId", withAuth, courseController.getCourseById);
+router.get("/:courseId", checkJwt, courseController.getCourseById);
 
-router.post("/", withAuth, courseController.postCourse);
+router.post("/", checkJwt, courseController.postCourse);
 
-router.put("/:courseId", withAuth, courseController.updateCourse);
+router.put("/:courseId", checkJwt, courseController.updateCourse);
 
-router.delete("/:courseId", withAuth, courseController.deleteCourse);
+router.delete("/:courseId", checkJwt, courseController.deleteCourse);
 
-router.delete("/deleteAll/:id", courseController.destroyCoursesByProgramId);
+router.delete(
+  "/deleteAll/:id",
+  checkJwt,
+  courseController.destroyCoursesByProgramId
+);
 
-router.get("/program/:educationalProgramId", withAuth, 
-    courseController.getEducationalProgramCoursesById
-  );
+router.get(
+  "/program/:educationalProgramId",
+  checkJwt,
+  courseController.getEducationalProgramCoursesById
+);
 
 module.exports = router;

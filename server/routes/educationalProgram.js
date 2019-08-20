@@ -1,30 +1,27 @@
 const express = require("express");
 const router = express.Router();
-const withAuth = require("../middelware/middleware");
+const checkJwt = require("../middelware/middleware");
 const educationalProgramController = require("../controllers/educationalProgramController");
 const { EducationalProgram } = require("../sequelize");
 
 router.get(
   "/schoolRelated",
-  withAuth,
-
+  checkJwt,
   educationalProgramController.getEducationalPrograms
 );
 
 router.get(
   "/nonSchoolRelated",
-  withAuth,
-
+  checkJwt,
   educationalProgramController.getNonEducationalPrograms
 );
 
 router.get(
   "/:educationalProgramId",
-  withAuth,
-
+  checkJwt,
   educationalProgramController.getEducationalProgramById
 );
 
-router.post("/", withAuth, educationalProgramController.postEducationalProgram);
+router.post("/", checkJwt, educationalProgramController.postEducationalProgram);
 
 module.exports = router;

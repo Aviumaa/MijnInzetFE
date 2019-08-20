@@ -1,23 +1,24 @@
-const jwt = require("jsonwebtoken");
-const secret = "secretkey";
+const jwt = require("express-jwt");
+const jwksRsa = require("jwks-rsa");
 
-const withAuth = function(req, res, next) {
-  const token =
-    req.body.token ||
-    req.query.token ||
-    req.headers["x-access-token"] ||
-    req.cookies.token;
-  if (!token) {
-    res.status(401).send("Unauthorized: No token provided");
-  } else {
-    jwt.verify(token, secret, function(err, decoded) {
-      if (err) {
-        res.status(401).send("Unauthorized: Invalid token");
-      } else {
-        req.email = decoded.email;
-        next();
-      }
-    });
-  }
+const authConfig = {
+  domain: "dev-ihdwnd8l.eu.auth0.com",
+  audience: "http://localhost:3000"
 };
-module.exports = withAuth;
+
+// Define middleware that validates incoming bearer tokens
+// using JWKS from dev-ihdwnd8l.eu.auth0.com
+const checkJwt = jwt({
+  secret: jwksRsa.expressJwtSecret({
+    cache: true,
+    rateLimit: true,
+    jwksRequestsPerMinute: 5,
+    jwksUri: `https://${authConfig.domain}/.well-known/jwks.json`
+  }),
+
+  audience: authConfig.audience,
+  issuer: `https://${authConfig.domain}/`,
+  algorithm: ["RS256"]
+});
+
+module.exports = checkJwt;

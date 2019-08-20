@@ -1,10 +1,10 @@
 const express = require("express");
 const router = express.Router();
-const withAuth = require("../middelware/middleware");
+const checkJwt = require("../middelware/middleware");
 const timeslotsController = require("../controllers/timeslotsController");
 
-router.get("/:userId", withAuth, timeslotsController.getTimeslots);
+router.get("/:userId", checkJwt, timeslotsController.getTimeslots);
 
-router.put("/:userId", withAuth, timeslotsController.updateTimeslots);
+router.put("/:userId", checkJwt, timeslotsController.updateTimeslots);
 
 module.exports = router;
