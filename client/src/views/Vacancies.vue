@@ -29,7 +29,7 @@
 <script>
 import HeaderTitle from "@/components/HeaderTitle.vue";
 import VacanciesDashboard from "@/components/VacanciesDashboard.vue";
-import axios from "axios";
+// import axios from "axios";
 
 export default {
   data() {
@@ -102,7 +102,7 @@ export default {
       console.log(this.$auth.getAccessToken());
 
       try {
-        const { data } = await axios.get("/api/vacancies/", {
+        const { data } = await this.$axios.get("/api/vacancies/", {
           headers: {
             Authorization: `Bearer ${accessToken}`
           }

@@ -5,8 +5,10 @@ import App from "./App.vue";
 import router from "./router";
 
 import AuthPlugin from "./plugins/auth";
+import Axios from "./plugins/axios";
 
 Vue.use(AuthPlugin);
+Vue.use(Axios);
 Vue.use(Vuetify, {
   iconfont: "md"
 });
