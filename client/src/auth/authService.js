@@ -88,8 +88,10 @@ class AuthService extends EventEmitter {
     localStorage.removeItem(localStorageKey);
 
     this.idToken = null;
+    this.accessToken = null;
     this.tokenExpiry = null;
     this.profile = null;
+    this.accessTokenExpiry = null;
 
     webAuth.logout({
       returnTo: window.location.origin
