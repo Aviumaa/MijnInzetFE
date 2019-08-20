@@ -4,7 +4,7 @@
       <v-flex>
         <div class="upperRow">
           <HeaderTitle title="Vacatures"></HeaderTitle>
-          <v-btn
+          <!-- <v-btn
             v-if="authToken.role == '1'"
             @click="navigateTo({name: 'createvacancy'})"
             fab
@@ -13,7 +13,12 @@
             class="fab-button"
           >
             <v-icon dark>add</v-icon>
-          </v-btn>
+          </v-btn>-->
+        </div>
+        <v-btn @click="callApi">Ping</v-btn>
+        <div v-if="apiMessage">
+          <h2>Result</h2>
+          <p>{{ apiMessage }}</p>
         </div>
         <VacanciesDashboard :headers="headers" :content="vacancies" :authToken="authToken"></VacanciesDashboard>
       </v-flex>
@@ -69,7 +74,8 @@ export default {
       ],
       content: [],
       vacancies: [],
-      authToken: this.token
+      authToken: this.token,
+      apiMessage: null
     };
   },
   props: ["token"],
@@ -77,18 +83,36 @@ export default {
     HeaderTitle,
     VacanciesDashboard
   },
-  mounted() {
-    axios
-      .get("http://localhost:3000/api/vacancies/", {
-        withCredentials: true
-      })
-      .then(response => {
-        this.vacancies = response.data;
-      });
-  },
+  // mounted() {
+  //   axios
+  //     .get("http://localhost:3000/api/vacancies/", {
+  //       // withCredentials: true
+  //     })
+  //     .then(response => {
+  //       this.vacancies = response.data;
+  //     });
+  // },
   methods: {
-    navigateTo(route) {
-      this.$router.push(route);
+    // navigateTo(route) {
+    //   this.$router.push(route);
+    // },
+    async callApi() {
+      const accessToken = await this.$auth.getAccessToken();
+
+      console.log(this.$auth.getAccessToken());
+
+      try {
+        const { data } = await axios.get("/api/vacancies/", {
+          headers: {
+            Authorization: `Bearer ${accessToken}`
+          }
+        });
+        console.log(data);
+
+        this.apiMessage = data;
+      } catch (e) {
+        this.apiMessage = `Error: the server responded with '${e.response.status}: ${e.response.statusText}'`;
+      }
     }
   }
 };

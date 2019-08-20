@@ -6,7 +6,8 @@ const webAuth = new auth0.WebAuth({
   domain: authConfig.domain,
   redirectUri: `${window.location.origin}/callback`,
   clientID: authConfig.clientId,
-  responseType: "id_token",
+  audience: authConfig.audience,
+  responseType: "token id_token",
   scope: "openid profile email"
 });
 
@@ -17,6 +18,10 @@ class AuthService extends EventEmitter {
   idToken = null;
   profile = null;
   tokenExpiry = null;
+
+  // Add fields here to store the Access Token and the expiry time
+  accessToken = null;
+  accessTokenExpiry = null;
 
   // Starts the user login flow
   login(customState) {
@@ -46,12 +51,19 @@ class AuthService extends EventEmitter {
     // Convert the JWT expiry time from seconds to milliseconds
     this.tokenExpiry = new Date(this.profile.exp * 1000);
 
+    // Save the Access Token and expiry time in memory
+    this.accessToken = authResult.accessToken;
+
+    // Convert expiresIn to milliseconds and add the current time
+    // (expiresIn is a relative timestamp, but an absolute time is desired)
+    this.accessTokenExpiry = new Date(Date.now() + authResult.expiresIn * 1000);
+
     localStorage.setItem(localStorageKey, "true");
 
     this.emit(loginEvent, {
       loggedIn: true,
       profile: authResult.idTokenPayload,
-      state: authResult.appState || {}
+      state: authResult.appState
     });
   }
 
@@ -91,6 +103,26 @@ class AuthService extends EventEmitter {
       Date.now() < this.tokenExpiry &&
       localStorage.getItem(localStorageKey) === "true"
     );
+  }
+
+  isAccessTokenValid() {
+    return (
+      this.accessToken &&
+      this.accessTokenExpiry &&
+      Date.now() < this.accessTokenExpiry
+    );
+  }
+
+  getAccessToken() {
+    return new Promise((resolve, reject) => {
+      if (this.isAccessTokenValid()) {
+        resolve(this.accessToken);
+      } else {
+        this.renewTokens().then(authResult => {
+          resolve(authResult.accessToken);
+        }, reject);
+      }
+    });
   }
 }
 

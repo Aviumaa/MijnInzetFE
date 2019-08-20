@@ -2,7 +2,7 @@
   <nav>
     <v-toolbar flat app class="black" height="56px">
       <v-toolbar-title class="text-uppercase grey--text">
-        <router-link :to="{name: 'profile'}" class="font-weight-light home">
+        <router-link :to="{name: 'dashboard'}" class="font-weight-light home">
           Mijn-
           <span class="font-weight-bold">Inzet</span>
         </router-link>
