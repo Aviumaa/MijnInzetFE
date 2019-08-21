@@ -25,20 +25,20 @@
           icon="face"
         ></tile-button>
         <tile-button
-          v-if="roleId == 1"
+          v-if="userRoles.includes('admin')"
           @click.native="navigateTo({name: 'educationTasks'})"
           title="Taken"
           newLine="Beheren"
           icon="build"
         ></tile-button>
         <tile-button
-          v-if="roleId == 1"
+          v-if="userRoles.includes('admin')"
           @click.native="navigateTo({name: 'users'})"
           title="Gebruikers"
           icon="group"
         ></tile-button>
         <tile-button
-          v-if="roleId == 8"
+          v-if="userRoles.includes('coordinator')"
           @click.native="navigateTo({name: '#'})"
           title="Overzicht inzet"
         ></tile-button>
@@ -53,30 +53,24 @@ import TileButton from "@/components/TileButton.vue";
 
 export default {
   data() {
-    const roleId = 0;
     return {
-      roleId: null
+      userRoles: []
     };
   },
   components: {
     TileButton
   },
-  // props: ["token"],
   methods: {
     navigateTo(route) {
       this.$router.push(route);
+    },
+    getUserRole() {
+      const user = Object.values(this.$auth.profile)[1];
+      this.userRoles = user.roles;
     }
   },
   mounted() {
-    axios
-      .get(`http://localhost:3000/api/users/`, {
-        withCredentials: true
-      })
-      .then(response => {
-        if (response.data != null) {
-          this.roleId = this.token.role;
-        }
-      });
+    this.getUserRole();
   }
 };
 </script>
