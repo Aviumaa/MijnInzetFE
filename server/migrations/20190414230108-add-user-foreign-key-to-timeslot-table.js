@@ -6,7 +6,7 @@ module.exports = {
       "timeslots", // name of Source model
       "user_id", // name of the key we're adding
       {
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
         references: {
           model: "users", // name of Target model
           key: "id" // key in Target model that we're referencing

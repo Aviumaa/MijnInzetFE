@@ -14,9 +14,9 @@ router.get(
 router.post("/", checkJwt, userVacancyController.postUserVacancy);
 
 router.get(
-  "/user/:userId/:status",
+  "/user/:status",
   checkJwt,
-  userVacancyController.getUserVacancyByUserIdAndStatus
+  userVacancyController.getUserVacancyByStatus
 );
 
 router.get(

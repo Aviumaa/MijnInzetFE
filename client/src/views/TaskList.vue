@@ -54,7 +54,6 @@
 </template>
 
 <script>
-import axios from "axios";
 import HeaderTitle from "@/components/HeaderTitle.vue";
 
 export default {
@@ -94,15 +93,7 @@ export default {
   props: ["token"],
   components: { HeaderTitle },
   mounted() {
-    axios
-      .get(`http://localhost:3000/api/userVacancies/user/${this.token.id}/1`, {
-        withCredentials: true
-      })
-      .then(response => {
-        for (let i = 0; i < response.data.length; i++) {
-          this.acceptedVacancies.push(response.data[i]);
-        }
-      });
+    this.callApi();
   },
   methods: {
     onResize() {
@@ -123,6 +114,23 @@ export default {
             ", ";
         }
         return periodField.trim().substring(0, periodField.length - 2);
+      }
+    },
+    async callApi() {
+      const accessToken = await this.$auth.getAccessToken();
+
+      try {
+        const { data } = await this.$axios.get(`/api/userVacancies/user/1`, {
+          headers: {
+            Authorization: `Bearer ${accessToken}`
+          }
+        });
+
+        for (let i = 0; i < data.length; i++) {
+          this.acceptedVacancies.push(data[i]);
+        }
+      } catch (e) {
+        this.apiData = `Error: the server responded with '${e.response.status}: ${e.response.statusText}'`;
       }
     }
   }

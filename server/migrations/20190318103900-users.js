@@ -4,9 +4,9 @@ module.exports = {
   up: (queryInterface, type) => {
     return queryInterface.createTable("users", {
       id: {
-        type: type.INTEGER,
-        primaryKey: true,
-        autoIncrement: true
+        type: type.STRING,
+        primaryKey: true
+        // autoIncrement: true
       },
       salutation: {
         type: type.STRING

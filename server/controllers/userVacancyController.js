@@ -1,4 +1,5 @@
 const { UserVacancy, Vacancy, User, Periods } = require("../sequelize");
+const jwt_decode = require("jwt-decode");
 
 // GET all userVacancies
 exports.getUserVacancies = (req, res) => {
@@ -28,7 +29,7 @@ exports.postUserVacancy = (req, res) => {
     .catch(err => console.error(err));
 };
 
-//get a users vacancies by userId
+//GET userVacancies by userId
 exports.getUserVacancyByUserId = (req, res) => {
   const userId = req.params.userId;
   User.findOne({
@@ -62,9 +63,15 @@ exports.getUserVacancyByUserId = (req, res) => {
 };
 
 // GET all accepted vacancies of an user
-exports.getUserVacancyByUserIdAndStatus = (req, res) => {
-  const userId = req.params.userId;
+exports.getUserVacancyByStatus = (req, res) => {
   const status = req.params.status;
+
+  // retrieve bearer token and decode it
+  let tokenArray = req.header("Authorization").split(" ");
+  let token = jwt_decode(tokenArray[1]);
+
+  // extract userID from the subject property
+  let userId = token.sub.split("|").pop();
 
   UserVacancy.findAll({
     where: {

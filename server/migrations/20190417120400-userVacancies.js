@@ -17,7 +17,7 @@ module.exports = {
         allowNull: false
       },
       userId: {
-        type: type.INTEGER,
+        type: type.STRING,
         references: {
           model: "users",
           key: "id"
