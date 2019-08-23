@@ -80,7 +80,6 @@ export default {
   data() {
     return {
       counter: 0,
-      educationalProgram: 1,
       dialog: false,
       educationalProgramCourse: 1,
       rowsPerPageItems: [20, 30, 40, 50],
@@ -114,70 +113,26 @@ export default {
   },
 
   mounted() {
-    this.educationalProgram = this.$route.params.educationalProgram;
-    console.log(this.educationalProgram.id);
+    console.log(this.$route.params)
     axios
       .get(
         `http://localhost:3000/api/course/program/${
-          this.educationalProgram.id
+          this.$route.params.id
+          
         }`,
         {
           withCredentials: true
         }
       )
       .then(response => {
-        this.courses = response.data[0].courses;
-      })
-      .catch(error => {
-        console.log(error);
+         if (response.status == 200) {
+           this.courses = response.data[0].courses;
+           console.log(this.courses);
+        }
+        else {
+          console.log("else")
+        }
       });
-    let xxid = this.educationalProgramCourse;
-    document.getElementById("fileSelector").onchange = function() {
-      let file = document.getElementById("fileSelector").files[0];
-      if (file) {
-        var data = Papa.parse(file, {
-          complete: function(results) {
-            axios.post(
-              "http://localhost:3000/api/course/deleteAll",
-              {
-                educationalProgramId: xxid
-              },
-              {
-                withCredentials: true
-              }
-            );
-
-            results.data.forEach(row => {
-              try {
-                if (row[1] != "ECTS" && row != "") {
-                  axios
-                    .post(
-                      "http://localhost:3000/api/course",
-                      {
-                        educationalProgramId: xxid,
-                        title: row[0],
-                        ects: row[1],
-                        period: row[2],
-                        type: row[3]
-                      },
-                      {
-                        withCredentials: true
-                      }
-                    )
-                    .then(response => {
-                      if (response.status === 201) {
-                        console.log(response);
-                      }
-                    });
-                }
-              } catch (err) {
-                console.log(err);
-              }
-            });
-          }
-        });
-      }
-    };
   },
   computed: {
     formTitle() {
@@ -190,6 +145,7 @@ export default {
       val || this.close();
     }
   },
+
   methods: {
     editItem(item) {
       this.editedIndex = this.courses.indexOf(item);
@@ -200,14 +156,14 @@ export default {
     deleteItem(item) {
       confirm("Weet je zeker dat je dit vak wilt verwijderen?") &&
         axios
-          .post(`http://localhost:3000/api/course/${item}`, 
+          .delete(`http://localhost:3000/api/course/${item}`, 
             { 
             withCredentials: true,
             method: 'DELETE'
             }
           )
           .then(response => {
-            this.$router.go("editEducation");
+
           })
           .catch(error => {
             console.log(error);

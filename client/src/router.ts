@@ -116,7 +116,7 @@ export default new Router({
       component: EditUser
     },
     {
-      path: "/educationTasks/edit",
+      path: "/educationTasks/edit/:id",
       name: "editEducation",
       beforeEnter: guard,
       component: EditEducationTask
@@ -126,6 +126,8 @@ export default new Router({
       name: "editNonEducationTasks",
       beforeEnter: guard,
       component: EditNonEducationTask
-    }
+    },
   ]
 });
+
+

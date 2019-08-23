@@ -28,8 +28,8 @@
             <td class="text-xs-left">todo</td>
             <td class="text-xs-left">{{ props.item.study }}</td>
             <td class="text-xs-left">{{ props.item.year }}</td>
-            <v-btn small color="primary" @click="navigateTo('editEducation', props.item)">
-              <v-icon>edit</v-icon>
+            <v-btn small color="primary">
+              <router-link :to="{ name: 'editEducation', params: { id: props.item.id }}"> <v-icon color="white">edit</v-icon></router-link>
             </v-btn>
           </tr>
           <tr v-else>
@@ -70,6 +70,7 @@
             <td class="text-xs-left">todo</td>
             <td class="text-xs-left">{{ props.item.study }}</td>
             <td class="text-xs-left">{{ props.item.year }}</td>
+            
             <v-btn small color="primary" @click="navigateTo('editEducation', props.item)">
               <v-icon>edit</v-icon>
             </v-btn>
