@@ -129,33 +129,28 @@ export default {
       const accessToken = await this.$auth.getAccessToken();
 
       try {
-        const { response } = await this.$axios.put(
-          `/api/timeslots/`,
-          {
-            timeslots: this.checkboxes
-          },
-          { headers: { Authorization: `Bearer ${accessToken}` } }
-        );
-
-        this.openResponseDialog(200);
+        await this.$axios
+          .put(
+            `/api/timeslots/`,
+            {
+              timeslots: this.checkboxes
+            },
+            { headers: { Authorization: `Bearer ${accessToken}` } }
+          )
+          .then(response => {
+            this.openResponseDialog(response.status);
+          });
       } catch (e) {
         console.log(
           `Error: the server responded with '${e.response.status}: ${e.response.statusText}'`
         );
-        this.openResponseDialog(401);
+
+        this.openResponseDialog(e.response.status);
       }
     }
   },
   mounted() {
     this.getTimeslots();
-    // axios
-    //   .get(`http://localhost:3000/api/timeslots/${this.token.id}`, {
-    //     withCredentials: true
-    //   })
-    //   .then(response => {
-    //     this.userTimeslotData = response.data;
-    //     this.parseJsonToString();
-    //   });
   }
 };
 </script>

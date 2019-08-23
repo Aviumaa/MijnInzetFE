@@ -1,7 +1,7 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
   <v-layout justify-center>
     <v-flex xs12 sm10 md8 lg6>
-      <br>
+      <br />
       <v-flex>
         <HeaderTitle title="Vacature aanmaken"></HeaderTitle>
       </v-flex>
@@ -82,7 +82,7 @@
                   required
                 ></v-text-field>
               </template>
-              <v-date-picker v-model="startDate" :min="currentDate" no-title scrollable/>
+              <v-date-picker v-model="startDate" :min="currentDate" no-title scrollable />
             </v-menu>
             <v-menu
               ref="secondMenu"
@@ -106,23 +106,22 @@
                   required
                 ></v-text-field>
               </template>
-              <v-date-picker v-model="endDate" :min="currentDate" no-title scrollable/>
+              <v-date-picker v-model="endDate" :min="currentDate" no-title scrollable />
             </v-menu>
           </v-card-text>
           <v-divider class="mt-5"></v-divider>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="primary" flat @click="send()">Versturen</v-btn>
+            <v-btn color="primary" flat @click="createVacancy()">Versturen</v-btn>
           </v-card-actions>
         </v-card>
       </v-form>
-      <ResponseDialog ref="responseDialog"/>
+      <ResponseDialog ref="responseDialog" />
     </v-flex>
   </v-layout>
 </template>
 
 <script>
-import axios from "axios";
 import HeaderTitle from "@/components/HeaderTitle.vue";
 import ResponseDialog from "@/components/ResponseDialog";
 
@@ -179,36 +178,43 @@ export default {
     ResponseDialog
   },
   methods: {
-    send() {
-      if (this.$refs.form.validate()) {
-        axios
-          .post(
-            "http://localhost:3000/api/Vacancies",
-            {
-              title: this.title,
-              description: this.description,
-              contactPerson: this.coordinator,
-              schoolYear: this.calculateSchoolYear(this.startDate),
-              period: this.period,
-              typeCourse: this.getType(this.type),
-              typeTask: this.task,
-              contactHours: this.contactHours,
-              startDate: this.startDate,
-              endDate: this.endDate,
-              openSlots: this.openSlots
-            },
-            { withCredentials: true }
-          )
-          .then(response => {
-            if (response.status == 200) {
+    async createVacancy() {
+      const accessToken = await this.$auth.getAccessToken();
+
+      try {
+        if (this.$refs.form.validate()) {
+          await this.$axios
+            .post(
+              "/api/vacancies/",
+              {
+                title: this.title,
+                description: this.description,
+                contactPerson: this.coordinator,
+                schoolYear: this.calculateSchoolYear(this.startDate),
+                period: this.period,
+                typeCourse: this.getType(this.type),
+                typeTask: this.task,
+                contactHours: this.contactHours,
+                startDate: this.startDate,
+                endDate: this.endDate,
+                openSlots: this.openSlots
+              },
+              {
+                headers: {
+                  Authorization: `Bearer ${accessToken}`
+                }
+              }
+            )
+            .then(response => {
               this.openResponseDialog(response.status);
-            }
-          })
-          .catch(error => {
-            if (error.response.status == 400) {
-              this.openResponseDialog(error.response.status);
-            }
-          });
+            });
+        }
+      } catch (e) {
+        console.log(
+          `Error: the server responded with '${e.response.status}: ${e.response.statusText}'`
+        );
+
+        this.openResponseDialog(e.response.status);
       }
     },
     //Replaces the given type with it's shortened version

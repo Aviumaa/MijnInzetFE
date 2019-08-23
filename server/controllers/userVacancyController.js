@@ -20,10 +20,17 @@ exports.getUserVacancyById = (req, res) => {
 
 //POST new userVacancy
 exports.postUserVacancy = (req, res) => {
+  // retrieve bearer token and decode it
+  let tokenArray = req.header("Authorization").split(" ");
+  let token = jwt_decode(tokenArray[1]);
+
+  // extract userID from the subject property
+  let userId = token.sub.split("|").pop();
+
   UserVacancy.create({
-    userId: req.body.userId,
+    userId: userId,
     vacancyId: req.body.vacancyId,
-    status: req.body.status
+    status: 0
   })
     .then(userVacancies => res.status(201).json(userVacancies))
     .catch(err => console.error(err));

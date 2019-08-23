@@ -6,7 +6,7 @@ module.exports = {
   up: (queryInterface, Sequelize) => {
     const newData = [];
 
-    for (let i = 0; i < 200; i++) {
+    for (let i = 0; i < 8; i++) {
       const seedData = {
         start_time: faker.random.arrayElement([
           "08:30",
@@ -28,7 +28,8 @@ module.exports = {
         ]),
         day_of_week: faker.random.number({ min: 1, max: 5 }),
         createdAt: new Date(),
-        updatedAt: new Date()
+        updatedAt: new Date(),
+        user_id: "5d5054fe78848c0ea36110f7"
       };
       newData.push(seedData);
     }
