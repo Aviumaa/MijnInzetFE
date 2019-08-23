@@ -70,6 +70,15 @@ Periods.belongsToMany(Vacancy, {
   foreignKey: "periodId"
 });
 
+UserVacancy.hasOne(Vacancy, {
+  foreignKey: "id"
+});
+
+Vacancy.hasMany(UserVacancy, {
+  foreignKey: "vacancyId"
+});
+
+
 module.exports = {
   User,
   Vacancy,
