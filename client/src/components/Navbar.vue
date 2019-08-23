@@ -16,7 +16,8 @@
         <li v-if="!isAuthenticated">
           <v-btn href="#" @click.prevent="login">Login</v-btn>
         </li>
-        <li v-if="isAuthenticated">
+        <li v-if="isAuthenticated" class="authenticated">
+          <img class="nav-profile-pic" :src="profile.picture" />
           <v-btn href="#" @click.prevent="logout">Log out</v-btn>
         </li>
       </div>
@@ -30,7 +31,8 @@ export default {
   data() {
     return {
       backButton: true,
-      isAuthenticated: false
+      isAuthenticated: false,
+      profile: this.$auth.profile
     };
   },
   async created() {
@@ -88,6 +90,16 @@ export default {
   cursor: pointer;
   text-decoration: none;
   color: unset;
+}
+
+.authenticated {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-profile-pic {
+  height: 2.75em;
 }
 </style>
 
