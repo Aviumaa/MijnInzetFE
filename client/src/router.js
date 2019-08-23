@@ -1,19 +1,19 @@
 import Vue from "vue";
 import Router from "vue-router";
 import Callback from "./components/callback.vue";
+import Home from "./views/Home.vue";
 import Dashboard from "./views/Dashboard.vue";
 import TaskList from "./views/TaskList.vue";
-import Availability from "./views/Availability.vue";
+import Schedule from "./views/Schedule.vue";
 import Vacancies from "./views/Vacancies.vue";
-import Users from "./views/Users.vue";
 import CreateVacancy from "./views/CreateVacancy.vue";
-import EducationTasks from "./views/EducationTasks.vue";
-import NonEducationTasks from "./views/NonEducationTasks.vue";
-import EditUser from "./views/EditUser.vue";
 import Profile from "./views/Profile.vue";
+import EducationTasks from "./views/EducationTasks.vue";
 import EditEducationTask from "./views/EditEducationTask.vue";
+import NonEducationTasks from "./views/NonEducationTasks.vue";
 import EditNonEducationTask from "./views/EditNonEducationTask.vue";
-import Home from "./views/Home.vue";
+import Users from "./views/Users.vue";
+import EditUser from "./views/EditUser.vue";
 
 import auth from "./auth/authService.js";
 
@@ -38,19 +38,19 @@ const router = new Router({
       component: Home
     },
     {
-      path: "/profile",
-      name: "profile",
-      component: Profile
+      path: "/dashboard",
+      name: "dashboard",
+      component: Dashboard
     },
     {
-      path: "/taskList",
-      name: "taskList",
+      path: "/tasks",
+      name: "tasks",
       component: TaskList
     },
     {
-      path: "/availability",
-      name: "availability",
-      component: Availability
+      path: "/schedule",
+      name: "schedule",
+      component: Schedule
     },
     {
       path: "/vacancies",
@@ -63,9 +63,9 @@ const router = new Router({
       component: CreateVacancy
     },
     {
-      path: "/dashboard",
-      name: "dashboard",
-      component: Dashboard
+      path: "/profile",
+      name: "profile",
+      component: Profile
     },
     {
       path: "/educationTasks",
@@ -73,9 +73,19 @@ const router = new Router({
       component: EducationTasks
     },
     {
+      path: "/educationTasks/edit",
+      name: "editEducation",
+      component: EditEducationTask
+    },
+    {
       path: "/nonEducationTasks",
       name: "nonEducationTasks",
       component: NonEducationTasks
+    },
+    {
+      path: "/nonEducationTasks/edit",
+      name: "editNonEducationTasks",
+      component: EditNonEducationTask
     },
     {
       path: "/users",
@@ -86,16 +96,6 @@ const router = new Router({
       path: "/users/edit",
       name: "editUser",
       component: EditUser
-    },
-    {
-      path: "/educationTasks/edit",
-      name: "editEducation",
-      component: EditEducationTask
-    },
-    {
-      path: "/nonEducationTasks/edit",
-      name: "editNonEducationTasks",
-      component: EditNonEducationTask
     }
   ]
 });

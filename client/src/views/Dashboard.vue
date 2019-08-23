@@ -3,12 +3,12 @@
     <v-layout row>
       <v-flex class="center">
         <tile-button
-          @click.native="navigateTo({name: 'taskList'})"
+          @click.native="navigateTo({name: 'tasks'})"
           title="Taakoverzicht"
           icon="view_list"
         ></tile-button>
         <tile-button
-          @click.native="navigateTo({name: 'availability'})"
+          @click.native="navigateTo({name: 'schedule'})"
           title="Beschikbaarheid"
           icon="event_available"
         ></tile-button>
@@ -48,7 +48,6 @@
 </template>
 
 <script>
-import axios from "axios";
 import TileButton from "@/components/TileButton.vue";
 
 export default {

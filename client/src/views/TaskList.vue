@@ -130,7 +130,9 @@ export default {
           this.acceptedVacancies.push(data[i]);
         }
       } catch (e) {
-        this.apiData = `Error: the server responded with '${e.response.status}: ${e.response.statusText}'`;
+        console.log(
+          `Error: the server responded with '${e.response.status}: ${e.response.statusText}'`
+        );
       }
     }
   }

@@ -2,7 +2,7 @@
   <v-container>
     <v-layout row>
       <v-flex>
-        <HeaderTitle title="Beschikbaarheid"/>
+        <HeaderTitle title="Beschikbaarheid" />
 
         <v-layout class="list-availability">
           <v-flex grow v-for="day in weekdays" :key="day.index">
@@ -21,7 +21,7 @@
                     :value="day + '-' + timeslot"
                     class="border"
                     type="checkbox"
-                  >
+                  />
                 </div>
               </v-list>
             </v-card>
@@ -29,17 +29,16 @@
         </v-layout>
         <div class="button__submit">
           <div class="submit-content">
-            <v-btn @click="sendAvailability" round dark>Opslaan</v-btn>
+            <v-btn @click="updateTimeslots" round dark>Opslaan</v-btn>
           </div>
         </div>
-        <ResponseDialog ref="responseDialog"/>
+        <ResponseDialog ref="responseDialog" />
       </v-flex>
     </v-layout>
   </v-container>
 </template>
 
 <script>
-import axios from "axios";
 import moment from "moment";
 import HeaderTitle from "@/components/HeaderTitle.vue";
 import ResponseDialog from "@/components/ResponseDialog";
@@ -83,28 +82,6 @@ export default {
     isChecked(value) {
       return this.checkboxes.includes(value);
     },
-    sendAvailability(checkboxes) {
-      axios
-        .put(
-          `http://localhost:3000/api/timeslots/${this.token.id}`,
-          {
-            timeslots: this.checkboxes
-          },
-          {
-            withCredentials: true
-          }
-        )
-        .then(response => {
-          if (response.status == 200) {
-            this.openResponseDialog(response.status);
-          }
-        })
-        .catch(error => {
-          if (error.response.status == 400) {
-            this.openResponseDialog(error.response.status);
-          }
-        });
-    },
     parseJsonToString() {
       const timeslots = [];
       this.userTimeslotData.forEach(userTimeSlot => {
@@ -129,17 +106,56 @@ export default {
           "clear"
         );
       }
+    },
+    async getTimeslots() {
+      const accessToken = await this.$auth.getAccessToken();
+
+      try {
+        const { data } = await this.$axios.get(`/api/timeslots/`, {
+          headers: {
+            Authorization: `Bearer ${accessToken}`
+          }
+        });
+
+        this.userTimeslotData = data;
+        this.parseJsonToString();
+      } catch (e) {
+        console.log(
+          `Error: the server responded with '${e.response.status}: ${e.response.statusText}'`
+        );
+      }
+    },
+    async updateTimeslots() {
+      const accessToken = await this.$auth.getAccessToken();
+
+      try {
+        const { response } = await this.$axios.put(
+          `/api/timeslots/`,
+          {
+            timeslots: this.checkboxes
+          },
+          { headers: { Authorization: `Bearer ${accessToken}` } }
+        );
+
+        this.openResponseDialog(200);
+      } catch (e) {
+        console.log(
+          `Error: the server responded with '${e.response.status}: ${e.response.statusText}'`
+        );
+        this.openResponseDialog(401);
+      }
     }
   },
   mounted() {
-    axios
-      .get(`http://localhost:3000/api/timeslots/${this.token.id}`, {
-        withCredentials: true
-      })
-      .then(response => {
-        this.userTimeslotData = response.data;
-        this.parseJsonToString();
-      });
+    this.getTimeslots();
+    // axios
+    //   .get(`http://localhost:3000/api/timeslots/${this.token.id}`, {
+    //     withCredentials: true
+    //   })
+    //   .then(response => {
+    //     this.userTimeslotData = response.data;
+    //     this.parseJsonToString();
+    //   });
   }
 };
 </script>
