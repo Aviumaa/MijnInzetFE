@@ -39,9 +39,9 @@
                 <li class="flex-item" :data-label="headers[1].text">todo</li>
                 <li class="flex-item" :data-label="headers[2].text">{{ props.item.study }}</li>
                 <li class="flex-item" :data-label="headers[3].text">{{ props.item.year }}</li>
-                <li color="primary" @click="navigateTo('editEducation', props.item)">
-                  <v-icon>edit</v-icon>
-                </li>
+                 <v-btn small color="primary">
+              <router-link :to="{ name: 'editEducation', params: { id: props.item.id }}"> <v-icon color="white">edit</v-icon></router-link>
+            </v-btn>
               </ul>
             </td>
           </tr>
