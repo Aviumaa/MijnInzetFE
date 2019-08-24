@@ -13,7 +13,8 @@ exports.doLogin = async (req, res) => {
     },
     include: [
       {
-        model: Role
+        model: Role,
+        attributes: ["id"]
       }
     ]
   }).then(user => {
@@ -26,7 +27,7 @@ exports.doLogin = async (req, res) => {
             {
               id: user.id,
               username: user.username,
-              role: user.roles[0].userRole.roleId
+              role: user.roles[0].id
             },
             "secretkey",
             cookie_options
