@@ -4,15 +4,18 @@ const jwt_decode = require("jwt-decode");
 // GET all timeslots from the authenticated user
 exports.getTimeslots = (req, res) => {
   // retrieve bearer token and decode it
-  let tokenArray = req.header("Authorization").split(" ");
-  let token = jwt_decode(tokenArray[1]);
+  let tokenArray = req
+    .header("Authorization")
+    .split(" ")
+    .pop();
+  let token = jwt_decode(tokenArray);
 
   // extract userID from the subject property
   let userId = token.sub.split("|").pop();
 
   Timeslot.findAll({
     where: {
-      user_id: userId
+      userId: userId
     }
   }).then(timeslots => res.json(timeslots));
 };
@@ -20,15 +23,18 @@ exports.getTimeslots = (req, res) => {
 // Update schedule of the user
 exports.updateTimeslots = (req, res) => {
   // retrieve bearer token and decode it
-  let tokenArray = req.header("Authorization").split(" ");
-  let token = jwt_decode(tokenArray[1]);
+  let tokenArray = req
+    .header("Authorization")
+    .split(" ")
+    .pop();
+  let token = jwt_decode(tokenArray);
 
   // extract userID from the subject property
   let userId = token.sub.split("|").pop();
 
   Timeslot.destroy({
     where: {
-      user_id: userId
+      userId: userId
     }
   });
 
@@ -38,7 +44,7 @@ exports.updateTimeslots = (req, res) => {
     Timeslot.create({
       start_time: splitDate[1],
       day_of_week: splitDate[0],
-      user_id: userId
+      userId: userId
     })
       .then(timeslots => res.status(200).send(console.log("updated")))
       .catch(err => res.status(400).send(console.error(err)));

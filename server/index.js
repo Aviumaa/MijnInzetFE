@@ -47,7 +47,7 @@ app.use(
 app.use(express.static("public"));
 app.use(logger);
 app.use("/api/userVacancies", userVacancy);
-app.use("/api/users", users);
+// app.use("/api/users", users);
 app.use("/api/vacancies", vacancies);
 app.use("/api/timeslots", timeslots);
 app.use("/api/roles", roles);

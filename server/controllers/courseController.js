@@ -7,7 +7,7 @@ exports.getCourses = (req, res) => {
   Course.findAll().then(courses => res.json(courses));
 };
 
-//Update course
+// Update course
 exports.updateCourse = (req, res) => {
   Course.update(
     {
@@ -41,34 +41,33 @@ exports.getCourseById = (req, res) => {
   });
 };
 
-//POST new course
+// POST new course
 exports.postCourse = (req, res) => {
-   Course.create({
+  Course.create({
     title: req.body.title,
     ects: req.body.ects,
     period: req.body.period,
     type: req.body.type
+  }).then(course => {
+    res.status(200).json(course);
+  });
+};
+
+// DELETE new course
+exports.deleteCourse = (req, res) => {
+  Course.destroy({
+    where: {
+      id: req.params.courseId
+    }
   })
     .then(course => {
-    res.status(200).json(course);
-  })
-}
-
-//DELETE new course
-  exports.deleteCourse = (req, res) => {
-    Course.destroy({
-      where: {
-        id: req.params.courseId
-      }
+      res.status(200).json(course);
     })
-      .then(course => {
-        res.status(200).json(course);
-      })
-      .catch(course => {
-        res.status(course);
-        console.log("Error:" + course);
-      });
-  };
+    .catch(course => {
+      res.status(course);
+      console.log("Error:" + course);
+    });
+};
 
 // DELETE all existing courses by program course id
 exports.destroyCoursesByProgramId = (req, res) => {
@@ -85,7 +84,7 @@ exports.destroyCoursesByProgramId = (req, res) => {
 
 //GET all courses associated with the given educationalCourseId
 exports.getEducationalProgramCoursesById = (req, res) => {
-  console.log(req.params.educationalProgramId.toString());
+  // console.log(req.params.educationalProgramId.toString());
   const educationalProgramId = req.params.educationalProgramId;
   Model.EducationalProgram.findAll({
     where: {
@@ -104,7 +103,7 @@ exports.getEducationalProgramCoursesById = (req, res) => {
   });
 };
 
-//POST new educationalProgramCourse
+// POST new educationalProgramCourse
 // exports.postEducationalProgramCourse = (req, res) => {
 //   EducationalProgramCourse.create({
 //     educationalProgram: req.body.educationalProgram,

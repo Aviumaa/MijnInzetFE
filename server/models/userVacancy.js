@@ -7,6 +7,9 @@ module.exports = (sequelize, types) => {
       primaryKey: true,
       autoIncrement: true
     },
+    userId: {
+      type: types.STRING
+    },
     status: {
       type: types.ENUM(0, 1, 2)
     }

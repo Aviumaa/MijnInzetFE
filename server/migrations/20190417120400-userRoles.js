@@ -8,15 +8,6 @@ module.exports = {
         primaryKey: true,
         autoIncrement: true
       },
-      userId: {
-        type: type.INTEGER,
-        allowNull: false,
-        references: {
-          model: "users",
-          key: "id"
-        },
-        allowNull: false
-      },
       roleId: {
         type: type.INTEGER,
         allowNull: false,

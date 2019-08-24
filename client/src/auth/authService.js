@@ -8,7 +8,7 @@ const webAuth = new auth0.WebAuth({
   clientID: authConfig.clientId,
   audience: authConfig.audience,
   responseType: "token id_token",
-  scope: "openid profile email app_metadata"
+  scope: "openid profile email"
 });
 
 const localStorageKey = "loggedIn";

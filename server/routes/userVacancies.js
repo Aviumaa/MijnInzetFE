@@ -3,14 +3,6 @@ const router = express.Router();
 const checkJwt = require("../middelware/middleware");
 const userVacancyController = require("../controllers/userVacancyController");
 
-router.get("/", checkJwt, userVacancyController.getUserVacancies);
-
-router.get(
-  "/:userVacancyId",
-  checkJwt,
-  userVacancyController.getUserVacancyById
-);
-
 router.post("/", checkJwt, userVacancyController.postUserVacancy);
 
 router.get(
@@ -19,10 +11,6 @@ router.get(
   userVacancyController.getUserVacancyByStatus
 );
 
-router.get(
-  "/user/:userId",
-  checkJwt,
-  userVacancyController.getUserVacancyByUserId
-);
+router.get("/user", checkJwt, userVacancyController.getVacanciesOfUser);
 
 module.exports = router;

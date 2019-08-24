@@ -1,28 +1,14 @@
 const { UserVacancy, Vacancy, User, Periods } = require("../sequelize");
 const jwt_decode = require("jwt-decode");
 
-// GET all userVacancies
-exports.getUserVacancies = (req, res) => {
-  UserVacancy.findAll().then(vacancies => res.json(vacancies));
-};
-
-// GET userVacancy by id
-exports.getUserVacancyById = (req, res) => {
-  const vacancyId = req.params.vacancyId;
-  UserVacancy.findOne({
-    where: {
-      id: vacancyId
-    }
-  }).then(userResponse => {
-    res.status(200).json(userResponse);
-  });
-};
-
-//POST new userVacancy
+// POST new userVacancy
 exports.postUserVacancy = (req, res) => {
   // retrieve bearer token and decode it
-  let tokenArray = req.header("Authorization").split(" ");
-  let token = jwt_decode(tokenArray[1]);
+  let tokenArray = req
+    .header("Authorization")
+    .split(" ")
+    .pop();
+  let token = jwt_decode(tokenArray);
 
   // extract userID from the subject property
   let userId = token.sub.split("|").pop();
@@ -36,26 +22,25 @@ exports.postUserVacancy = (req, res) => {
     .catch(err => console.error(err));
 };
 
-//GET userVacancies by userId
-exports.getUserVacancyByUserId = (req, res) => {
-  const userId = req.params.userId;
-  User.findOne({
+// GET all vacancies of an user
+exports.getVacanciesOfUser = (req, res) => {
+  // retrieve bearer token and decode it
+  let tokenArray = req
+    .header("Authorization")
+    .split(" ")
+    .pop();
+  let token = jwt_decode(tokenArray);
+
+  // extract userID from the subject property
+  let userId = token.sub.split("|").pop();
+
+  UserVacancy.findAll({
     where: {
-      id: userId
+      userId: userId
     },
     include: [
       {
         model: Vacancy,
-        attributes: [
-          "id",
-          "title",
-          "description",
-          "contactPerson",
-          "typeCourse",
-          "typeTask",
-          "contactHours",
-          "createdAt"
-        ],
         include: [
           {
             model: Periods,
@@ -74,8 +59,11 @@ exports.getUserVacancyByStatus = (req, res) => {
   const status = req.params.status;
 
   // retrieve bearer token and decode it
-  let tokenArray = req.header("Authorization").split(" ");
-  let token = jwt_decode(tokenArray[1]);
+  let tokenArray = req
+    .header("Authorization")
+    .split(" ")
+    .pop();
+  let token = jwt_decode(tokenArray);
 
   // extract userID from the subject property
   let userId = token.sub.split("|").pop();

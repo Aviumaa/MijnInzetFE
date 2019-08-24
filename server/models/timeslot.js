@@ -5,20 +5,16 @@ module.exports = (sequelize, Sequelize) => {
       primaryKey: true,
       autoIncrement: true
     },
+    userId: {
+      type: Sequelize.INTEGER
+    },
     start_time: {
       type: Sequelize.STRING(5)
     },
     day_of_week: {
       type: Sequelize.INTEGER
-    },
-    user_id: {
-      type: Sequelize.INTEGER
     }
   });
-
-  Timeslot.associate = models => {
-    Timeslot.belongsTo(models.User);
-  };
 
   return Timeslot;
 };

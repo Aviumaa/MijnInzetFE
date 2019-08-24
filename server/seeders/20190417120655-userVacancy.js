@@ -68,7 +68,7 @@ module.exports = {
     // Admin
     for (let i = 0; i < seederDataPerUser; i++) {
       const seedData = {
-        userId: "5d5054fe78848c0ea36110f7",
+        userId: "5d615f3ae3d00e039044551e",
         vacancyId: Math.floor(Math.random() * 200) + 1,
         status: Math.floor(Math.random() * 3),
         createdAt: new Date(),

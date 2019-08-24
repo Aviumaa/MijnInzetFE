@@ -18,10 +18,6 @@ module.exports = {
       },
       userId: {
         type: type.STRING,
-        references: {
-          model: "users",
-          key: "id"
-        },
         allowNull: false
       },
       status: {

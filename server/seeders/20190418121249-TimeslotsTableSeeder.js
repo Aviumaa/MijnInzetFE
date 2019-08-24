@@ -29,7 +29,7 @@ module.exports = {
         day_of_week: faker.random.number({ min: 1, max: 5 }),
         createdAt: new Date(),
         updatedAt: new Date(),
-        user_id: "5d5054fe78848c0ea36110f7"
+        userId: "5d615f3ae3d00e039044551e"
       };
       newData.push(seedData);
     }
