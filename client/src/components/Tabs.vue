@@ -29,7 +29,9 @@
             <td class="text-xs-left">{{ props.item.study }}</td>
             <td class="text-xs-left">{{ props.item.year }}</td>
             <v-btn small color="primary">
-              <router-link :to="{ name: 'editEducation', params: { id: props.item.id }}"> <v-icon color="white">edit</v-icon></router-link>
+              <router-link :to="{ name: 'editEducation', params: { id: props.item.id }}">
+                <v-icon color="white">edit</v-icon>
+              </router-link>
             </v-btn>
           </tr>
           <tr v-else>
@@ -39,9 +41,11 @@
                 <li class="flex-item" :data-label="headers[1].text">todo</li>
                 <li class="flex-item" :data-label="headers[2].text">{{ props.item.study }}</li>
                 <li class="flex-item" :data-label="headers[3].text">{{ props.item.year }}</li>
-                 <v-btn small color="primary">
-              <router-link :to="{ name: 'editEducation', params: { id: props.item.id }}"> <v-icon color="white">edit</v-icon></router-link>
-            </v-btn>
+                <v-btn small color="primary">
+                  <router-link :to="{ name: 'editEducation', params: { id: props.item.id }}">
+                    <v-icon color="white">edit</v-icon>
+                  </router-link>
+                </v-btn>
               </ul>
             </td>
           </tr>
@@ -70,7 +74,7 @@
             <td class="text-xs-left">todo</td>
             <td class="text-xs-left">{{ props.item.study }}</td>
             <td class="text-xs-left">{{ props.item.year }}</td>
-            
+
             <v-btn small color="primary" @click="navigateTo('editEducation', props.item)">
               <v-icon>edit</v-icon>
             </v-btn>
@@ -95,8 +99,6 @@
 </template>
 
 <script>
-import axios from "axios";
-
 export default {
   data() {
     return {
@@ -129,29 +131,51 @@ export default {
     onResize() {
       if (window.innerWidth < 769) this.isMobile = true;
       else this.isMobile = false;
+    },
+    async getEduPogram() {
+      const accessToken = await this.$auth.getAccessToken();
+
+      try {
+        const { data } = await this.$axios.get(
+          "/api/educationalProgram/schoolRelated",
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`
+            }
+          }
+        );
+
+        this.educationalPrograms = data;
+      } catch (e) {
+        console.log(
+          `Error: the server responded with '${e.response.status}: ${e.response.statusText}'`
+        );
+      }
+    },
+    async getNonEduPogram() {
+      const accessToken = await this.$auth.getAccessToken();
+
+      try {
+        const { data } = await this.$axios.get(
+          "/api/educationalProgram/nonSchoolRelated",
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`
+            }
+          }
+        );
+
+        this.nonEducationalPrograms = data;
+      } catch (e) {
+        console.log(
+          `Error: the server responded with '${e.response.status}: ${e.response.statusText}'`
+        );
+      }
     }
   },
   mounted() {
-    axios
-      .get("http://localhost:3000/api/educationalProgram/schoolRelated", {
-        withCredentials: true
-      })
-      .then(response => {
-        this.educationalPrograms = response.data;
-      })
-      .catch(error => {
-        console.log(error);
-      });
-    axios
-      .get("http://localhost:3000/api/educationalProgram/nonSchoolRelated", {
-        withCredentials: true
-      })
-      .then(response => {
-        this.nonEducationalPrograms = response.data;
-      })
-      .catch(error => {
-        console.log(error);
-      });
+    this.getEduPogram();
+    this.getNonEduPogram();
   },
   props: ["title"]
 };

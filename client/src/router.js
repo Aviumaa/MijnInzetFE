@@ -73,7 +73,7 @@ const router = new Router({
       component: EducationTasks
     },
     {
-      path: "/educationTasks/edit",
+      path: "/educationTasks/edit/:id",
       name: "editEducation",
       component: EditEducationTask
     },

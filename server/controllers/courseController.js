@@ -47,7 +47,8 @@ exports.postCourse = (req, res) => {
     title: req.body.title,
     ects: req.body.ects,
     period: req.body.period,
-    type: req.body.type
+    type: req.body.type,
+    educationalProgramId: req.body.educationalProgramId
   }).then(course => {
     res.status(200).json(course);
   });
@@ -69,11 +70,11 @@ exports.deleteCourse = (req, res) => {
     });
 };
 
-// DELETE all existing courses by program course id
+// DELETE all existing courses by educational program course id
 exports.destroyCoursesByProgramId = (req, res) => {
   Course.destroy({
     where: {
-      educationalProgramId: req.body.educationalProgramId
+      educationalProgramId: req.params.id
     }
   })
     .then(course => res.status(201).json(course))

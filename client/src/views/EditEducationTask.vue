@@ -57,11 +57,11 @@
     <div style="border: 1px solid black">
       <div class="btn">
         <span>Kies een bestand met vakken om in te lezen...</span>
-        <br>
-        <input id="fileSelector" name="myFile" type="file" multiple="multiple">
+        <br />
+        <input id="fileSelector" name="myFile" type="file" multiple="multiple" />
       </div>
       <div>
-        <input type="text">
+        <input type="text" />
       </div>
       <div>
         <p id="fileContents"></p>
@@ -71,9 +71,6 @@
 </template>
 
 <script>
-import axios from "axios";
-import Tabs from "@/components/Tabs.vue";
-import SelectFile from "@/components/SelectFile.vue";
 const Papa = require("papaparse");
 
 export default {
@@ -81,7 +78,6 @@ export default {
     return {
       counter: 0,
       dialog: false,
-      educationalProgramCourse: 1,
       rowsPerPageItems: [20, 30, 40, 50],
       headers: [
         {
@@ -113,26 +109,26 @@ export default {
   },
 
   mounted() {
-    console.log(this.$route.params)
-    axios
-      .get(
-        `http://localhost:3000/api/course/program/${
-          this.$route.params.id
-          
-        }`,
-        {
-          withCredentials: true
-        }
-      )
-      .then(response => {
-         if (response.status == 200) {
-           this.courses = response.data[0].courses;
-           console.log(this.courses);
-        }
-        else {
-          console.log("else")
+    this.getEduProgramCourses();
+
+    document.getElementById("fileSelector").onchange = () => {
+      let file = document.getElementById("fileSelector").files[0];
+      Papa.parse(file, {
+        complete: results => {
+          this.deleteAllEduProgramCourses();
+
+          results.data.forEach(row => {
+            try {
+              if (row[1] != "ECTS" && row != "") {
+                this.insertEduCoursesFromCSV(row);
+              }
+            } catch (err) {
+              console.log(err);
+            }
+          });
         }
       });
+    };
   },
   computed: {
     formTitle() {
@@ -147,6 +143,169 @@ export default {
   },
 
   methods: {
+    async getEduProgramCourses() {
+      const accessToken = await this.$auth.getAccessToken();
+
+      try {
+        await this.$axios
+          .get(`/api/course/program/${this.$route.params.id}`, {
+            headers: {
+              Authorization: `Bearer ${accessToken}`
+            }
+          })
+          .then(response => {
+            if (response.status == 200) {
+              this.courses = response.data[0].courses;
+              console.log(this.courses);
+            } else {
+              console.log("else");
+            }
+          });
+      } catch (e) {
+        console.log(
+          `Error: the server responded with '${e.response.status}: ${e.response.statusText}'`
+        );
+      }
+    },
+    async deleteAllEduProgramCourses() {
+      const courseId = window.location.pathname.split("/");
+      const accessToken = await this.$auth.getAccessToken();
+
+      try {
+        await this.$axios.delete(`/api/course/deleteAll/${courseId[3]}`, {
+          base: "http://localhost:8081",
+          headers: {
+            Authorization: `Bearer ${accessToken}`
+          }
+        });
+      } catch (e) {
+        console.log(
+          `Error: the server responded with '${e.response.status}: ${e.response.statusText}'`
+        );
+      }
+    },
+    async insertEduCoursesFromCSV(row) {
+      const courseId = window.location.pathname.split("/");
+      const accessToken = await this.$auth.getAccessToken();
+
+      try {
+        await this.$axios
+          .post(
+            `/api/course`,
+            {
+              educationalProgramId: courseId[3],
+              title: row[0],
+              ects: row[1],
+              period: row[2],
+              type: row[3]
+            },
+            {
+              base: "http://localhost:8081",
+              headers: {
+                Authorization: `Bearer ${accessToken}`
+              }
+            }
+          )
+          .then(response => {
+            if (response.status == 200) {
+              this.courses[response.data - 1] = this.editedItem;
+              this.$router.go("editEducation");
+            }
+          });
+      } catch (e) {
+        console.log(
+          `Error: the server responded with '${e.response.status}: ${e.response.statusText}'`
+        );
+      }
+    },
+    async deleteEduCourse(item) {
+      const accessToken = await this.$auth.getAccessToken();
+
+      try {
+        await this.$axios
+          .delete(`/api/course/${item}`, {
+            base: "http://localhost:8081",
+            headers: {
+              Authorization: `Bearer ${accessToken}`
+            }
+          })
+          .then(response => {
+            this.courses[response.data - 1] = this.editedItem;
+            this.$router.go("editEducation");
+          });
+      } catch (e) {
+        console.log(
+          `Error: the server responded with '${e.response.status}: ${e.response.statusText}'`
+        );
+      }
+    },
+    async updateEduCourse() {
+      const accessToken = await this.$auth.getAccessToken();
+
+      try {
+        await this.$axios
+          .put(
+            `/api/course/${this.editedItem.id}`,
+            {
+              title: this.editedItem.title,
+              ects: this.editedItem.ects,
+              period: this.editedItem.period,
+              type: this.editedItem.type
+            },
+            {
+              base: "http://localhost:8081",
+              headers: {
+                Authorization: `Bearer ${accessToken}`
+              }
+            }
+          )
+          .then(response => {
+            if (response.status == 200) {
+              console.log(this.editedItem);
+              this.courses[response.data - 1] = this.editedItem;
+              this.$router.go("editEducation");
+            }
+          });
+      } catch (e) {
+        console.log(
+          `Error: the server responded with '${e.response.status}: ${e.response.statusText}'`
+        );
+      }
+    },
+    async createEduCourse() {
+      const courseId = window.location.pathname.split("/");
+      const accessToken = await this.$auth.getAccessToken();
+
+      try {
+        await this.$axios
+          .post(
+            `/api/course/`,
+            {
+              title: this.editedItem.title,
+              ects: this.editedItem.ects,
+              period: this.editedItem.period,
+              type: this.editedItem.type,
+              educationalProgramId: courseId[3]
+            },
+            {
+              base: "http://localhost:8081",
+              headers: {
+                Authorization: `Bearer ${accessToken}`
+              }
+            }
+          )
+          .then(response => {
+            if (response.status == 200) {
+              this.courses[response.data - 1] = this.editedItem;
+              this.$router.go("editEducation");
+            }
+          });
+      } catch (e) {
+        console.log(
+          `Error: the server responded with '${e.response.status}: ${e.response.statusText}'`
+        );
+      }
+    },
     editItem(item) {
       this.editedIndex = this.courses.indexOf(item);
       this.editedItem = Object.assign({}, item);
@@ -155,19 +314,7 @@ export default {
 
     deleteItem(item) {
       confirm("Weet je zeker dat je dit vak wilt verwijderen?") &&
-        axios
-          .delete(`http://localhost:3000/api/course/${item}`, 
-            { 
-            withCredentials: true,
-            method: 'DELETE'
-            }
-          )
-          .then(response => {
-
-          })
-          .catch(error => {
-            console.log(error);
-          });
+        this.deleteEduCourse(item);
     },
 
     close() {
@@ -180,56 +327,10 @@ export default {
 
     save() {
       if (this.editedIndex > -1) {
-        axios
-          .put(
-            `http://localhost:3000/api/course/${this.editedItem.id}`,
-            {
-              title: this.editedItem.title,
-              ects: this.editedItem.ects,
-              period: this.editedItem.period,
-              type: this.editedItem.type
-            },
-            { withCredentials: true }
-          )
-          .then(response => {
-            if (response.status == 200) {
-              console.log(this.editedItem);
-              this.courses[response.data - 1] = this.editedItem;
-              this.$router.go("editEducation");
-            }
-          })
-          .catch(error => {
-            if (error.response.status == 400) {
-              console.log("bad request");
-            }
-          });
+        this.updateEduCourse();
       } else {
-        let eduCourseID = this.educationalProgramCourse;
-        axios
-          .post(
-            `http://localhost:3000/api/course/`,
-            {
-              educationalProgramId: eduCourseID,
-              title: this.editedItem.title,
-              ects: this.editedItem.ects,
-              period: this.editedItem.period,
-              type: this.editedItem.type
-            },
-            { withCredentials: true }
-          )
-          .then(response => {
-            if (response.status == 200) {
-              this.courses[response.data - 1] = this.editedItem;
-              this.$router.go("editEducation");
-            }
-          })
-          .catch(error => {
-            if (error.response.status == 400) {
-              console.log("bad request");
-            }
-          });
+        this.createEduCourse();
       }
-
       this.close();
     }
   }
