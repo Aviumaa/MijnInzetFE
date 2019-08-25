@@ -51,14 +51,32 @@ export default {
     HeaderTitle,
     UsersDashboard
   },
+  methods: {
+    async getUsersWithRoles() {
+      const accessToken = await this.$auth.getAccessToken();
+
+      try {
+        const { data } = await this.$axios.get(`/api/users/all/`, {
+          headers: { Authorization: `Bearer ${accessToken}` }
+        });
+
+        this.users = data;
+      } catch (e) {
+        console.log(
+          `Error: the server responded with '${e.response.status}: ${e.response.statusText}'`
+        );
+      }
+    }
+  },
   mounted() {
-    axios
-      .get("http://localhost:3000/api/users/all/", {
-        withCredentials: true
-      })
-      .then(response => {
-        this.users = response.data;
-      });
+    // axios
+    //   .get("http://localhost:3000/api/users/all/", {
+    //     withCredentials: true
+    //   })
+    //   .then(response => {
+    //     this.users = response.data;
+    // });
+    this.getUsersWithRoles();
   }
 };
 </script>

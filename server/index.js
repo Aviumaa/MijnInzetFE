@@ -1,7 +1,7 @@
 const startupDebugger = require("debug")("app:startup");
 const morgan = require("morgan");
 const logger = require("./middelware/logger");
-const users = require("./routes/users");
+// const users = require("./routes/users");
 const vacancies = require("./routes/vacancies");
 const timeslots = require("./routes/timeslots");
 const userVacancy = require("./routes/userVacancies");

@@ -154,12 +154,7 @@ export default {
             }
           })
           .then(response => {
-            if (response.status == 200) {
-              this.courses = response.data[0].courses;
-              console.log(this.courses);
-            } else {
-              console.log("else");
-            }
+            this.courses = response.data[0].courses;
           });
       } catch (e) {
         console.log(

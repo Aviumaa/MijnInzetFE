@@ -91,9 +91,8 @@ export default {
     navigateTo(route, user) {
       this.$router.push({ name: route, params: { user: user } });
     },
-    customFilter(items, search, filter) {
+    customFilter(items, search) {
       //this custom filter will do a multi-match separated by a space.
-      //e.g
 
       if (!search) {
         return items;

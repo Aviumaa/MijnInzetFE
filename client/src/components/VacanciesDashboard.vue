@@ -183,7 +183,7 @@ export default {
         );
       }
     },
-    customFilter(items, search, filter) {
+    customFilter(items, search) {
       if (!search) {
         this.list = [];
         return items;
