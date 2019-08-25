@@ -1,4 +1,4 @@
-const { User, Role, UserRole } = require("../sequelize");
+const { User, Role } = require("../sequelize");
 const jwt = require("jsonwebtoken");
 
 // GET decoded token from logged in user
@@ -66,6 +66,21 @@ exports.doEdit = (req, res) => {
   let userId = req.params.userId;
   let roleId = req.body.roleId;
 
+  User.findOne({
+    where: {
+      id: userId
+    }, 
+    include: [
+      Role
+    ] 
+  }).then(user => {
+    if (roleId != null) {
+      user.setRoles(roleId);
+    }
+  }).catch(error => {
+    console.log(error);
+  });
+
   User.update(
     {
       salutation: req.body.salutation,
@@ -77,37 +92,13 @@ exports.doEdit = (req, res) => {
     {
       where: {
         id: userId
-      }
+      },
     }
-  );
-
-  UserRole.findOne({ where: { userId: userId } })
-    .then(function(obj) {
-      if (obj) {
-        // update
-        UserRole.update(
-          {
-            roleId: roleId
-          },
-          {
-            where: {
-              userId: userId
-            },
-            attributes: ["userId", "roleId"]
-          }
-        );
-      } else {
-        // insert
-        UserRole.create({
-          userId: userId,
-          roleId: roleId
-        });
-      }
-      res.status(200).send(console.log("updated"));
-    })
-    .catch(err => {
-      res.status(400).send(console.error(err));
-    });
+  ).then(user => {
+    res.status(200).send(console.log("updated"));
+  }).catch(error => {
+    res.status(400).send(console.error(err));
+  });
 };
 
 exports.updateEmail = (req, res) => {
