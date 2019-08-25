@@ -17,7 +17,9 @@
           <v-btn href="#" @click.prevent="login">Login</v-btn>
         </li>
         <li v-if="isAuthenticated" class="authenticated">
-          <img class="nav-profile-pic" :src="profile.picture" />
+          <a class="nav-profile-pic" @click="navigateTo({name: 'profile'})">
+            <img class="nav-profile-pic-img" :src="profile.picture" />
+          </a>
           <v-btn href="#" @click.prevent="logout">Log out</v-btn>
         </li>
       </div>
@@ -48,6 +50,9 @@ export default {
     },
     logout() {
       this.$auth.logOut();
+    },
+    navigateTo(route) {
+      this.$router.push(route);
     },
     handleLoginEvent(data) {
       this.isAuthenticated = data.loggedIn;
@@ -92,13 +97,14 @@ export default {
   color: unset;
 }
 
-.authenticated {
+.authenticated,
+.nav-profile-pic {
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.nav-profile-pic {
+.nav-profile-pic-img {
   height: 2.75em;
 }
 </style>
