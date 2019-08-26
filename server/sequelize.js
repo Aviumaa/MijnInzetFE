@@ -1,11 +1,7 @@
 const Sequelize = require("sequelize");
-const UserModel = require("./models/user");
 const VacancyModel = require("./models/vacancy");
-const RoleModel = require("./models/role");
 const UserVacancyModel = require("./models/userVacancy");
-const WeekScheduleModel = require("./models/weekSchedule");
 const TimeslotModel = require("./models/timeslot");
-const UserRoleModel = require("./models/userRole");
 const CourseModel = require("./models/course");
 const EducationalProgramModel = require("./models/educationalProgram");
 const PeriodsModel = require("./models/periods");
@@ -21,26 +17,12 @@ const sequelize = new Sequelize("MijnInzet-local", "root", "hoihoihoi", {
   }
 });
 
-const Role = RoleModel(sequelize, Sequelize);
-const User = UserModel(sequelize, Sequelize);
 const Vacancy = VacancyModel(sequelize, Sequelize);
 const UserVacancy = UserVacancyModel(sequelize, Sequelize);
-const WeekSchedule = WeekScheduleModel(sequelize, Sequelize);
 const Timeslot = TimeslotModel(sequelize, Sequelize);
 const Course = CourseModel(sequelize, Sequelize);
 const EducationalProgram = EducationalProgramModel(sequelize, Sequelize);
-const UserRole = UserRoleModel(sequelize, Sequelize);
 const Periods = PeriodsModel(sequelize, Sequelize);
-
-User.belongsToMany(Role, {
-  through: "userRole",
-  foreignKey: "userId"
-});
-
-Role.belongsToMany(User, {
-  through: "userRole",
-  foreignKey: "roleId"
-});
 
 Course.belongsTo(EducationalProgram, {
   foreignKey: "educationalProgramId"
@@ -48,16 +30,6 @@ Course.belongsTo(EducationalProgram, {
 
 EducationalProgram.hasMany(Course, {
   foreignKey: "educationalProgramId"
-});
-
-User.belongsToMany(Vacancy, {
-  through: "userVacancies",
-  foreignKey: "userId"
-});
-
-Vacancy.belongsToMany(User, {
-  through: "userVacancies",
-  foreignKey: "vacancyId"
 });
 
 Vacancy.belongsToMany(Periods, {
@@ -79,13 +51,9 @@ Vacancy.hasMany(UserVacancy, {
 });
 
 module.exports = {
-  User,
   Vacancy,
   UserVacancy,
-  Role,
   Timeslot,
-  WeekSchedule,
-  UserRole,
   Course,
   EducationalProgram,
   Periods,

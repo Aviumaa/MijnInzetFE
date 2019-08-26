@@ -34,13 +34,7 @@ module.exports = (sequelize, type) => {
     EducationalProgram.hasMany(Course, {
       foreignKey: "educationalProgramId"
     });
-    // EducationalProgram.belongsToMany(models.Course, {
-    //   through: "educationalprogramcourses",
-    //   foreignKey: "educationalProgramId",
-    //   onDelete: "CASCADE",
-    //   hooks: true
-    // });
   };
-  
+
   return EducationalProgram;
 };

@@ -29,12 +29,11 @@
                 :class="[props.item.status == 1 ? 'vacancyAccepted' : 
                 ( props.item.status == 2 ? 'vacancyRejected' : 'vacancyPending')]"
               >
-                <td>{{ props.item.vacancy.title }}</td>
-                <td>{{ props.item.vacancy.contactPerson }}</td>
-                <td>{{ createPeriodField(props.item.vacancy.periods) }}</td>
-                <td>{{ props.item.vacancy.typeTask }}</td>
-                <td>{{ props.item.vacancy.contactHours }}</td>
-                <td>{{ props.item.vacancy.createdAt }}</td>
+                <td>{{ props.item.title }}</td>
+                <td>{{ props.item.contactPerson }}</td>
+                <td>{{ props.item.typeTask }}</td>
+                <td>{{ props.item.contactHours }}</td>
+                <td>{{ props.item.createdAt }}</td>
               </tr>
               <tr
                 v-else
@@ -43,22 +42,16 @@
               >
                 <td>
                   <ul class="flex-content">
+                    <li class="flex-item" :data-label="headers[0].text">{{ props.item.title }}</li>
                     <li
                       class="flex-item"
                       :data-label="headers[1].text"
-                    >{{ props.item.vacancy.contactPerson }}</li>
-                    <li
-                      class="flex-item"
-                      :data-label="headers[2].text"
-                    >{{ props.item.vacancy.period }}</li>
+                    >{{ props.item.contactPerson }}</li>
                     <li
                       class="flex-item"
                       :data-label="headers[4].text"
-                    >{{ props.item.vacancy.contactHours }}</li>
-                    <li
-                      class="flex-item"
-                      :data-label="headers[3].text"
-                    >{{ props.item.vacancy.createdAt }}</li>
+                    >{{ props.item.contactHours }}</li>
+                    <li class="flex-item" :data-label="headers[3].text">{{ props.item.createdAt }}</li>
                   </ul>
                 </td>
               </tr>
@@ -99,11 +92,6 @@ export default {
           text: "Contactpersoon",
           sortable: true,
           value: "contactPerson"
-        },
-        {
-          text: "Periode",
-          sortable: true,
-          value: "Period"
         },
         {
           text: "Type",
@@ -149,6 +137,7 @@ export default {
         for (let i = 0; i < data.length; i++) {
           this.myVacancies.push(data[i]);
         }
+        console.log(data);
 
         this.myVacancies.reverse();
       } catch (e) {
@@ -184,22 +173,6 @@ export default {
     onResize() {
       if (window.innerWidth < 769) this.isMobile = true;
       else this.isMobile = false;
-    },
-    createPeriodField(periods) {
-      if (periods === null) {
-        return "";
-      } else {
-        var periodField = "";
-        for (var i = 0; i < periods.length; i++) {
-          periodField =
-            periodField +
-            periods[i].schoolYear +
-            " | " +
-            periods[i].quarter +
-            ", ";
-        }
-        return periodField.trim().substring(0, periodField.length - 2);
-      }
     },
     getUserMetadata() {
       const user = Object.values(this.$auth.profile)[0];

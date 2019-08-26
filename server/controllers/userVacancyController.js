@@ -1,5 +1,7 @@
-const { UserVacancy, Vacancy, User, Periods } = require("../sequelize");
+const { UserVacancy, Vacancy, Periods } = require("../sequelize");
+const Model = require("../sequelize");
 const jwt_decode = require("jwt-decode");
+const Sequelize = Model.sequelize;
 
 // POST new userVacancy
 exports.postUserVacancy = (req, res) => {
@@ -34,27 +36,15 @@ exports.getVacanciesOfUser = (req, res) => {
   // extract userID from the subject property
   let userId = token.sub.split("|").pop();
 
-  UserVacancy.findAll({
-    where: {
-      userId: userId
-    },
-    include: [
-      {
-        model: Vacancy,
-        include: [
-          {
-            model: Periods,
-            attributes: ["schoolYear", "quarter"]
-          }
-        ]
-      }
-    ]
-  }).then(userResponse => {
-    res.status(200).json(userResponse);
+  Sequelize.query(
+    `SELECT * FROM userVacancies INNER JOIN vacancies v on userVacancies.vacancyId = v.id where userId = :userId`,
+    { replacements: { userId: userId }, type: Sequelize.QueryTypes.SELECT }
+  ).then(response => {
+    res.json(response);
   });
 };
 
-// GET all accepted vacancies of an user
+// GET all vacancies of an user filtered by status
 exports.getUserVacancyByStatus = (req, res) => {
   const status = req.params.status;
 
