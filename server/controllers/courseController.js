@@ -103,15 +103,3 @@ exports.getEducationalProgramCoursesById = (req, res) => {
     res.status(200).json(Course);
   });
 };
-
-// POST new educationalProgramCourse
-// exports.postEducationalProgramCourse = (req, res) => {
-//   EducationalProgramCourse.create({
-//     educationalProgram: req.body.educationalProgram,
-//     course: req.body.course
-//   })
-//     .then(educationalProgramCourse =>
-//       res.status(201).json(educationalProgramCourse)
-//     )
-//     .catch(err => console.error(err));
-// };

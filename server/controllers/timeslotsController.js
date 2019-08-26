@@ -1,17 +1,9 @@
 const { Timeslot } = require("../sequelize");
-const jwt_decode = require("jwt-decode");
+const utils = require("./utils");
 
 // GET all timeslots from the authenticated user
 exports.getTimeslots = (req, res) => {
-  // retrieve bearer token and decode it
-  let tokenArray = req
-    .header("Authorization")
-    .split(" ")
-    .pop();
-  let token = jwt_decode(tokenArray);
-
-  // extract userID from the subject property
-  let userId = token.sub.split("|").pop();
+  const userId = utils.getUserIDFromToken(req);
 
   Timeslot.findAll({
     where: {
@@ -22,15 +14,7 @@ exports.getTimeslots = (req, res) => {
 
 // Update schedule of the user
 exports.updateTimeslots = (req, res) => {
-  // retrieve bearer token and decode it
-  let tokenArray = req
-    .header("Authorization")
-    .split(" ")
-    .pop();
-  let token = jwt_decode(tokenArray);
-
-  // extract userID from the subject property
-  let userId = token.sub.split("|").pop();
+  const userId = utils.getUserIDFromToken(req);
 
   Timeslot.destroy({
     where: {
