@@ -57,11 +57,11 @@
     <div style="border: 1px solid black">
       <div class="btn">
         <span>Kies een bestand met vakken om in te lezen...</span>
-        <br>
-        <input id="fileSelector" name="myFile" type="file" multiple="multiple">
+        <br />
+        <input id="fileSelector" name="myFile" type="file" multiple="multiple" />
       </div>
       <div>
-        <input type="text">
+        <input type="text" />
       </div>
       <div>
         <p id="fileContents"></p>
@@ -81,7 +81,7 @@ export default {
     return {
       counter: 0,
       dialog: false,
-      educationalProgramCourse: 1,
+      // educationalProgramCourse: 1,
       rowsPerPageItems: [20, 30, 40, 50],
       headers: [
         {
@@ -113,26 +113,71 @@ export default {
   },
 
   mounted() {
-    console.log(this.$route.params)
+    console.log(this.$route.params);
     axios
       .get(
-        `http://localhost:3000/api/course/program/${
-          this.$route.params.id
-          
-        }`,
+        `http://localhost:3000/api/course/program/${this.$route.params.id}`,
         {
           withCredentials: true
         }
       )
       .then(response => {
-         if (response.status == 200) {
-           this.courses = response.data[0].courses;
-           console.log(this.courses);
-        }
-        else {
-          console.log("else")
+        if (response.status == 200) {
+          this.courses = response.data[0].courses;
+          console.log(this.courses);
+        } else {
+          console.log("else");
         }
       });
+
+    let courseId = window.location.pathname.split("/");
+    document.getElementById("fileSelector").onchange = function() {
+      let file = document.getElementById("fileSelector").files[0];
+      if (file) {
+        var data = Papa.parse(file, {
+          complete: function(results) {
+            axios.delete(
+              `http://localhost:3000/api/course/deleteAll/${courseId[3]}`,
+              {
+                educationalProgramId: courseId
+              },
+              {
+                withCredentials: true
+              }
+            );
+
+            results.data.forEach(row => {
+              try {
+                if (row[1] != "ECTS" && row != "") {
+                  axios
+                    .post(
+                      "http://localhost:3000/api/course",
+                      {
+                        educationalProgramId: courseId[3],
+                        title: row[0],
+                        ects: row[1],
+                        period: row[2],
+                        type: row[3]
+                      },
+                      {
+                        withCredentials: true
+                      }
+                    )
+                    .then(response => {
+                      if (response.status == 200) {
+                        console.log(response);
+                        window.location.reload();
+                      }
+                    });
+                }
+              } catch (err) {
+                console.log(err);
+              }
+            });
+          }
+        });
+      }
+    };
   },
   computed: {
     formTitle() {
@@ -156,14 +201,13 @@ export default {
     deleteItem(item) {
       confirm("Weet je zeker dat je dit vak wilt verwijderen?") &&
         axios
-          .delete(`http://localhost:3000/api/course/${item}`, 
-            { 
+          .delete(`http://localhost:3000/api/course/${item}`, {
             withCredentials: true,
-            method: 'DELETE'
-            }
-          )
+            method: "DELETE"
+          })
           .then(response => {
-
+            this.courses[response.data - 1] = this.editedItem;
+            this.$router.go("editEducation");
           })
           .catch(error => {
             console.log(error);
@@ -204,12 +248,13 @@ export default {
             }
           });
       } else {
-        let eduCourseID = this.educationalProgramCourse;
+        let eduCourseID = window.location.pathname.split("/");
+        console.log(eduCourseID);
         axios
           .post(
             `http://localhost:3000/api/course/`,
             {
-              educationalProgramId: eduCourseID,
+              educationalProgramId: eduCourseID[3],
               title: this.editedItem.title,
               ects: this.editedItem.ects,
               period: this.editedItem.period,
