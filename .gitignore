@@ -3,6 +3,7 @@ node_modules
 /dist
 package-lock.json
 client/auth_config.json
+server/.env
 
 # local env files
 .env.local

@@ -6,16 +6,21 @@ const CourseModel = require("./models/course");
 const EducationalProgramModel = require("./models/educationalProgram");
 const PeriodsModel = require("./models/periods");
 
-const sequelize = new Sequelize("MijnInzet-local", "root", "hoihoihoi", {
-  host: "127.0.0.1",
-  dialect: "mysql",
-  pool: {
-    max: 10,
-    min: 0,
-    acquire: 30000,
-    idle: 10000
+const sequelize = new Sequelize(
+  process.env.DB_HOST,
+  process.env.DB_USER,
+  process.env.DB_PASS,
+  {
+    host: "127.0.0.1",
+    dialect: "mysql",
+    pool: {
+      max: 10,
+      min: 0,
+      acquire: 30000,
+      idle: 10000
+    }
   }
-});
+);
 
 const Vacancy = VacancyModel(sequelize, Sequelize);
 const UserVacancy = UserVacancyModel(sequelize, Sequelize);
